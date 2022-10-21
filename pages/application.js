@@ -4,7 +4,7 @@ import { connectMongo } from '../utils/connect';
 import TeamData from "../models/TeamData";
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import axios, { Axios } from "axios";
-import TeamDropdown from "./components/teamdropdown";
+import TeamDropdown from "../components/teamdropdown";
 import Navbar from "./components/navbar";
 import ApplicationData from "../models/ApplicationData";
 import UserBallot from "../models/UserBallot";
