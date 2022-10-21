@@ -247,17 +247,17 @@ export default function Application({user, teams, app, ballot}){
 
         const data2 = await res2.json();
 
-        const res3 = await fetch('/api/addUser',{
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(
-                pollUser
-            ),
-        });
+        // const res3 = await fetch('/api/addUser',{
+        //     method: 'POST',
+        //     headers: {
+        //     'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(
+        //         pollUser
+        //     ),
+        // });
 
-        const data3 = await res3.json();
+        // const data3 = await res3.json();
 
         router.push({pathname: '/submit'});
     }
