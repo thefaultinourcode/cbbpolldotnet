@@ -62,7 +62,7 @@ export default function Submit(props){
     // console.log(getTeam(props.app.favoriteTeam));
     return(
         <div>
-            <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+            <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
             <h1>Application Submitted!</h1>
             <h2>{props.user.name}&apos;s Application</h2>
