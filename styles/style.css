@@ -40,6 +40,7 @@ li {
 table{
     width: 100%;
     font-size: x-large;
+    color: #1C3271;
 }
 
 table td:nth-child(1) { 
@@ -247,5 +248,10 @@ button{
     display: flex;
     align-items: flex-end;
     float: right;
+    margin-bottom: 5px;
+}
 
+.userTable{
+    width: 50%;
+    margin: auto;
 }

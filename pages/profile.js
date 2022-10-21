@@ -2,14 +2,15 @@ import React from "react";
 import axios, { Axios } from "axios";
 import querystring from "querystring";
 //import Link from "next/link";
-import Navbar from "./components/navbar";
+import Navbar from "../components/navbar";
 import { connectMongo } from "../utils/connect";
 import User from "../models/User";
 
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
+//import mongoose from "mongoose";
 
 export default function Profile({ user }) {
-  return user !== "Sign In" ? (
+  return user != null ? (
     <>
       <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={user.name}></Navbar>
       <div className="profile">
@@ -150,3 +151,5 @@ const insertUser = async (user) => {
     console.log('CREATED DOCUMENT');
   }
 }
+
+//mongoose.connection.close();

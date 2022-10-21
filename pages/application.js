@@ -5,7 +5,7 @@ import TeamData from "../models/TeamData";
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import axios, { Axios } from "axios";
 import TeamDropdown from "../components/teamdropdown";
-import Navbar from "./components/navbar";
+import Navbar from "../components/navbar";
 import ApplicationData from "../models/ApplicationData";
 import UserBallot from "../models/UserBallot";
 import { useRouter } from 'next/router';
@@ -240,7 +240,7 @@ export default function Application({user, teams, app, ballot}){
 
         const data2 = await res2.json();
 
-        router.push({pathname: '/submit', query: application});
+        router.push({pathname: '/submit'});
     }
     
     function ballotApp(e){
