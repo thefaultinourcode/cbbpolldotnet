@@ -204,7 +204,6 @@ export default function Home(props) {
       
       <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
       <div className="content">  
-
         <div id="ballotBox">
               <h3>Become a poll voter!</h3>
               <h3>Sign in to apply!</h3>

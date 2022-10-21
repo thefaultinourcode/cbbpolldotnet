@@ -62,8 +62,7 @@ export default function TeamDropdown(props){
                             // label={teamList.filter(obj => obj.label === selectedLabel)}
                             formatOptionLabel={team => (
                                     <div className="teamOption ">    
-                                        {/* <Image src={team.url} width={25} height={25} alt={team.name}></Image>                                             */}
-                                        <img src={team.url}></img>
+                                        <Image src={team.url} width={25} height={25} alt={team.name}></Image>                                            
                                         <div className="teamLabel"><span className="boldText">{team.shortName}</span> ({team.label})</div>
                                     </div>
                                 )    
