@@ -10,7 +10,7 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 export default function About(props){
     return props.user ? (
         <div>
-            <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+            <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
             <h1>About the r/CollegeBasketball User Poll</h1>
             <p>
@@ -72,7 +72,7 @@ export default function About(props){
         </div>
     ) : (
         <div>
-            <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png"></Navbar>
+            <Navbar cbbLogo="./static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
 
             <h1>About the r/CollegeBasketball User Poll</h1>
             <p>
