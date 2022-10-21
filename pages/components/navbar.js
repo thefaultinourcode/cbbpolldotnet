@@ -24,7 +24,8 @@ export default function Navbar(props) {
                     <div id='cbbLogo'>
                       <a href='../'>  <Image src={props.cbbLogo}
                             height="100"
-                            width="104"></Image> </a>
+                            width="104"
+                            className='fixed-width'></Image> </a>
                     </div>
 
                 </li>

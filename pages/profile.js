@@ -14,7 +14,10 @@ export default function Profile({ user }) {
       <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={user.name}></Navbar>
       <div className="profile">
       
-        <h1><img src={user.snoovatar_img} width="50" height="64"/> Welcome {user.name} </h1>
+        <h1>
+          {/* <img src={user.snoovatar_img} width="50" height="64"/>  */}
+          Welcome {user.name} 
+        </h1>
         
         <div>
           <h2>Official voter profiles coming soon! Apply <a href='./application'>here</a> to be an official voter.</h2>
@@ -38,8 +41,8 @@ export default function Profile({ user }) {
   );
 }
 
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = "http://cbbpolldotnet.vercel.app/profile";
+const REDIRECT_URI = "http://localhost:3000/profile";
+//const REDIRECT_URI = "http://cbbpolldotnet.vercel.app/profile";
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;

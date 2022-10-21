@@ -11,9 +11,6 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 //import { get } from "http";
 
 export default function Submit(props){
-
-
-
     let reasons = [];
     if(props.app.checkbox1){
         reasons.push('I rarely go to games, and instead focus on TV broadcasts and streams.');
@@ -86,7 +83,7 @@ export default function Submit(props){
                     <tr>
                         <th>Rank</th>
                         <th>Team</th>
-                        <th>Reasoning</th>
+                        <th>Reason</th>
                     </tr>
                     <tr>
                         <td>1</td>
@@ -215,6 +212,9 @@ export default function Submit(props){
                     </tr>
                 </tbody>
             </table>
+            <h3>Overall Rationale</h3>
+            <p>{props.ballot.overallReasoning}</p>
+                
         </div>
     );
 }

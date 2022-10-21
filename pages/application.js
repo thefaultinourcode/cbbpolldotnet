@@ -787,7 +787,7 @@ export default function Application({user, teams, app, ballot}){
                 <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
                     <h1>Submit your preseason ballot for 2022-23</h1>
                     <h4>Application and preseason poll ballots close Friday, October 28, at 11:59pm EDT</h4>
-                    <div className="errorMsg">{errorBallot}</div>
+                    
 
                     <table className="ballotTable">
                         <tbody>
@@ -799,134 +799,135 @@ export default function Application({user, teams, app, ballot}){
                             <tr>
                                 <td>1</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning1" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning1" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange2}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning2" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning2" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange3}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning3" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning3" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>4</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange4}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning4" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning4" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>5</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange5}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning5" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning5" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>6</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange6}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning6" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning6" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>7</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange7}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning7" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning7" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>8</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange8}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning8"className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning8"className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>9</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange9}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning9" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning9" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>10</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange10}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning10" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning10" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>11</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange11}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning11" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning11" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>12</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange12}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning12" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning12" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>13</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange13}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning13" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning13" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>14</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange14}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning14" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning14" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>15</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange15}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning15" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning15" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>16</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange16}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning16" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning16" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>17</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange17}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning17" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning17" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>18</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange18}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning18" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning18" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>19</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange19}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning19" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning19" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>20</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange20}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning20" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning20" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>21</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange21}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning21" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning21" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>22</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange22}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning22" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning22" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>23</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange23}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning23" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning23" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>24</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange24}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning24" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning24" className="reasoning" maxLength={200}></input></td>
                             </tr>
                             <tr>
                                 <td>25</td>
                                 <td><TeamDropdown teams={teams} change={handleBallotChange25}></TeamDropdown></td>
-                                <td><input type="textbox" id="reasoning25" className="reasoning"></input></td>
+                                <td><input type="textbox" id="reasoning25" className="reasoning" maxLength={200}></input></td>
                             </tr>
                         </tbody>
                     </table>
+                    <div className="errorMsg">{errorBallot}</div>
                     <div className="overallRationale">
                         <h3>Overall rationale</h3>                        
                     </div>
-                    <textarea rows="5" cols="150" id="overallReasoning" className="overallRationale"></textarea>
+                    <textarea rows="5" cols="150" id="overallReasoning" className="overallRationale" maxLength={2000}></textarea>
                     <br/>
                     <div className="submitBallot">
                         <button type="submit">Submit</button>
@@ -1062,7 +1063,7 @@ export default function Application({user, teams, app, ballot}){
                     <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
                         <h1>Submit your preseason ballot for 2022-23</h1>
                         <h4>Application and preseason poll ballots close Friday, October 28, at 11:59pm EDT</h4>
-                        <div className="errorMsg">{errorBallot}</div>
+                        
     
                         <table className="ballotTable">
                             <tbody>
@@ -1074,134 +1075,135 @@ export default function Application({user, teams, app, ballot}){
                                 <tr>
                                     <td>1</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange} presetTeam={ballot.one.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning1" className="reasoning" defaultValue={ballot.one.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning1" className="reasoning" defaultValue={ballot.one.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange2}  presetTeam={ballot.two.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning2" className="reasoning" defaultValue={ballot.two.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning2" className="reasoning" defaultValue={ballot.two.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange3}  presetTeam={ballot.three.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning3" className="reasoning" defaultValue={ballot.three.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning3" className="reasoning" defaultValue={ballot.three.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>4</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange4}  presetTeam={ballot.four.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning4" className="reasoning" defaultValue={ballot.four.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning4" className="reasoning" defaultValue={ballot.four.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>5</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange5}  presetTeam={ballot.five.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning5" className="reasoning" defaultValue={ballot.five.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning5" className="reasoning" defaultValue={ballot.five.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>6</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange6}  presetTeam={ballot.six.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning6" className="reasoning" defaultValue={ballot.six.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning6" className="reasoning" defaultValue={ballot.six.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>7</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange7}  presetTeam={ballot.seven.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning7" className="reasoning" defaultValue={ballot.seven.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning7" className="reasoning" defaultValue={ballot.seven.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>8</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange8}  presetTeam={ballot.eight.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning8"className="reasoning" defaultValue={ballot.eight.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning8"className="reasoning" defaultValue={ballot.eight.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>9</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange9}  presetTeam={ballot.nine.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning9" className="reasoning" defaultValue={ballot.nine.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning9" className="reasoning" defaultValue={ballot.nine.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>10</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange10}  presetTeam={ballot.ten.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning10" className="reasoning" defaultValue={ballot.ten.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning10" className="reasoning" defaultValue={ballot.ten.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>11</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange11}  presetTeam={ballot.eleven.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning11" className="reasoning" defaultValue={ballot.eleven.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning11" className="reasoning" defaultValue={ballot.eleven.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>12</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange12}  presetTeam={ballot.twelve.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning12" className="reasoning" defaultValue={ballot.twelve.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning12" className="reasoning" defaultValue={ballot.twelve.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>13</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange13}  presetTeam={ballot.thirteen.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning13" className="reasoning" defaultValue={ballot.thirteen.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning13" className="reasoning" defaultValue={ballot.thirteen.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>14</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange14}  presetTeam={ballot.fourteen.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning14" className="reasoning" defaultValue={ballot.fourteen.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning14" className="reasoning" defaultValue={ballot.fourteen.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>15</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange15}  presetTeam={ballot.fifteen.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning15" className="reasoning" defaultValue={ballot.fifteen.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning15" className="reasoning" defaultValue={ballot.fifteen.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>16</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange16}  presetTeam={ballot.sixteen.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning16" className="reasoning" defaultValue={ballot.sixteen.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning16" className="reasoning" defaultValue={ballot.sixteen.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>17</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange17}  presetTeam={ballot.seventeen.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning17" className="reasoning" defaultValue={ballot.seventeen.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning17" className="reasoning" defaultValue={ballot.seventeen.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>18</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange18}  presetTeam={ballot.eighteen.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning18" className="reasoning" defaultValue={ballot.eighteen.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning18" className="reasoning" defaultValue={ballot.eighteen.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>19</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange19}  presetTeam={ballot.nineteen.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning19" className="reasoning" defaultValue={ballot.nineteen.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning19" className="reasoning" defaultValue={ballot.nineteen.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>20</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange20}  presetTeam={ballot.twenty.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning20" className="reasoning" defaultValue={ballot.twenty.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning20" className="reasoning" defaultValue={ballot.twenty.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>21</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange21}  presetTeam={ballot.twentyOne.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning21" className="reasoning" defaultValue={ballot.twentyOne.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning21" className="reasoning" defaultValue={ballot.twentyOne.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>22</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange22}  presetTeam={ballot.twentyTwo.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning22" className="reasoning" defaultValue={ballot.twentyTwo.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning22" className="reasoning" defaultValue={ballot.twentyTwo.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>23</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange23}  presetTeam={ballot.twentyThree.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning23" className="reasoning" defaultValue={ballot.twentyThree.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning23" className="reasoning" defaultValue={ballot.twentyThree.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>24</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange24}  presetTeam={ballot.twentyFour.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning24" className="reasoning" defaultValue={ballot.twentyFour.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning24" className="reasoning" defaultValue={ballot.twentyFour.reasoning} maxLength={200}></input></td>
                                 </tr>
                                 <tr>
                                     <td>25</td>
                                     <td><TeamDropdown teams={teams} change={handleBallotChange25}  presetTeam={ballot.twentyFive.id}></TeamDropdown></td>
-                                    <td><input type="textbox" id="reasoning25" className="reasoning" defaultValue={ballot.twentyFive.reasoning}></input></td>
+                                    <td><input type="textbox" id="reasoning25" className="reasoning" defaultValue={ballot.twentyFive.reasoning} maxLength={200}></input></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div className="errorMsg">{errorBallot}</div>
                         <div className="overallRationale">
                             <h3>Overall rationale</h3>                        
                         </div>
-                        <textarea rows="5" cols="150" id='overallReasoning' className="overallRationale" defaultValue={ballot.overallReasoning}></textarea>
+                        <textarea rows="5" cols="150" id='overallReasoning' className="overallRationale" defaultValue={ballot.overallReasoning} maxLength={2000}></textarea>
                         <br/>
                         <div className="submitBallot">
                             <button type="submit">Submit</button>

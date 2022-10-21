@@ -247,5 +247,8 @@ button{
     display: flex;
     align-items: flex-end;
     float: right;
+}
 
+.fixedImage{
+    min-width: 100%;
 }

@@ -18,9 +18,15 @@ export default function TeamDropdown(props){
     teamsParse.sort((a,b) => (b.allTimeApVotes > a.allTimeApVotes) ? 1 : -1);
 
     for(let i = 0; i < teamsParse.length; i++){
-        teamList.push({value:teamsParse[i]._id, label: teamsParse[i].name, url: teamsParse[i].url, shortName: teamsParse[i].shortName});
+        let label = teamsParse[i].shortName + " " + teamsParse[i].longName;
+        teamList.push({value:teamsParse[i]._id, label: label, url: teamsParse[i].url, shortName: teamsParse[i].shortName, name: teamsParse[i].name});
     }
 
+    
+    // const control = () => ({
+    //         width: 200,
+    // })
+  
     const [selectedValue, setSelectedValue] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState(null);
 
@@ -54,16 +60,18 @@ export default function TeamDropdown(props){
             <div>
                  <Select    id={id}
                             instanceId="long-value-select" 
+                            // control={control}
                             options={teamList}
-                            defaultValue={{label:obj.label, value:obj.value, shortName:obj.shortName, url:obj.url}}
+                            defaultValue={{label:obj.label, value:obj.value, shortName:obj.shortName, url:obj.url, name:obj.name}}
                             onChange={event => twoCalls(event)}
+                        
                             // onLoad={() => handleLoad(obj.value, obj.label)}
                             // value={teamList.filter(obj => obj.value === selectedValue)}
                             // label={teamList.filter(obj => obj.label === selectedLabel)}
                             formatOptionLabel={team => (
                                     <div className="teamOption ">    
                                         <Image src={team.url} width={25} height={25} alt={team.name}></Image>                                            
-                                        <div className="teamLabel"><span className="boldText">{team.shortName}</span> ({team.label})</div>
+                                        <div className="teamLabel"><span className="boldText">{team.shortName}</span> ({team.name})</div>
                                     </div>
                                 )    
                             }
@@ -79,12 +87,11 @@ export default function TeamDropdown(props){
                             value={teamList.filter(obj => obj.value === selectedValue)}
                             label={teamList.filter(obj => obj.label === selectedLabel)}
                             options={teamList}
-                            //onChange={event => props.change(event)}
                             onChange={event => twoCalls(event)}
                             formatOptionLabel={team => (
                                     <div className="teamOption ">    
                                         <Image src={team.url} width={25} height={25} alt={team.name}></Image>                                            
-                                        <div className="teamLabel"><span className="boldText">{team.shortName}</span> ({team.label})</div>
+                                        <div className="teamLabel"><span className="boldText">{team.shortName}</span> ({team.name})</div>
                                     </div>
                                 )    
                             }

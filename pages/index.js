@@ -7,8 +7,8 @@ const randomstring = require("randomstring");
 
 const DURATION = "permanent";
 const SCOPE = "identity edit flair history read vote wikiread wikiedit";
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = "http://cbbpolldotnet.vercel.app/profile";
+const REDIRECT_URI = "http://localhost:3000/profile";
+//const REDIRECT_URI = "http://cbbpolldotnet.vercel.app/profile";
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
