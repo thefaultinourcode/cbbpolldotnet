@@ -72,7 +72,7 @@ export default function About(props){
         </div>
     ) : (
         <div>
-            <Navbar cbbLogo="./static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+            <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
 
             <h1>About the r/CollegeBasketball User Poll</h1>
             <p>
