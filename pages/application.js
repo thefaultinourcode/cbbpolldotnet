@@ -33,7 +33,7 @@ export default function Application({user, teams, app, ballot}){
             return;
         }
 
-        const user = {
+        const pollUser = {
             name: event.target.user.value,
             primaryTeam: primaryTeamValue,
             secondaryTeam: secondaryTeamValue,
@@ -242,6 +242,18 @@ export default function Application({user, teams, app, ballot}){
             },
             body: JSON.stringify(
                 voterBallot
+            ),
+        });
+
+        const data3 = await res2.json();
+
+        const res3 = await fetch('/api/addUser',{
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                pollUser
             ),
         });
 
