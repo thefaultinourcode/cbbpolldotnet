@@ -5,6 +5,7 @@ import Select from 'react-select';
 import Image from 'next/image';
 
 export default function TeamDropdown(props){
+    let props = JSON.parse(JSON.stringify(props));
     const id = props.id;
     const options = props.teams;
     let teamList = [];
