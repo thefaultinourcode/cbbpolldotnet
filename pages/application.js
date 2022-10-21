@@ -245,7 +245,7 @@ export default function Application({user, teams, app, ballot}){
             ),
         });
 
-        const data3 = await res2.json();
+        const data2 = await res2.json();
 
         const res3 = await fetch('/api/addUser',{
             method: 'POST',
@@ -257,7 +257,7 @@ export default function Application({user, teams, app, ballot}){
             ),
         });
 
-        const data2 = await res2.json();
+        const data3 = await res3.json();
 
         router.push({pathname: '/submit'});
     }
