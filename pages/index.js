@@ -206,7 +206,6 @@ export default function Home(props) {
       <div className="content">  
 
         <div id="ballotBox">
-              <Image src='/static/CBBlogo.png' width={100} height={100}></Image>
               <h3>Become a poll voter!</h3>
               <h3>Sign in to apply!</h3>
             <a href={URL}>
