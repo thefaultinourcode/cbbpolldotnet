@@ -1,4 +1,4 @@
-import Navbar from "../components/navbar";
+import Navbar from "./components/navbar";
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import axios, { Axios } from "axios";
 import querystring from "querystring";
@@ -6,7 +6,7 @@ const randomstring = require("randomstring");
 
 
 const DURATION = "permanent";
-const SCOPE = "identity";
+const SCOPE = "identity edit flair history read vote wikiread wikiedit";
 //const REDIRECT_URI = "http://localhost:3000/profile";
 const REDIRECT_URI = "http://cbbpolldotnet.vercel.app/profile";
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
@@ -21,7 +21,7 @@ export default function Home(props) {
   return props.user ? (    
     <div className="homepage">
       
-      <Navbar cbbLogo="/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+      <Navbar cbbLogo="../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
       <div className="content">  
         <div id="ballotBox">
