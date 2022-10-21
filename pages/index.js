@@ -4,7 +4,7 @@ import axios, { Axios } from "axios";
 import querystring from "querystring";
 const randomstring = require("randomstring");
 import Image from 'next/image';
-import CBBlogo from '../public/CBBLogo.png'
+import CBBlogo from './/../public/CBBLogo.png'
 
 
 const DURATION = "permanent";
