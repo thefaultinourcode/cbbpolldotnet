@@ -8,6 +8,7 @@ import Navbar from "../components/navbar";
 import TeamData from "../models/TeamData";
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 //import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
@@ -221,9 +222,9 @@ export default function Submit(props){
                 </tbody>
             </table>
             <div className="submitBallot">
-                <a href='/application'>
+                <Link href='/application'>
                     <button type='button'>Edit</button> 
-                </a> 
+                </Link> 
             </div>
         </div>
     );
