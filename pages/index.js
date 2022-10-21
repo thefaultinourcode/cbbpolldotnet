@@ -21,7 +21,7 @@ export default function Home(props) {
   return props.user ? (    
     <div className="homepage">
       
-      <Navbar cbbLogo="/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+      <Navbar cbbLogo="/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
       <div className="content">  
         <div id="ballotBox">
@@ -201,7 +201,7 @@ export default function Home(props) {
   ) :  (    
     <div className="homepage">
       
-      <Navbar cbbLogo="/public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png"></Navbar>
+      <Navbar cbbLogo="/public/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png"></Navbar>
 
       <div className="content">  
         <div id="ballotBox">
