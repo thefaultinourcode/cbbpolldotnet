@@ -1,5 +1,5 @@
 import { connectMongo } from "../../utils/connect";
-import Application from "../../models/Application";
+import ApplicationData from "../../models/ApplicationData";
 
 export default async function addTeam(req, res){
     const {user, favoriteTeam, favoriteTeam2, favoriteTeam3, checkbox1, checkbox2, checkbox3, checkbox4, checkbox5, checkbox6,
@@ -12,7 +12,7 @@ export default async function addTeam(req, res){
 
     console.log('CREATING DOCUMENT');
     let query = {user: user};
-    const application = await Application.findOneAndUpdate(query, {$set: req.body}, {upsert: true});
+    const application = await ApplicationData.findOneAndUpdate(query, {$set: req.body}, {upsert: true});
     console.log('CREATED DOCUMENT');
 
     res.json({ application });

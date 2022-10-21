@@ -1,5 +1,5 @@
 import { connectMongo } from "../../utils/connect";
-import Application from "../../models/Application";
+import ApplicationData from "../../models/ApplicationData";
 
 export default async function getApp(req, res){
     //const {_id, name, shortName, nickname, codes, conference, allTimeApVotes } = req.body;
@@ -8,7 +8,7 @@ export default async function getApp(req, res){
     console.log('CONNECTED TO MONGO')
 
     console.log('FETCHING DOCUMENT');
-    const application = await Application.find({});
+    const application = await ApplicationData.find({});
     console.log('FETCHED DOCUMENT');
 
     res.json({ application });
