@@ -11,7 +11,7 @@ import Select from 'react-select';
 
 const axios = require('axios').default;
 
-export default function voterForm(teams){
+export default function VoterForm(teams){
     const options = teams.allTeams;
     let teamList = [];
 

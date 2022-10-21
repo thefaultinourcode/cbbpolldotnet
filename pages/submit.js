@@ -3,7 +3,7 @@ import axios, { Axios } from "axios";
 import querystring from "querystring";
 import { connectMongo } from "../utils/connect";
 import UserBallot from "../models/UserBallot";
-import Application from "../models/Application";
+import Application from "../models/ApplicationData";
 import Navbar from "./components/navbar";
 import TeamData from "../models/TeamData";
 

@@ -6,11 +6,11 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import axios, { Axios } from "axios";
 import TeamDropdown from "./components/teamdropdown";
 import Navbar from "./components/navbar";
-import Application from "../models/Application";
+import ApplicationData from "../models/ApplicationData";
 import UserBallot from "../models/UserBallot";
 import { useRouter } from 'next/router';
 
-export default function application({user, teams, app, ballot}){
+export default function Application({user, teams, app, ballot}){
 
     const form = useRef(null);  
     const partOne = useRef(null);
