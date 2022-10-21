@@ -1,4 +1,4 @@
-import Navbar from "./components/navbar";
+import Navbar from "../components/navbar";
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import axios, { Axios } from "axios";
 import querystring from "querystring";
