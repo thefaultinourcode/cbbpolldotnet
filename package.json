@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prod": "next build && next start"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -19,6 +20,7 @@
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "18.2.0",
+    "react-router-dom": "^6.4.2",
     "react-select": "^5.4.0"
   },
   "devDependencies": {

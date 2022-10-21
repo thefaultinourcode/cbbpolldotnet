@@ -1,14 +1,17 @@
-import Navbar from "./components/navbar";
+import Navbar from "../components/navbar";
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import axios, { Axios } from "axios";
 import querystring from "querystring";
 const randomstring = require("randomstring");
+import Image from 'next/image';
 
 
 const DURATION = "permanent";
 const SCOPE = "identity edit flair history read vote wikiread wikiedit";
-const REDIRECT_URI = "http://localhost:3000/profile";
-//const REDIRECT_URI = "http://cbbpolldotnet.vercel.app/profile";
+
+//const REDIRECT_URI = "http://localhost:3000/profile";
+const REDIRECT_URI = "http://cbbpoll.net/profile";
+
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
@@ -21,7 +24,7 @@ export default function Home(props) {
   return props.user ? (    
     <div className="homepage">
       
-      <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+      <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
       <div className="content">  
         <div id="ballotBox">
@@ -201,8 +204,7 @@ export default function Home(props) {
   ) :  (    
     <div className="homepage">
       
-      <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png"></Navbar>
-
+      <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
       <div className="content">  
         <div id="ballotBox">
               <h3>Become a poll voter!</h3>

@@ -5,7 +5,7 @@ import TeamData from "../models/TeamData";
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import axios, { Axios } from "axios";
 import TeamDropdown from "../components/teamdropdown";
-import Navbar from "./components/navbar";
+import Navbar from "../components/navbar";
 import ApplicationData from "../models/ApplicationData";
 import UserBallot from "../models/UserBallot";
 import { useRouter } from 'next/router';
@@ -33,6 +33,13 @@ export default function Application({user, teams, app, ballot}){
             return;
         }
 
+        const pollUser = {
+            name: event.target.user.value,
+            primaryTeam: primaryTeamValue,
+            secondaryTeam: secondaryTeamValue,
+            tertiaryTeam: tertiaryTeamValue
+        };
+        
         const application = {
             user: event.target.user.value,
             favoriteTeam:  primaryTeamValue,
@@ -240,7 +247,19 @@ export default function Application({user, teams, app, ballot}){
 
         const data2 = await res2.json();
 
-        router.push({pathname: '/submit', query: application});
+        // const res3 = await fetch('/api/addUser',{
+        //     method: 'POST',
+        //     headers: {
+        //     'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(
+        //         pollUser
+        //     ),
+        // });
+
+        // const data3 = await res3.json();
+
+        router.push({pathname: '/submit'});
     }
     
     function ballotApp(e){
@@ -665,7 +684,7 @@ export default function Application({user, teams, app, ballot}){
     if(!user){
         return (
             <div>
-                <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user="Sign In "></Navbar>
+                <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user="Sign In "></Navbar>
                 <br/>
                 <p>Please login</p>
             </div>
@@ -674,7 +693,7 @@ export default function Application({user, teams, app, ballot}){
     }
     else if(!app){
         return (<div>
-            <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={user.name}></Navbar>
+            <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
             <h1>Apply to be an official voter: {user.name}</h1>
             <form id="appForm" onSubmit={handleSubmit} ref={form}>
                 <div id="partOne" ref={partOne} style={{display: show?"none":"block"}}>
@@ -950,7 +969,7 @@ export default function Application({user, teams, app, ballot}){
 
         return (
             <div>
-                <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={user.name}></Navbar>
+                <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
                 <h1>Apply to be an official voter: {user.name}</h1>
                 <form id="appForm" onSubmit={handleSubmit} ref={form}>
                     <div id="partOne" ref={partOne} style={{display: show?"none":"block"}}>
