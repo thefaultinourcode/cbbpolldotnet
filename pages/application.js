@@ -1343,7 +1343,7 @@ const getApp = async (user) => {
     console.log('CONNECTED TO MONGO');
 
     console.log('FETCHING APP');
-    const app = await Application.findOne({'user': user.name});
+    const app = await ApplicationData.findOne({'user': user.name});
     const userApp = JSON.parse(JSON.stringify(app));
     console.log('FETCHED APP');
     return userApp;
