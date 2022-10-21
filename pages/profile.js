@@ -12,7 +12,7 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 export default function Profile({ user }) {
   return user != null ? (
     <>
-      <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={user.name}></Navbar>
+      <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
       <div className="profile">
       
         <h1><img src={user.snoovatar_img} width="50" height="64"/> Welcome {user.name} </h1>
@@ -32,7 +32,7 @@ export default function Profile({ user }) {
     </>
   ) : (
     <div>
-        <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png"></Navbar>
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
         <p>Please login</p>
     </div>
 

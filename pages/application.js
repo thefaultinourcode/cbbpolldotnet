@@ -665,7 +665,7 @@ export default function Application({user, teams, app, ballot}){
     if(!user){
         return (
             <div>
-                <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user="Sign In "></Navbar>
+                <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user="Sign In "></Navbar>
                 <br/>
                 <p>Please login</p>
             </div>
@@ -674,7 +674,7 @@ export default function Application({user, teams, app, ballot}){
     }
     else if(!app){
         return (<div>
-            <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={user.name}></Navbar>
+            <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
             <h1>Apply to be an official voter: {user.name}</h1>
             <form id="appForm" onSubmit={handleSubmit} ref={form}>
                 <div id="partOne" ref={partOne} style={{display: show?"none":"block"}}>
@@ -949,7 +949,7 @@ export default function Application({user, teams, app, ballot}){
 
         return (
             <div>
-                <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={user.name}></Navbar>
+                <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
                 <h1>Apply to be an official voter: {user.name}</h1>
                 <form id="appForm" onSubmit={handleSubmit} ref={form}>
                     <div id="partOne" ref={partOne} style={{display: show?"none":"block"}}>
