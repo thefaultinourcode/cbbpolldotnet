@@ -39,7 +39,7 @@ export default function Navbar(props) {
                 <div className='linkBlock'>
                     <li className='navbar-list-item center'>
                         <div className='homefield'>
-                            <a href='https://www.homefieldapparel.com/products/r-cbb-logo-t-shirt' target='_blank'><Image src={props.homefieldLogo} width="258" height="75"></Image></a>                            
+                            <a href='https://www.homefieldapparel.com/products/r-cbb-logo-t-shirt' target='_blank' rel="noreferrer"><Image src={props.homefieldLogo} width="258" height="75"></Image></a>                            
                         </div>                    
                     </li>
                 </div>
@@ -96,7 +96,7 @@ export default function Navbar(props) {
                 <div className='linkBlock'>
                     <li className='navbar-list-item center'>
                         <div className='homefield'>
-                            <a href='https://www.homefieldapparel.com/products/r-cbb-logo-t-shirt' target='_blank'><Image src={props.homefieldLogo} width="258" height="75"></Image></a>                            
+                            <a href='https://www.homefieldapparel.com/products/r-cbb-logo-t-shirt' target='_blank' rel="noreferrer"><Image src={props.homefieldLogo} width="258" height="75"></Image></a>                            
                         </div>                    
                     </li>
                 </div>

@@ -17,8 +17,8 @@ export default function About(){
             
             The following are the voting and ethics guidelines that voters are asked to follow.
             <ul>
-                <li>Rank the teams according to <b>your honest perception</b> of their strength, however you choose to measure it. Blatant bias for or against any teams, conferences, players, or coaches will likely be challenged and may lead to dismissal from the official voting panel. You should be ready to defend your ballot with arguments more advanced than "Rutgers is my favorite team, so I thought they deserved some representation on the poll".</li>
-                <li><b>There is no "correct" way to vote.</b> Some voters are all in on metrics, while others focus more heavily on results, and yet others like the eye test. Some voters treat the poll as a weekly power ranking, while others use it to rank the teams they think are most likely to win it all at the end of the season. None of these methods are inherently right or wrong, and the poll would be very homogeneous and boring if every voter thought the same way.</li>
+                <li>Rank the teams according to <b>your honest perception</b> of their strength, however you choose to measure it. Blatant bias for or against any teams, conferences, players, or coaches will likely be challenged and may lead to dismissal from the official voting panel. You should be ready to defend your ballot with arguments more advanced than &quot;Rutgers is my favorite team, so I thought they deserved some representation on the poll&quot;.</li>
+                <li><b>There is no &quot;correct&quot; way to vote.</b> Some voters are all in on metrics, while others focus more heavily on results, and yet others like the eye test. Some voters treat the poll as a weekly power ranking, while others use it to rank the teams they think are most likely to win it all at the end of the season. None of these methods are inherently right or wrong, and the poll would be very homogeneous and boring if every voter thought the same way.</li>
                 <li><b>Use nuance</b> in your methodology. Was Kansas missing a key player in a key game? Was the result of that Houston/Alabama game heavily influenced by some poor officiating in the final minute? Was Michigan just absolutely, unsustainably shooting the lights out to beat Ohio State? These things happen every week. Use them! You don&apos;t have to pretend that who won and who lost are the only things that matter at the end of the day.</li>
                 <li>Try not to overvalue head-to-head results. The better team doesn&apos;t win every game; if they did, no teams would ever split a season series. It&apos;s acceptable to rank a team ahead of a team that&apos;s beaten them. By February, it&apos;ll be inescapable.</li>
                 <li>Consider location. A close road loss can be just as indicative of team strength as a close home win. Most metrics and oddsmakers give the average home team an edge of 2-3 points.</li>
@@ -27,7 +27,7 @@ export default function About(){
 
             <h2> Other matters of philosophy </h2>
             <h4>I have an algorithm for ranking teams that I would like to use as my ballot. Is that okay?</h4>
-            <p>No. Unlike our friends at r/CFB, our poll is strictly for humans. It&apos;s meant to work by aggregating the beliefs of a number of individuals, each with their own unique perspective. You may use your algorithm as a tool to inform your rankings, but some human thought must go into interpreting the results before you decide whom to rank where. "My algorithm says UNC would beat the Portland Trail Blazers on a neutral court" will not be considered a valid response if someone challenges your rankings.</p>
+            <p>No. Unlike our friends at r/CFB, our poll is strictly for humans. It&apos;s meant to work by aggregating the beliefs of a number of individuals, each with their own unique perspective. You may use your algorithm as a tool to inform your rankings, but some human thought must go into interpreting the results before you decide whom to rank where. &quot;My algorithm says UNC would beat the Portland Trail Blazers on a neutral court&quot; will not be considered a valid response if someone challenges your rankings.</p>
             <h4>Which teams are eligible for this poll?</h4>
             <p>
                 This poll ranks the top 25 NCAA Division I men&apos;s basketball teams. That includes teams that are ineligible for the postseason. It does not include teams that are not in Division I, regardless of whether you think, say, Northwest Missouri State would play well enough to earn a top-25 ranking if they played at the D1 level.
@@ -61,7 +61,7 @@ export default function About(){
             <blockquote>
                 I have a feeling if we could get 50 hoops experts together each week during the season and poll them on who they thought the best team was, we’d get a better power ranking than any computer could produce. If we could free them from the shackles of modern-day voting tendencies, the wisdom of the crowd would provide some very useful information.
             </blockquote>
-            —Ken Pomeroy, <a href='https://kenpom.com/blog/the-preseason-ap-poll-is-great/'>"The pre-season AP Poll is great"</a>
+            —Ken Pomeroy, <a href='https://kenpom.com/blog/the-preseason-ap-poll-is-great/'>&quot;The pre-season AP Poll is great&quot;</a>
         </div>
     );
 }

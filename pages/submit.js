@@ -59,7 +59,7 @@ export default function Submit(props){
             <Navbar cbbLogo="/../public/img/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
             <h1>Application Submitted!</h1>
-            <h2>{props.user.name}'s Application</h2>
+            <h2>{props.user.name}&apos;s Application</h2>
             <p>Favorite Team: {props.favTeam}</p>
             <p>Secondary Team: {props.favTeam2}</p>
             <p>Tertiary Team: {props.favTeam3}</p>
@@ -68,7 +68,7 @@ export default function Submit(props){
             <ul>
                 {reasons.map(reason => {
                     return (
-                        <li>{reason}</li>
+                        <li key={reason}>{reason}</li>
                     );
                 })}
             </ul>
@@ -79,7 +79,7 @@ export default function Submit(props){
             <p>{props.app.extra}</p>
 
 
-            <h2>{props.user.name}'s Preseason ballot</h2>
+            <h2>{props.user.name}&apos;s Preseason ballot</h2>
             <br/>
             <table>
                 <tbody>

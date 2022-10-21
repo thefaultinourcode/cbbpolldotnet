@@ -200,7 +200,7 @@ export default function VoterForm(teams){
     return(
         <div>
             <h1>Vote in the poll</h1>
-            <h1>'s ballot</h1>
+            <h1>&apos;s ballot</h1>
             <Form>
                 <Row>
                     <Col>

@@ -706,7 +706,7 @@ export default function Application({user, teams, app, ballot}){
                         <br/>
                         <label> 
                             <input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks."></input>
-                            I go to either my team's game or some other game most or all weeks.
+                            I go to either my team&apos;s game or some other game most or all weeks.
                         </label>
                         <br/>
                         <label> 
@@ -731,7 +731,7 @@ export default function Application({user, teams, app, ballot}){
                         <br/>
                         <label> 
                             <input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference."></input>
-                            I tend to focus on watching match-ups in my team's conference.
+                            I tend to focus on watching match-ups in my team&apos;s conference.
                         </label>
                         <br/>
                         <label> 
@@ -981,7 +981,7 @@ export default function Application({user, teams, app, ballot}){
                             <br/>
                             <label> 
                                 <input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks." defaultChecked={app.checkbox3}></input>
-                                I go to either my team's game or some other game most or all weeks.
+                                I go to either my team&apos;s game or some other game most or all weeks.
                             </label>
                             <br/>
                             <label> 
@@ -1006,7 +1006,7 @@ export default function Application({user, teams, app, ballot}){
                             <br/>
                             <label> 
                                 <input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference." defaultChecked={app.checkbox8}></input>
-                                I tend to focus on watching match-ups in my team's conference.
+                                I tend to focus on watching match-ups in my team&apos;s conference.
                             </label>
                             <br/>
                             <label> 
