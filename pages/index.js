@@ -4,7 +4,6 @@ import axios, { Axios } from "axios";
 import querystring from "querystring";
 const randomstring = require("randomstring");
 import Image from 'next/image';
-import CBBlogo from '/public/CBBLogo.png'
 
 
 const DURATION = "permanent";
@@ -205,9 +204,8 @@ export default function Home(props) {
       
       <Navbar cbbLogo="/../test/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png"></Navbar>
       <div className="content">  
-        <Image src={CBBlogo} width={100} height={100}></Image>
-        <Image src='/../public/CBBlogo.png' width={100} height={100}></Image>
-        <Image src='/../test/CBBlogo.png' layout='fill'></Image>
+        <Image src='/../public/CBBlogo.png' width={100} height={100} alt='alt text'></Image>
+        <Image src='../test/CBBlogo.png' layout='fill' alt='alt text'></Image>
 
         <div id="ballotBox">
               <Image src='/static/CBBlogo.png' width={100} height={100}></Image>
