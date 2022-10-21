@@ -33,6 +33,13 @@ export default function Application({user, teams, app, ballot}){
             return;
         }
 
+        const user = {
+            name: event.target.user.value,
+            primaryTeam: primaryTeamValue,
+            secondaryTeam: secondaryTeamValue,
+            tertiaryTeam: tertiaryTeamValue
+        };
+        
         const application = {
             user: event.target.user.value,
             favoriteTeam:  primaryTeamValue,
