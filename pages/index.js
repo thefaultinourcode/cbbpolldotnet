@@ -3,6 +3,8 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import axios, { Axios } from "axios";
 import querystring from "querystring";
 const randomstring = require("randomstring");
+import Image from 'next/image';
+import CBBlogo from '../public/CBBLogo.png'
 
 
 const DURATION = "permanent";
@@ -201,10 +203,14 @@ export default function Home(props) {
   ) :  (    
     <div className="homepage">
       
-      <Navbar cbbLogo="/public/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png"></Navbar>
-
+      <Navbar cbbLogo="/../test/CBBlogo2.png" homefieldLogo="/../public/img/SponsoredByHomefield.png"></Navbar>
       <div className="content">  
+        <Image src={CBBlogo} width={100} height={100}></Image>
+        <Image src='/../public/CBBlogo.png' width={100} height={100}></Image>
+        <Image src='/../test/CBBlogo.png' layout='fill'></Image>
+
         <div id="ballotBox">
+              <Image src='/static/CBBlogo.png' width={100} height={100}></Image>
               <h3>Become a poll voter!</h3>
               <h3>Sign in to apply!</h3>
             <a href={URL}>
