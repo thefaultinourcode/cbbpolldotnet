@@ -12,7 +12,7 @@ export default function About(props){
         <div>
             <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
-            <h1>About the r/CollegeBasketball User Poll</h1>
+            <h1>About the r/CollegeBasketball Userpoll</h1>
             <p>
                 Welcome to the new and improved r/CollegeBasketball User Poll! This poll indicates the relative rankings of the top 25 NCAA Division I men&apos;s basketball teams as viewed by a representative sample of the r/CollegeBasketball community. The moderators of this subreddit have run this poll on a weekly basis since 2012-13.
             </p>
