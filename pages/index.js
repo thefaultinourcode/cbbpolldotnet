@@ -9,7 +9,8 @@ import Image from 'next/image';
 const DURATION = "permanent";
 const SCOPE = "identity";
 
-const REDIRECT_URI = process.env.REDIRECT_URI;
+//const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
