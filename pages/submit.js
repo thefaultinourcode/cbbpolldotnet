@@ -237,7 +237,7 @@ export default function Submit(props){
     (
         <div>
             <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-            <p>Please login</p>
+            <p>Please login. Your reddit credentials have been timed out, please log back in to renew them.</p>
         </div>
     );
 }
