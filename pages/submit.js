@@ -9,6 +9,7 @@ import TeamData from "../models/TeamData";
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Home from './index'
 //import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
@@ -18,46 +19,49 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
 export default function Submit(props){
     let reasons = [];
-    if(props.app.checkbox1){
-        reasons.push('I rarely go to games, and instead focus on TV broadcasts and streams.');
+    if(props.app){
+        if(props.app.checkbox1){
+            reasons.push('I rarely go to games, and instead focus on TV broadcasts and streams.');
+        }
+        if(props.app.checkbox2){
+            reasons.push('I try to go to a few games each year.');
+        }
+        if(props.app.checkbox3){
+            reasons.push("I go to either my team's game or some other game most or all weeks.");
+        }
+        if(props.app.checkbox4){
+            reasons.push('I pick a few games each week to watch intently.');
+        }
+        if(props.app.checkbox5){
+            reasons.push('I try to follow everything going on using multiple TVs and/or monitors.');   
+        }
+        if(props.app.checkbox6){
+            reasons.push('I tend to focus on watching my team and/or games that could effect their standing.');  
+        }
+        if(props.app.checkbox7){
+            reasons.push('I tend to focus on watching match-ups between highly ranked teams.');  
+        }
+        if(props.app.checkbox8){
+            reasons.push("I tend to focus on watching match-ups in my team's conference.");  
+        }
+        if(props.app.checkbox9){
+            reasons.push('I tend to focus on watching match-ups between closely matched teams regardless of ranking.');  
+        }
+        if(props.app.checkbox10){
+            reasons.push('I watch the weeknight games regardless of the teams playing.');  
+        }
+        if(props.app.checkbox11){
+            reasons.push('I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on.');  
+        }
+        if(props.app.checkbox12){
+            reasons.push('My experience as a basketball player, coach, or referee tends to guide my focus.');  
+        }
     }
-    if(props.app.checkbox2){
-        reasons.push('I try to go to a few games each year.');
-    }
-    if(props.app.checkbox3){
-        reasons.push("I go to either my team's game or some other game most or all weeks.");
-    }
-    if(props.app.checkbox4){
-        reasons.push('I pick a few games each week to watch intently.');
-    }
-    if(props.app.checkbox5){
-        reasons.push('I try to follow everything going on using multiple TVs and/or monitors.');   
-    }
-    if(props.app.checkbox6){
-        reasons.push('I tend to focus on watching my team and/or games that could effect their standing.');  
-    }
-    if(props.app.checkbox7){
-        reasons.push('I tend to focus on watching match-ups between highly ranked teams.');  
-    }
-    if(props.app.checkbox8){
-        reasons.push("I tend to focus on watching match-ups in my team's conference.");  
-    }
-    if(props.app.checkbox9){
-        reasons.push('I tend to focus on watching match-ups between closely matched teams regardless of ranking.');  
-    }
-    if(props.app.checkbox10){
-        reasons.push('I watch the weeknight games regardless of the teams playing.');  
-    }
-    if(props.app.checkbox11){
-        reasons.push('I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on.');  
-    }
-    if(props.app.checkbox12){
-        reasons.push('My experience as a basketball player, coach, or referee tends to guide my focus.');  
-    }
+
 
     // let favoriteTeam = getTeam(props.app.favoriteTeam);
     // console.log(getTeam(props.app.favoriteTeam));
-    return(
+    return props.user ? (
         <div>
             <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
@@ -227,6 +231,14 @@ export default function Submit(props){
                     <button type='button'>Edit</button> 
                 </Link> 
             </div>
+        </div>
+    )
+    :
+    (
+        <div>
+            <Home></Home>
+            {/* <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+            <p>Please login</p> */}
         </div>
     );
 }
