@@ -15,6 +15,17 @@ import Home from './index'
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 //import { get } from "http";
 
+const DURATION = "permanent";
+const SCOPE = "identity";
+const RESPONSE_TYPE = "code";
+const REDIRECT_URI = process.env.REDIRECT_URI;
+const RANDOM_STRING = "randomstringhere";
+const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
+const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
+
+
+
+const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&state=${RANDOM_STRING}&redirect_uri=${REDIRECT_URI}&duration=${DURATION}&scope=${SCOPE}`;
 
 
 export default function Submit(props){
@@ -237,15 +248,14 @@ export default function Submit(props){
     (
         <div>
             <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-            <p>Please login. Your reddit credentials have been timed out, please log back in to renew them.</p>
+            <br/>
+            <p>Your reddit credentials have been timed out, please log back in to renew them.</p>
+            <a href={URL}>
+              <button>Sign in with Reddit</button>          
+            </a>
         </div>
     );
 }
-
-const REDIRECT_URI = process.env.REDIRECT_URI;
-const RANDOM_STRING = "randomstringhere";
-const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
-const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 
 const getToken = async (body) => {
   const data = await axios.post(
