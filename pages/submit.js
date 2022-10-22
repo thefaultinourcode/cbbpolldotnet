@@ -236,14 +236,12 @@ export default function Submit(props){
     :
     (
         <div>
-            <Home></Home>
-            {/* <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-            <p>Please login</p> */}
+
         </div>
     );
 }
 
-const REDIRECT_URI = "http://localhost:3000/profile";
+const REDIRECT_URI = process.env.REDIRECT_URI;
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
@@ -300,14 +298,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
         maxAge: 60 * 60 * 24,
       });
       const user = await getUser(token.access_token);
-    //   let app = await getApp(user);
-    //   console.log('app:', app);
-    //   let ballot = await getBallot(user);
-    //   let favTeam = await getTeamProp(app.favoriteTeam);
-    //   //let favTeam = await t1.json();
-    //   return { props: { user, app, ballot, favTeam} };
-        let info = await getData(user);
-        return info;
+      let info = await getData(user);
+      return info;
     }
   } else if (query.code && query.state === RANDOM_STRING) {
     try {
