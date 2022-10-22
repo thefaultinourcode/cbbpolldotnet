@@ -236,7 +236,8 @@ export default function Submit(props){
     :
     (
         <div>
-
+            <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+            <p>Please login</p>
         </div>
     );
 }
