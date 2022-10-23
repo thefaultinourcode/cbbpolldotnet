@@ -1,10 +1,10 @@
-// export default function Admin(){
+export default function Admin(){
 
-//     modlist = ['broadwaystarVGC'];
+    // modlist = ['broadwaystarVGC'];
 
-//     return(
-//         <div>
+    return(
+        <div>
 
-//         </div>
-//     );
-// }
+        </div>
+    );
+}
