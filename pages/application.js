@@ -1511,7 +1511,8 @@ export default function Application({user, teams, app, ballot}){
 
 }
 
-const REDIRECT_URI = "http://localhost:3000/application";
+const REDIRECT_URI = "http://cbbpoll.net/application";
+//const REDIRECT_URI = "http://localhost:3000/application";
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
