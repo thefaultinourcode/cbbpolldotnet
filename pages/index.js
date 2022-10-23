@@ -14,7 +14,7 @@ const REDIRECT_URI = "http://localhost:3000/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
-const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
+const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 
 const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&state=${RANDOM_STRING}&redirect_uri=${REDIRECT_URI}&duration=${DURATION}&scope=${SCOPE}`;

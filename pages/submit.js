@@ -18,7 +18,7 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 const DURATION = "permanent";
 const SCOPE = "identity";
 const RESPONSE_TYPE = "code";
-const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URI = "http://localhost:3000/profile";
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;

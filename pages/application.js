@@ -955,6 +955,282 @@ export default function Application({user, teams, app, ballot}){
             </form>
         </div>);
     }
+    else if (user && app && !ballot){
+        console.log('app.primaryTeamValue:', app.favoriteTeam);
+        console.log()
+        const handleLoad = e => {
+            setPrimaryTeamValue(e.value);
+            setPrimaryTeamLabel(e.label);
+        }
+        const handleLoad2 = e => {
+            setSecondaryTeamValue(e.value);
+            setSecondaryTeamLabel(e.label);
+        }
+        
+        return(
+            <div>
+                <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
+                <h1>Apply to be an official voter: {user.name}</h1>
+                <form id="appForm" onSubmit={handleSubmit} ref={form}>
+                    <div id="partOne" ref={partOne} style={{display: show?"none":"block"}}>
+                        <input type='textbox' id='user' value={user.name} hidden readOnly></input>
+                        <label>Which team do you primarily support?</label>
+                        <TeamDropdown teams={teams} id="favoriteTeam" change={handleChange} onLoad={handleLoad} presetTeam={app.favoriteTeam}></TeamDropdown>
+                        <div className="errorMsg">{errorPrimaryTeam}</div>
+                        <br/>
+    
+                        <label>Which other teams, if any, do you support? (Optional)</label>
+                        <TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2} onLoad={handleLoad2} presetTeam={app.favoriteTeam2}></TeamDropdown>
+                        <br/>
+                        <TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3} presetTeam={app.favoriteTeam3}></TeamDropdown>
+                        <br/>
+                        <div className="errorMsg">{errorTeams}</div>
+                        <br/>
+                        <div>
+                            <label>In which of the following ways do you inform your opinion of basketball teams? (select all that apply)</label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox1" value="I rarely go to games, and instead focus on TV broadcasts and streams." defaultChecked={app.checkbox1}></input>
+                                I rarely go to games, and instead focus on TV broadcasts and streams.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox2" value="I try to go to a few games each year."defaultChecked={app.checkbox2}></input>
+                                I try to go to a few games each year.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks." defaultChecked={app.checkbox3}></input>
+                                I go to either my team&apos;s game or some other game most or all weeks.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox4" value="I pick a few games each week to watch intently." defaultChecked={app.checkbox4}></input>
+                                I pick a few games each week to watch intently.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox5" value="I try to follow everything going on using multiple TVs and/or monitors." defaultChecked={app.checkbox5}></input>
+                                I try to follow everything going on using multiple TVs and/or monitors.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox6" value="I tend to focus on watching my team and/or games that could effect their standing." defaultChecked={app.checkbox6}></input>
+                                I tend to focus on watching my team and/or games that could effect their standing.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox7" value="I tend to focus on watching match-ups between highly ranked teams." defaultChecked={app.checkbox7}></input>
+                                I tend to focus on watching match-ups between highly ranked teams.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference." defaultChecked={app.checkbox8}></input>
+                                I tend to focus on watching match-ups in my team&apos;s conference.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox9" value="I tend to focus on watching match-ups between closely matched teams regardless of ranking." defaultChecked={app.checkbox9}></input>
+                                I tend to focus on watching match-ups between closely matched teams regardless of ranking.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox10" value="I watch the weeknight games regardless of the teams playing." defaultChecked={app.checkbox10}></input>
+                                I watch the weeknight games regardless of the teams playing.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox11" value="I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on." defaultChecked={app.checkbox11}></input>
+                                I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox12" value="My experience as a basketball player, coach, or referee tends to guide my focus." defaultChecked={app.checkbox12}></input>
+                                My experience as a basketball player, coach, or referee tends to guide my focus.
+                            </label>
+                            <br/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <label>
+                        If selected, how would you approach filling out your ballot? What would lead you to decide to vote for one team over another?        
+                        <br/>
+                        <textarea id="approach" ref={approach} rows="5" cols="150" defaultValue={app.approach}></textarea>
+                        </label> 
+                        <div className="errorMsg">{errorApproach}</div>
+                        <br/>
+                        <label>
+                            Anything else to say? (Optional)
+                            <br/>
+                            <textarea id="extra" rows="5" cols="150" defaultValue={app.extra}></textarea>
+                        </label>
+                        <br/>
+                        <br/>
+                        <label>
+                            <input type='checkbox' id="participationRequirement" ref={participation} defaultChecked={app.participationRequirement}></input>
+                        I understand that there is a participation requirement to this poll. If I fail to submit a ballot three times, I understand that I may lose voting privilege                    
+                        </label>
+                        <div className="errorMsg">{errorParticipation}</div>
+                        <label>
+                            <input type='checkbox' id="biasRequirement" ref={bias} defaultChecked={app.biasRequirement}></input>
+                        I understand that being transparently biased toward or against any team or conference may lead to my removal from the official poll roster.                    
+                        </label>
+                        <div className="errorMsg">{errorBias}</div>
+                        <br/>
+                        <button type="button" onClick={ballotApp}>Next</button>
+                    </div>
+                    <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
+                    <h1>Submit your preseason ballot for 2022-23</h1>
+                    <h4>Application and preseason poll ballots close Friday, October 28, at 11:59pm EDT</h4>
+                    
+
+                    <table className="ballotTable">
+                        <tbody>
+                            <tr>                                
+                                <th>Rank</th>
+                                <th>Team</th>
+                                <th>Reason</th>                                
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning1" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange2}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning2" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange3}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning3" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange4}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning4" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange5}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning5" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange6}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning6" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange7}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning7" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange8}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning8"className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange9}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning9" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange10}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning10" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange11}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning11" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange12}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning12" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange13}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning13" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange14}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning14" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange15}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning15" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange16}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning16" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange17}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning17" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange18}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning18" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>19</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange19}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning19" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange20}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning20" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>21</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange21}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning21" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange22}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning22" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>23</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange23}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning23" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>24</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange24}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning24" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                            <tr>
+                                <td>25</td>
+                                <td><TeamDropdown teams={teams} change={handleBallotChange25}></TeamDropdown></td>
+                                <td><input type="textbox" id="reasoning25" className="reasoning" maxLength={200}></input></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div className="errorMsg">{errorBallot}</div>
+                    <div className="overallRationale">
+                        <h3>Overall rationale</h3>                        
+                    </div>
+                    <textarea rows="5" cols="150" id="overallReasoning" className="overallRationale" maxLength={2000}></textarea>
+                    <br/>
+                    <div className="submitBallot">
+                        <button type="submit">Submit</button>
+                    </div>                    
+                </div>              
+            </form>
+        </div>);
+    }
     else if(user && app) {
         console.log('app.primaryTeamValue:', app.favoriteTeam);
         console.log()
