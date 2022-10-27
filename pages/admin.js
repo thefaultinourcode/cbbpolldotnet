@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 
 export default function Admin(props){
-    let modlist = ['broadwaystarVGC'];
+    let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
     
     let apps = props.apps;
     console.log('apps:', apps);
@@ -148,8 +148,8 @@ export default function Admin(props){
 
 }
 
-const REDIRECT_URI = "http://localhost:3000/profile";
-//const REDIRECT_URI = "http://cbbpoll.net/profile";
+//const REDIRECT_URI = "http://localhost:3000/profile";
+const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;

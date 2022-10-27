@@ -9,8 +9,8 @@ import Image from 'next/image';
 const DURATION = "permanent";
 const SCOPE = "identity";
 
-const REDIRECT_URI = process.env.REDIRECT_URI;
-//const REDIRECT_URI = "http://cbbpoll.net/profile";
+//const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
@@ -18,6 +18,15 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 
 const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&state=${RANDOM_STRING}&redirect_uri=${REDIRECT_URI}&duration=${DURATION}&scope=${SCOPE}`;
+
+//get the official poll voters
+//get their ballots
+//extract each team and their points
+//add the points up for each team
+//display 
+
+
+
 
 export default function Home(props) {
   
