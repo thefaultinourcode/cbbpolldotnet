@@ -5,11 +5,15 @@ import querystring from "querystring";
 import Navbar from "../components/navbar";
 import { connectMongo } from "../utils/connect";
 import User from "../models/User";
+import Link from "next/link"
 
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 //import mongoose from "mongoose";
 
 export default function Profile({ user }) {
+
+  let modlist = ['broadwaystarVGC'];
+
   return user != null ? (
     <>
       <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
@@ -22,6 +26,17 @@ export default function Profile({ user }) {
         
         <div>
           <h2>Official voter profiles coming soon! Apply <a href='./application'>here</a> to be an official voter.</h2>
+        </div>
+
+        <div>
+          {
+               (() => {
+                if (modlist.includes(user.name))
+                   return (<div>
+                      <Link href='/admin'>Go to Admin View</Link>
+                   </div>)
+            })()
+          }
         </div>
         {/* <a href='./voterForm'>Poll</a>
         <a href='./application'>Poll Vote Application</a>
@@ -43,7 +58,7 @@ export default function Profile({ user }) {
 }
 
 
-const REDIRECT_URI = "http://localhost:3000/profile";
+const REDIRECT_URI = process.env.REDIRECT_URI;
 //const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere";
@@ -156,5 +171,3 @@ const insertUser = async (user) => {
     console.log('CREATED DOCUMENT');
   }
 }
-
-//mongoose.connection.close();
