@@ -12,7 +12,7 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
 export default function Profile({ user }) {
 
-  let modlist = ['broadwaystarVGC'];
+  let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 
   return user != null ? (
     <>
