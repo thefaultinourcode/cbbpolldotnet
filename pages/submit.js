@@ -19,7 +19,10 @@ const DURATION = "permanent";
 const SCOPE = "identity";
 const RESPONSE_TYPE = "code";
 
-const REDIRECT_URI = process.env.REDIRECT_URI;
+
+//const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URI = "http://cbbpoll.net/profile";
+
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;

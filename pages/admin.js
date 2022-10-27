@@ -7,8 +7,8 @@ import Application from "../models/ApplicationData";
 import User from "../models/User";
 import Link from 'next/link'
 
-export default function Admin(props){
 
+export default function Admin(props){
     let modlist = ['broadwaystarVGC'];
     
     let apps = props.apps;
