@@ -19,7 +19,7 @@ export default function Application({user, teams, app, ballot}){
     const participation = useRef(null);
     const bias = useRef(null);
     const router = useRouter();
-    let closeDate = new Date('29 October 2022 15:59 UTC');
+    let closeDate = new Date(Date.UTC(2022, 9, 29, 3, 59));
     
 
     const handleSubmit = async(event) => {
@@ -685,8 +685,9 @@ export default function Application({user, teams, app, ballot}){
 
     let today = new Date();
     //let today = new Date(2022, 11, 1);
-    console.log(closeDate);
-    console.log(today);
+    console.log('close date:', closeDate);
+    console.log('today:', today);
+    console.log(today < closeDate)
     console.log(today < closeDate);
     if(today < closeDate){
         if(!user){
