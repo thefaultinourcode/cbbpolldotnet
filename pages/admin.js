@@ -12,26 +12,13 @@ export default function Admin(props){
     let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
     
     let apps = props.apps;
-    console.log('apps:', apps);
-    console.log('users:', props.users);
     let users = props.users;
-    console.log('users:', users);
-
-    
 
     let usersApplied = [];
     apps.map(element => usersApplied.push(element.user));
-    console.log('usersApplied:', usersApplied);
-    
+
     let usersInDB = [];
     users.map(element => usersInDB.push(element.name));
-    console.log('usersInDB:', usersInDB);
-
-
-
-    console.log('after apps:', apps);
-
-    // let foundUser = usersApplied.find(element => element.name === )
 
     async function handleClick(e){
         
@@ -92,8 +79,7 @@ export default function Admin(props){
             }
     
         }
-        console.log('if:', apps);
-        console.log(apps[0].pollVoter);
+
         return(
             <div>
                 <h1>{props.user.name} is an admin</h1>

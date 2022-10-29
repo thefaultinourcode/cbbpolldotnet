@@ -8,6 +8,7 @@ import User from "../models/User";
 import UserBallot from "../models/UserBallot";
 import TeamData from "../models/TeamData";
 import { connectMongo } from "../utils/connect";
+import Link from 'next/link';
 
 const DURATION = "permanent";
 const SCOPE = "identity";
@@ -26,7 +27,12 @@ export default function Home(props) {
   let pollDate = new Date('31 October 2022 14:00 UTC');
   
   console.log('userpoll:', props.userpoll);
+  console.log('voters:', props.pollVoters);
   let userpoll = props.userpoll;
+  let pollVoters = props.pollVoters;
+  let provisionalVoters = props.provisionalVoters;
+  console.log('pollVoters:', pollVoters);
+  console.log('provisionalVoters:', provisionalVoters);
 
   let tableData = <tr>
                     <th>Rank</th>
@@ -89,6 +95,49 @@ export default function Home(props) {
 
   console.log(tableData);
 
+  let pollVoterArray = [];
+  for(let i = 0; i < pollVoters.length; i++){
+    if(i !== pollVoters.length - 1){
+      pollVoterArray.push(
+                          <Link href={`/ballots/${pollVoters[i].ballotId}`}>
+                            <span>                              
+                              <a> <Image src={pollVoters[i].url} width={25} height={25}></Image> {pollVoters[i].username}, </a>                               
+                            </span>
+                          </Link>
+
+      );
+    }
+    else{
+      pollVoterArray.push(      
+        <Link href={`/ballots/${pollVoters[i].ballotId}`}>
+          <span>
+            <a><Image src={pollVoters[i].url} width={25} height={25}></Image>  {pollVoters[i].username}</a>          
+          </span>
+        </Link>);
+    }
+  }
+
+  let provisionalVoterArray = [];
+  for(let i = 0; i < provisionalVoters.length; i++){
+    if(i !== pollVoters.length - 1){
+      provisionalVoterArray.push(
+                                <Link href={`/ballots/${pollVoters[i].ballotId}`}>
+                                  <span>
+                                    <a><Image src={provisionalVoters[i].url} width={25} height={25}></Image> {provisionalVoters[i].username}, </a>
+                                  </span>
+                                </Link>
+
+      );
+    }
+    else{
+      provisionalVoterArray.push(   
+        <Link href={`/ballots/${pollVoters[i].ballotId}`}>
+          <span>
+            <a><Image src={provisionalVoters[i].url} width={25} height={25}></Image>  {provisionalVoters[i].username} </a>
+          </span>
+        </Link>);
+    }
+  }
 
   return props.user ? (    
     <div className="homepage">
@@ -119,8 +168,9 @@ export default function Home(props) {
           </table>
           <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
           <h2>Official Ballots</h2>
-          
+          {pollVoterArray.map(voter => voter)}
           <h2>Provisional Ballots</h2>
+          {provisionalVoterArray.map(voter => voter)}
         </div>
       </div>  
 
@@ -154,7 +204,6 @@ export default function Home(props) {
           <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}    
         </div>
       </div>  
-
     </div>
   );
 }
@@ -187,8 +236,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
     if (access_token) {
       const user = await getUser(access_token);
       const userpoll = await getUserpoll();
-      const pollVoters = await getUserList(true);
-      const provisionalVoters = await getUserList(false);
+      const pollVoters = await getBallots(true);
+      const provisionalVoters = await getBallots(false);
       return { props: { user, userpoll, pollVoters, provisionalVoters } };
     } else {
       const token = await getToken({
@@ -208,8 +257,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
       });
       const user = await getUser(token.access_token);
       const userpoll = await getUserpoll();
-      const pollVoters = await getUserList(true);
-      const provisionalVoters = await getUserList(false)
+      const pollVoters = await getBallots(true);
+      const provisionalVoters = await getBallots(false);
       return { props: { user, userpoll, pollVoters, provisionalVoters } };
     }
   } else if (query.code && query.state === RANDOM_STRING) {
@@ -232,8 +281,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
       });
       const user = await getUser(token.access_token);
       const userpoll = await getUserpoll();
-      const pollVoters = await getUserList(true);
-      const provisionalVoters = await getUserList(false)
+      const pollVoters = await getBallots(true);
+      const provisionalVoters = await getBallots(false);
       return { props: { user, userpoll, pollVoters, provisionalVoters } };
     } catch (e) {
       console.log(e);
@@ -242,8 +291,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
   } else {
     console.log('else');
     const userpoll = await getUserpoll();
-    const pollVoters = await getUserList(true);
-    const provisionalVoters = await getUserList(false)
+    const pollVoters = await getBallots(true);
+    const provisionalVoters = await getBallots(false);
     return { props: { user: null, userpoll, pollVoters, provisionalVoters } };
   }
 };
@@ -276,21 +325,67 @@ const getUserList = async (pollVoter) => {
   return userArray;
 }
 
+const getUserInfo = async (username) =>{
+  console.log('CONNECTING TO MONGO')
+  await connectMongo();
+  console.log('CONNECTED TO MONGO')
+
+  console.log('FETCHING DOCUMENT');
+  const user = await User.find({name: username});
+  console.log('FETCHED DOCUMENT');
+  return user;
+}
+
+const getBallots = async (pollVoter) => {
+  console.log('pollVoter:', pollVoter);
+  let users = await getUserList(pollVoter);
+  console.log('user list:', users);
+  
+  if(pollVoter){
+
+  }
+  else if(!pollVoter){
+    console.log('pollVoter:', pollVoter);
+    console.log('false');
+    console.log('user list:', users);
+  }
+  
+  console.log('CONNECTING TO MONGO');
+  await connectMongo();
+  console.log('CONNECTED TO MONGO')
+
+  console.log('FETCHING DOCUMENT');
+  const ballots = await UserBallot.find({user: {$in: users}});
+  console.log('FETCHED DOCUMENT');
+  
+  let voters = [];
+  for(let i = 0; i < ballots.length; i++){
+    let user = await getUserInfo(ballots[i].user);
+    let team = await getTeam(user[0].primaryTeam);
+    let url = team.url;
+    voters.push({
+      username: ballots[i].user,
+      ballotId: ballots[i]._id.toString(),
+      url: team.url
+    })
+  }
+  console.log('voters:', voters);
+  return voters;
+}
+
+async function getTeam(id){
+  console.log('CONNECTING TO MONGO')
+  await connectMongo();
+  console.log('CONNECTED TO MONGO')
+  console.log('FETCHING DOCUMENT');
+  const teamData = await TeamData.findOne({_id: id});
+  console.log('FETCHED DOCUMENT');
+
+  return teamData;
+}
+
+
 const getUserpoll = async () => {
-  // console.log('CONNECTING TO MONGO');
-  // await connectMongo();
-  // console.log('CONNECTED TO MONGO');
-
-  // console.log('FETCHING APP');
-  // const users = await User.find({pollVoter: true});
-  // const userList = JSON.parse(JSON.stringify(users));
-  // console.log('userList:', userList);
-  // console.log('FETCHED APP');
-  // let userArray = [];
-  // for(let i = 0; i < userList.length; i++){
-  //   userArray.push(userList[i].name);
-  // }
-
   let userArray = await getUserList(true);
 
   console.log('CONNECTING TO MONGO');
@@ -306,9 +401,7 @@ const getUserpoll = async () => {
   let pointTotals = {};
   for(let i = 0; i < ballotList.length; i++){
     if(numberOne[ballotList[i].one.id] == null){
-      console.log('null');
       numberOne[ballotList[i].one.id] = 0;
-      console.log('numberOne[ballotList[i].one.id]:', numberOne[ballotList[i].one.id])
     }
     numberOne[ballotList[i].one.id]++;
 
@@ -347,11 +440,7 @@ const getUserpoll = async () => {
     return obj[id];
   }
 
-  console.log('numberOne:', numberOne);
-  console.log('pointTotals:', pointTotals);
-
   let pointTotalSort = Object.entries(pointTotals).sort((a,b) => b[1] - a[1]);
-  console.log('pointTotalSort:', pointTotalSort);
 
   let rank;
   for (let i = 0; i < pointTotalSort.length; i++){
@@ -385,7 +474,7 @@ const getUserpoll = async () => {
       teamName: fullName,
       points: pointTotalSort[i][1],
       firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
-      url: team.url
+      url: "/static/D1/AbileneChristian.png"
     });
   }
 
@@ -406,18 +495,6 @@ const getUserpoll = async () => {
     else{
       return numberOne[id];
     }
-  }
-
-  async function getTeam(id){
-    console.log('CONNECTING TO MONGO')
-    await connectMongo();
-    console.log('CONNECTED TO MONGO')
-    console.log('team id:', id);
-    console.log('FETCHING DOCUMENT');
-    const teamData = await TeamData.findOne({_id: id});
-    console.log('FETCHED DOCUMENT');
-
-    return teamData;
   }
 
   return userpoll;

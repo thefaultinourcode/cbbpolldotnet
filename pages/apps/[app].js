@@ -10,7 +10,6 @@ export default function UserApp (props) {
 
   let application = props.application[0];
   let ballot = props.ballot;
-  console.log('ballot:', ballot);
 
   let reasons = [];
   if(application){
@@ -51,8 +50,6 @@ export default function UserApp (props) {
           reasons.push('My experience as a basketball player, coach, or referee tends to guide my focus.');  
       }
   }
-
-  console.log('reasons:', reasons);
 
   return (
     <div>
