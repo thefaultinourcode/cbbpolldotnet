@@ -1513,7 +1513,9 @@ export default function Application({user, teams, app, ballot}){
         }
     }
     else{
-        
+        return(<div>
+            <p>Applications for the 2022-23 r/CollegeBasketball Userpoll have closed. If you've applied, you should know whether you've been accepted shortly. If you haven't applied and you'd like to join the poll, start submitting provisional ballots every week and you'll likely be added once enough official voters drop out due to inactivity.</p>
+        </div>)
     }
 
 }
