@@ -25,14 +25,12 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 export default function Home(props) {
   let pollDate = new Date('31 October 2022 14:00 UTC');
+  let today = new Date();
   
-  console.log('userpoll:', props.userpoll);
-  console.log('voters:', props.pollVoters);
   let userpoll = props.userpoll;
   let pollVoters = props.pollVoters;
   let provisionalVoters = props.provisionalVoters;
-  console.log('pollVoters:', pollVoters);
-  console.log('provisionalVoters:', provisionalVoters);
+  let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 
   let tableData = <tr>
                     <th>Rank</th>
@@ -139,9 +137,9 @@ export default function Home(props) {
     }
   }
 
-  return props.user ? (    
-    <div className="homepage">
-      
+  if(modlist.includes(props.user.name)){
+    return(    
+      <div className="homepage">
       <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
       <div className="content">  
@@ -175,37 +173,117 @@ export default function Home(props) {
       </div>  
 
     </div>
-  ) :  (    
-    <div className="homepage">
-      
-      <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-      <div className="content">  
-        <div id="ballotBox">
-              <h3>Become a poll voter!</h3>
-              <h3>Sign in to apply!</h3>
-            <a href={URL}>
-              <button>Sign in with Reddit</button>          
-            </a>
-            <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
-        </div>
-        <div id="pollTable">
-          <h1>Preseason Poll</h1>
-          <table>
-            <tbody>
-              <tr>
-                <th>Rank</th>
-                <th>Change</th>
-                <th>Team (#1 Votes)</th>
-                <th>Points</th>
-              </tr>
-              {rowArray.map(row => row)}              
-            </tbody>
-          </table>    
-          <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}    
-        </div>
-      </div>  
-    </div>
   );
+  }
+  else if(today < pollDate){
+    return props.user ? (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+  
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Become a poll voter!</h3>
+                <h3>Apply now {props.user.name}!</h3>
+              <a href={'/application'}>
+                <button>Apply Now!</button>          
+              </a>
+              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+          </div>
+        </div>  
+  
+      </div>
+    ) :  (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Become a poll voter!</h3>
+                <h3>Sign in to apply!</h3>
+              <a href={URL}>
+                <button>Sign in with Reddit</button>          
+              </a>
+              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+          </div>
+        </div>  
+      </div>
+    );
+  }
+  else if(today >= pollDate){
+    return props.user ? (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+  
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Become a poll voter!</h3>
+                <h3>Apply now {props.user.name}!</h3>
+              <a href={'/application'}>
+                <button>Apply Now!</button>          
+              </a>
+              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+          </div>
+          <div id="pollTable">
+            <h1>Preseason Poll</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team (#1 Votes)</th>
+                  <th>Change</th>
+                  <th>Points</th>
+                </tr>
+                {rowArray.map(row => row)}
+              </tbody>
+            </table>
+            <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+            <h2>Official Ballots</h2>
+            {pollVoterArray.map(voter => voter)}
+            <h2>Provisional Ballots</h2>
+            {provisionalVoterArray.map(voter => voter)}
+          </div>
+        </div>  
+  
+      </div>
+    ) :  (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Become a poll voter!</h3>
+                <h3>Sign in to apply!</h3>
+              <a href={URL}>
+                <button>Sign in with Reddit</button>          
+              </a>
+              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+          </div>
+          <div id="pollTable">
+            <h1>Preseason Poll</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Change</th>
+                  <th>Team (#1 Votes)</th>
+                  <th>Points</th>
+                </tr>
+                {rowArray.map(row => row)}              
+              </tbody>
+            </table>    
+            <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+            <h2>Official Ballots</h2>
+            {pollVoterArray.map(voter => voter)}
+            <h2>Provisional Ballots</h2>
+            {provisionalVoterArray.map(voter => voter)}    
+          </div>
+        </div>  
+      </div>
+    );
+  }
+
 }
 
 const getToken = async (body) => {
@@ -474,7 +552,7 @@ const getUserpoll = async () => {
       teamName: fullName,
       points: pointTotalSort[i][1],
       firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
-      url: "/static/D1/AbileneChristian.png"
+      url: team.url
     });
   }
 
