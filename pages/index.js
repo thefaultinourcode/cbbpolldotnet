@@ -176,42 +176,8 @@ export default function Home(props) {
   //   </div>
   // );
   // }
-  if(today < pollDate){
-    return props.user ? (    
-      <div className="homepage">
-        
-        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
-  
-        <div className="content">  
-          <div id="ballotBox">
-                <h3>Become a poll voter!</h3>
-                <h3>Apply now {props.user.name}!</h3>
-              <a href={'/application'}>
-                <button>Apply Now!</button>          
-              </a>
-              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
-          </div>
-        </div>  
-  
-      </div>
-    ) :  (    
-      <div className="homepage">
-        
-        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-        <div className="content">  
-          <div id="ballotBox">
-                <h3>Become a poll voter!</h3>
-                <h3>Sign in to apply!</h3>
-              <a href={URL}>
-                <button>Sign in with Reddit</button>          
-              </a>
-              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
-          </div>
-        </div>  
-      </div>
-    );
-  }
-  else if(today >= pollDate || modlist.includes(props.user.name)){
+
+  if(today >= pollDate || modlist.includes(props.user.name)){
     return props.user ? (    
       <div className="homepage">
         
@@ -279,6 +245,41 @@ export default function Home(props) {
             {pollVoterArray.map(voter => voter)}
             <h2>Provisional Ballots</h2>
             {provisionalVoterArray.map(voter => voter)}    
+          </div>
+        </div>  
+      </div>
+    );
+  }
+  else if(today < pollDate){
+    return props.user ? (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+  
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Become a poll voter!</h3>
+                <h3>Apply now {props.user.name}!</h3>
+              <a href={'/application'}>
+                <button>Apply Now!</button>          
+              </a>
+              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+          </div>
+        </div>  
+  
+      </div>
+    ) :  (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Become a poll voter!</h3>
+                <h3>Sign in to apply!</h3>
+              <a href={URL}>
+                <button>Sign in with Reddit</button>          
+              </a>
+              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
           </div>
         </div>  
       </div>
