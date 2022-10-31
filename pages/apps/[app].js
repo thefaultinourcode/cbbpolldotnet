@@ -7,13 +7,9 @@ import { connectMongo } from "../../utils/connect";
 export default function UserApp (props) {
   const router = useRouter();
   const { app } = router.query;
-  console.log(props.user);
-  console.log(props.application);
-  console.log(props.favTeams);
 
   let application = props.application[0];
   let ballot = props.ballot;
-  console.log('ballot:', ballot);
 
   let reasons = [];
   if(application){
@@ -54,8 +50,6 @@ export default function UserApp (props) {
           reasons.push('My experience as a basketball player, coach, or referee tends to guide my focus.');  
       }
   }
-
-  console.log('reasons:', reasons);
 
   return (
     <div>
