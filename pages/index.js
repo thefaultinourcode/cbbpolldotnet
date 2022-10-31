@@ -186,7 +186,16 @@ export default function Home(props) {
   // );
   // }
 
-  if(today >= pollDate || modlist.includes(props.user.name)){
+  let userCheck;
+  if(props.user){
+    userCheck = props.user.name;
+  }
+  else{
+    userCheck = false;
+  }
+
+
+  if(today >= pollDate || modlist.includes(userCheck)){
     return props.user ? (    
       <div className="homepage">
         
