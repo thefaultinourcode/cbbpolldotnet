@@ -45,8 +45,8 @@ export default function Home(props) {
 
   let tableData = <tr>
                     <th>Rank</th>
-                    <th>Change</th>
                     <th>Team (#1 Votes)</th>
+                    <th>Change</th>
                     <th>Points</th>
                   </tr>;
 
@@ -252,8 +252,8 @@ export default function Home(props) {
               <tbody>
                 <tr>
                   <th>Rank</th>
-                  <th>Change</th>
                   <th>Team (#1 Votes)</th>
+                  <th>Change</th>
                   <th>Points</th>
                 </tr>
                 {rowArray.map(row => row)}              
