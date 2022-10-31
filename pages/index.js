@@ -34,11 +34,12 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 export default function Home(props) {
   let pollDate = new Date('31 October 2022 14:00 UTC');
-  let today = new Date();
-  //let today = new Date('31 October 2022 14:00 UTC');
+  //let today = new Date();
+  let today = new Date('31 October 2022 14:00 UTC');
 
   let userpoll = props.userpoll;
   let pollVoters = props.pollVoters;
+  console.log('pollVoters:', pollVoters);
   let provisionalVoters = props.provisionalVoters;
   let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 
@@ -61,7 +62,7 @@ export default function Home(props) {
               {userpoll[i].rank}
             </td>
             <td>
-              <Image src={userpoll[i].url} width={100} height={100}></Image> {userpoll[i].teamName} ({userpoll[i].firstPlaceVotes})
+              <Image src={userpoll[i].url} width={30} height={30}></Image> <span className="boldText">{userpoll[i].teamName}</span> ({userpoll[i].firstPlaceVotes})
             </td>
             <td>
               -
@@ -79,7 +80,7 @@ export default function Home(props) {
               {userpoll[i].rank}
             </td>
             <td>
-            <Image src={userpoll[i].url} width={50} height={50}></Image> {userpoll[i].teamName}
+            <Image src={userpoll[i].url} width={30} height={30}></Image> <span className="boldText"> {userpoll[i].teamName} </span>
             </td>
             <td>
               -
@@ -93,18 +94,17 @@ export default function Home(props) {
     }
     else{
       if(i < userpoll.length - 1 ){
-        othersReceivingVotes = othersReceivingVotes + userpoll[i].teamName + " " + userpoll[i].points + ", "
+        othersReceivingVotes = othersReceivingVotes + userpoll[i].shortName + " " + userpoll[i].points + ", "
       }
       else{
-        othersReceivingVotes = othersReceivingVotes + userpoll[i].teamName + " " + userpoll[i].points
+        othersReceivingVotes = othersReceivingVotes + userpoll[i].shortName + " " + userpoll[i].points
       }
     }
   }
 
-  console.log(tableData);
-
   let pollVoterArray = [];
   for(let i = 0; i < pollVoters.length; i++){
+    console.log('pollVoters[i]:', pollVoters[i].url);
     if(i !== pollVoters.length - 1){
       pollVoterArray.push(
                           <Link href={`/ballots/${pollVoters[i].ballotId}`}>
@@ -193,6 +193,7 @@ export default function Home(props) {
   else{
     userCheck = false;
   }
+
 
 
   if(today >= pollDate || modlist.includes(userCheck)){
@@ -456,6 +457,7 @@ const getBallots = async (pollVoter) => {
   const ballots = await UserBallot.find({user: {$in: users}});
   console.log('FETCHED DOCUMENT');
   
+  console.log('ballots:', ballots);
   let voters = [];
   for(let i = 0; i < ballots.length; i++){
     let user = await getUserInfo(ballots[i].user);
@@ -464,7 +466,7 @@ const getBallots = async (pollVoter) => {
     voters.push({
       username: ballots[i].user,
       ballotId: ballots[i]._id.toString(),
-      url: team.url
+      url: url
     })
   }
   console.log('voters:', voters);
@@ -570,6 +572,7 @@ const getUserpoll = async () => {
       rank: pointTotalSort[i][2],
       teamId: pointTotalSort[i][0],
       teamName: fullName,
+      shortName: team.shortName,
       points: pointTotalSort[i][1],
       firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
       url: team.url

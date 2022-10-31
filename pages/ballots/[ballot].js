@@ -10,6 +10,7 @@ let ObjectId = require('mongodb').ObjectID;
 export default function UserRanking (props){
     const router = useRouter();
     const { id } = router.query;   
+    console.log('router.query:', router.query);
     console.log('props:', props);
     console.log('props:', props.user);
     console.log('teams:', props.team);
@@ -18,6 +19,7 @@ export default function UserRanking (props){
     return(
         <div>
             <span><h1><Image src={props.team.url} width={100} height={100}></Image>{props.ballot.user}&apos;s Ballot</h1></span>
+            <h2>{id}</h2>
             <table>
                 <tbody>
                 <tr>
@@ -160,7 +162,9 @@ export default function UserRanking (props){
 }
 
 export const getServerSideProps = async ({ query }) => {
-    let ballotId = query.app;   
+    let ballotId = query.ballot;
+    console.log('query:', query);
+    console.log('ballotId:', ballotId);   
     let ballot = await getBallot(ballotId);
     ballot = JSON.parse(JSON.stringify(ballot));  
     let user = await getUserData(ballot.user);
@@ -194,7 +198,6 @@ export const getServerSideProps = async ({ query }) => {
     let twentyFour = await getTeam(ballot.twentyFour.id);
     let twentyFive = await getTeam(ballot.twentyFive.id);
 
-    console.log('one:', one);
     urls["one"] = one.url;
     urls["two"] = two.url;
     urls["three"] = three.url;
@@ -221,43 +224,31 @@ export const getServerSideProps = async ({ query }) => {
     urls["twentyFour"] = twentyFour.url;
     urls["twentyFive"] = twentyFive.url;
 
-
-    console.log('urls:', urls);
-
     return { props: {ballot, user, team, urls} };
 }
 
 const getBallot = async (id) => {
-    console.log('CONNECTING TO MONGO');
     await connectMongo();
-    console.log('CONNECTED TO MONGO');
-  
-    console.log('FETCHING BALLOT');
 
-    console.log(ObjectId(id));
+    console.log('Id:', ObjectId(id));
 
-    const ballot = await UserBallot.findOne({'id':ObjectId(id)});
+    const ballot = await UserBallot.findOne({'_id':ObjectId(id)});
     const userBallot = JSON.parse(JSON.stringify(ballot));
-    console.log('FETCHED BALLOT');
+    console.log('userBallot:', userBallot);
     return userBallot;
   }
 
   async function getTeam(id){
-    console.log('CONNECTING TO MONGO')
+
     await connectMongo();
-    console.log('CONNECTED TO MONGO')
-    console.log('FETCHING DOCUMENT');
+
     const teamData = await TeamData.findOne({_id: id});
-    console.log('FETCHED DOCUMENT');
   
     return teamData;
   }
 
   const getUserData = async (user) => {
-    console.log('CONNECTING TO MONGO');
     await connectMongo();
-    console.log('CONNECTED TO MONGO');
-  
 
     const u = await User.find({name: user});
     const userData = JSON.parse(JSON.stringify(u));

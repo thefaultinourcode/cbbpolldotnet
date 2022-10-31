@@ -218,7 +218,7 @@ export default function UserApp (props) {
 
 export const getServerSideProps = async ({ query }) => {
     let user = query.app;
-    console.log(user);
+    console.log('user print:', user);
     let application = await getApp(user);
     console.log(application);
     application = JSON.parse(JSON.stringify(application));    
@@ -236,26 +236,19 @@ export const getServerSideProps = async ({ query }) => {
 }
 
 async function getApp(user){
-    console.log('CONNECTING TO MONGO')
-    await connectMongo();
-    console.log('CONNECTED TO MONGO')
 
-    console.log('FETCHING DOCUMENT');
+    await connectMongo();
     const application = await ApplicationData.find({user: user});
-    console.log('FETCHED DOCUMENT');
 
     return application;
 }
 
 const getBallot = async (user) => {
-  console.log('CONNECTING TO MONGO');
   await connectMongo();
-  console.log('CONNECTED TO MONGO');
 
-  console.log('FETCHING BALLOT');
+
   const ballot = await UserBallot.findOne({'user': user, 'week': "Pre-Season"});
   const userBallot = JSON.parse(JSON.stringify(ballot));
-  console.log('FETCHED BALLOT');
   return userBallot;
 }
 
