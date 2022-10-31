@@ -34,8 +34,8 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 export default function Home(props) {
   let pollDate = new Date('31 October 2022 14:00 UTC');
-  //let today = new Date();
-  let today = new Date('31 October 2022 14:00 UTC');
+  let today = new Date();
+  //let today = new Date('31 October 2022 14:00 UTC');
 
   let userpoll = props.userpoll;
   let pollVoters = props.pollVoters;
