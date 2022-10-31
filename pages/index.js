@@ -26,7 +26,8 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 export default function Home(props) {
   let pollDate = new Date('31 October 2022 14:00 UTC');
   let today = new Date();
-  
+  //let today = new Date('31 October 2022 14:00 UTC');
+
   let userpoll = props.userpoll;
   let pollVoters = props.pollVoters;
   let provisionalVoters = props.provisionalVoters;
@@ -137,45 +138,45 @@ export default function Home(props) {
     }
   }
 
-  if(modlist.includes(props.user.name)){
-    return(    
-      <div className="homepage">
-      <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+  // if(modlist.includes(props.user.name)){
+  //   return(    
+  //     <div className="homepage">
+  //     <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
 
-      <div className="content">  
-        <div id="ballotBox">
-              <h3>Become a poll voter!</h3>
-              <h3>Apply now {props.user.name}!</h3>
-            <a href={'/application'}>
-              <button>Apply Now!</button>          
-            </a>
-            <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
-        </div>
-        <div id="pollTable">
-          <h1>Preseason Poll</h1>
-          <table>
-            <tbody>
-              <tr>
-                <th>Rank</th>
-                <th>Team (#1 Votes)</th>
-                <th>Change</th>
-                <th>Points</th>
-              </tr>
-              {rowArray.map(row => row)}
-            </tbody>
-          </table>
-          <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
-          <h2>Official Ballots</h2>
-          {pollVoterArray.map(voter => voter)}
-          <h2>Provisional Ballots</h2>
-          {provisionalVoterArray.map(voter => voter)}
-        </div>
-      </div>  
+  //     <div className="content">  
+  //       <div id="ballotBox">
+  //             <h3>Become a poll voter!</h3>
+  //             <h3>Apply now {props.user.name}!</h3>
+  //           <a href={'/application'}>
+  //             <button>Apply Now!</button>          
+  //           </a>
+  //           <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+  //       </div>
+  //       <div id="pollTable">
+  //         <h1>Preseason Poll</h1>
+  //         <table>
+  //           <tbody>
+  //             <tr>
+  //               <th>Rank</th>
+  //               <th>Team (#1 Votes)</th>
+  //               <th>Change</th>
+  //               <th>Points</th>
+  //             </tr>
+  //             {rowArray.map(row => row)}
+  //           </tbody>
+  //         </table>
+  //         <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+  //         <h2>Official Ballots</h2>
+  //         {pollVoterArray.map(voter => voter)}
+  //         <h2>Provisional Ballots</h2>
+  //         {provisionalVoterArray.map(voter => voter)}
+  //       </div>
+  //     </div>  
 
-    </div>
-  );
-  }
-  else if(today < pollDate){
+  //   </div>
+  // );
+  // }
+  if(today < pollDate){
     return props.user ? (    
       <div className="homepage">
         
@@ -210,7 +211,7 @@ export default function Home(props) {
       </div>
     );
   }
-  else if(today >= pollDate){
+  else if(today >= pollDate || modlist.includes(props.user.name)){
     return props.user ? (    
       <div className="homepage">
         
