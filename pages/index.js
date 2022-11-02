@@ -129,7 +129,7 @@ export default function Home(props) {
   for(let i = 0; i < provisionalVoters.length; i++){
     if(i !== pollVoters.length - 1){
       provisionalVoterArray.push(
-                                <Link href={`/ballots/${pollVoters[i].ballotId}`}>
+                                <Link href={`/ballots/${provisionalVoters[i].ballotId}`}>
                                   <span>
                                     <a><Image src={provisionalVoters[i].url} width={25} height={25}></Image> {provisionalVoters[i].username}, </a>
                                   </span>
@@ -139,7 +139,7 @@ export default function Home(props) {
     }
     else{
       provisionalVoterArray.push(   
-        <Link href={`/ballots/${pollVoters[i].ballotId}`}>
+        <Link href={`/ballots/${provisionalVoters[i].ballotId}`}>
           <span>
             <a><Image src={provisionalVoters[i].url} width={25} height={25}></Image>  {provisionalVoters[i].username} </a>
           </span>
