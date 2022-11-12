@@ -51,12 +51,17 @@ export default function BallotBox (props){
             props.ballot.overallReasoning = event.target.overallReasoning.value;
         }
         else{
+            ballotObj.user = ballot.user;
+            ballotObj.week = ballot.week;
+            ballotObj.season = ballot.date;
             for(let i=1; i<=25; i++){
                 let reasoning = 'reasoning' + i;
                 console.log('ballot[i]:', ballot[i]);
                 ballotObj[i] = ballot[i];
                 ballotObj[i].reasoning = event.target[reasoning].value;
             }
+
+            ballotObj.overallReasoning = event.target.overallReasoning.value;
         }
         
         console.log('ballotObj:', ballotObj);
@@ -145,9 +150,9 @@ export default function BallotBox (props){
         if(props.ballot){
             ballotObj = props.ballot;
         }
-        else{
-            ballotObj = ballot;
-        }
+        // else{
+        //     ballotObj = ballot;
+        // }
 
         let validBallot = validateBallot(ballotObj);
 
