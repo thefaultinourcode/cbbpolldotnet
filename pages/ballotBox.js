@@ -16,10 +16,6 @@ export default function BallotBox (props){
     let openDate = new Date(Date.UTC(2022, 10, 12, 14, 59));
     let closeDate = new Date(Date.UTC(2022, 10, 14, 14, 59));
 
-    if(props.user == null){
-        return(<h1>Please login</h1>);
-    }
-
     const [ballot, setBallot] = useState(
         {
             date: Date.now(),
@@ -28,12 +24,18 @@ export default function BallotBox (props){
         }
     );
 
+    const [errorBallot, setErrorBallot] = useState();
+
+    if(props.user == null){
+        return(<h1>Please login</h1>);
+    }
+
     let prevBallot=props.ballot;
     if(prevBallot){
         console.log('hereistest');
     }
 
-    const [errorBallot, setErrorBallot] = useState();
+
 
     const handleSubmit = async(event) => {
         event.preventDefault();
