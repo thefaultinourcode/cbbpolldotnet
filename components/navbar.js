@@ -47,13 +47,24 @@ export default function Navbar(props) {
 
                 <div className='linkBlock'>
                     <li className='navbar-list-item center'>
+                    <a href="../ballotBox">
+                        <div className='navbar-link'>
+                            Vote
+                        </div>
+                    </a>                    
+                    </li>
+                </div>
+
+                {/* Application Link */}
+                {/* <div className='linkBlock'>
+                    <li className='navbar-list-item center'>
                     <a href="../application">
                         <div className='navbar-link'>
                             Application
                         </div>
                     </a>                    
                     </li>
-                </div>
+                </div> */}
 
                 <div className='linkBlock'>
                     <li className='navbar-list-item center'>

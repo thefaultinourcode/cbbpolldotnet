@@ -7,6 +7,8 @@ import Image from 'next/image';
 import User from "../models/User";
 import UserBallot from "../models/UserBallot";
 import TeamData from "../models/TeamData";
+import Userpoll from "../models/Userpoll";
+import TeamRow from "../components/pollrow";
 import { connectMongo } from "../utils/connect";
 import Link from 'next/link';
 
@@ -37,9 +39,40 @@ export default function Home(props) {
   let today = new Date();
   //let today = new Date('31 October 2022 14:00 UTC');
 
-  let userpoll = props.userpoll;
+  async function addPoll(userpollData){
+    const res = await fetch('/api/addPoll',{
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+          userpollData
+      ),
+    });
+
+  const data = await res.json();
+  }
+
+  let userpoll = props.userpoll.poll;
+  let week = props.userpoll.week;
+  let season = props.userpoll.season;
+  console.log('userpoll:', userpoll);
+
+  if(props.userpoll.new){
+    console.log('userpoll');
+    let userpollData = {
+      week: "Pre-Season",
+      season: "2022-2023",
+      poll: userpoll 
+    }
+    addPoll(userpollData); 
+  }
+  else{
+    console.log('no userplol');
+  }
+
+  
   let pollVoters = props.pollVoters;
-  console.log('pollVoters:', pollVoters);
   let provisionalVoters = props.provisionalVoters;
   let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 
@@ -54,43 +87,8 @@ export default function Home(props) {
 
   let rowArray = [];           
   for(let i = 0; i < userpoll.length; i++){
-    if(userpoll[i].rank <= 25){
-      if(userpoll[i].firstPlaceVotes > 0){
-        rowArray.push(
-          <tr>
-            <td>
-              {userpoll[i].rank}
-            </td>
-            <td>
-              <Image src={userpoll[i].url} width={30} height={30}></Image> <span className="boldText">{userpoll[i].teamName}</span> ({userpoll[i].firstPlaceVotes})
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-              {userpoll[i].points}
-            </td>
-          </tr>
-        );
-      }
-      else{
-        rowArray.push(
-          <tr>
-            <td>
-              {userpoll[i].rank}
-            </td>
-            <td>
-            <Image src={userpoll[i].url} width={30} height={30}></Image> <span className="boldText"> {userpoll[i].teamName} </span>
-            </td>
-            <td>
-              -
-            </td>
-            <td>
-              {userpoll[i].points}
-            </td>
-          </tr>
-        );
-      }
+    if(userpoll[i].rank <= 25){      
+      rowArray.push(<TeamRow rank={userpoll[i].rank} url={userpoll[i].url} teamName={userpoll[i].teamName} firstPlaceVotes={userpoll[i].firstPlaceVotes} points={userpoll[i].points}></TeamRow>)
     }
     else{
       if(i < userpoll.length - 1 ){
@@ -104,7 +102,6 @@ export default function Home(props) {
 
   let pollVoterArray = [];
   for(let i = 0; i < pollVoters.length; i++){
-    console.log('pollVoters[i]:', pollVoters[i].url);
     if(i !== pollVoters.length - 1){
       pollVoterArray.push(
                           <Link href={`/ballots/${pollVoters[i].ballotId}`}>
@@ -147,45 +144,6 @@ export default function Home(props) {
     }
   }
 
-  // if(modlist.includes(props.user.name)){
-  //   return(    
-  //     <div className="homepage">
-  //     <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
-
-  //     <div className="content">  
-  //       <div id="ballotBox">
-  //             <h3>Become a poll voter!</h3>
-  //             <h3>Apply now {props.user.name}!</h3>
-  //           <a href={'/application'}>
-  //             <button>Apply Now!</button>          
-  //           </a>
-  //           <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
-  //       </div>
-  //       <div id="pollTable">
-  //         <h1>Preseason Poll</h1>
-  //         <table>
-  //           <tbody>
-  //             <tr>
-  //               <th>Rank</th>
-  //               <th>Team (#1 Votes)</th>
-  //               <th>Change</th>
-  //               <th>Points</th>
-  //             </tr>
-  //             {rowArray.map(row => row)}
-  //           </tbody>
-  //         </table>
-  //         <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
-  //         <h2>Official Ballots</h2>
-  //         {pollVoterArray.map(voter => voter)}
-  //         <h2>Provisional Ballots</h2>
-  //         {provisionalVoterArray.map(voter => voter)}
-  //       </div>
-  //     </div>  
-
-  //   </div>
-  // );
-  // }
-
   let userCheck;
   if(props.user){
     userCheck = props.user.name;
@@ -204,12 +162,11 @@ export default function Home(props) {
   
         <div className="content">  
           <div id="ballotBox">
-                <h3>Become a poll voter!</h3>
-                <h3>Apply now {props.user.name}!</h3>
-              <a href={'/application'}>
-                <button>Apply Now!</button>          
+                <h3>Vote for Week 2!</h3>
+              <a href={'/ballotBox'}>
+                <button>VOTE NOW</button>          
               </a>
-              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+              <h3>Week 2 closes Monday, November 14, at 9:59am EST</h3>
           </div>
           <div id="pollTable">
             <h1>Preseason Poll</h1>
@@ -324,12 +281,9 @@ const getToken = async (body) => {
 };
 
 export const getServerSideProps = async ({ query, req, res }) => {
+  
   const refresh_token = getCookie("refresh_token", { req, res });
   const access_token = getCookie("access_token", { req, res });
-
-  if(query.state === RANDOM_STRING){
-    console.log('test');
-  }
 
   if (refresh_token) {
     if (access_token) {
@@ -343,7 +297,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
         refresh_token: refresh_token,
         grant_type: "refresh_token",
       });
-      console.log('token:', token);
       setCookie("refresh_token", token.refresh_token, {
         req,
         res,
@@ -362,7 +315,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
     }
   } else if (query.code && query.state === RANDOM_STRING) {
     try {
-      console.log('else if');
       const token = await getToken({
         code: query.code,
         grant_type: "authorization_code",
@@ -388,7 +340,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
       return { props: { user: null } };
     }
   } else {
-    console.log('else');
     const userpoll = await getUserpoll();
     const pollVoters = await getBallots(true);
     const provisionalVoters = await getBallots(false);
@@ -408,15 +359,10 @@ const getUser = async (access_token) => {
 };
 
 const getUserList = async (pollVoter) => {
-  console.log('CONNECTING TO MONGO');
   await connectMongo();
-  console.log('CONNECTED TO MONGO');
 
-  console.log('FETCHING APP');
   const users = await User.find({pollVoter: pollVoter});
   const userList = JSON.parse(JSON.stringify(users));
-  console.log('userList:', userList);
-  console.log('FETCHED APP');
   let userArray = [];
   for(let i = 0; i < userList.length; i++){
     userArray.push(userList[i].name);
@@ -425,39 +371,19 @@ const getUserList = async (pollVoter) => {
 }
 
 const getUserInfo = async (username) =>{
-  console.log('CONNECTING TO MONGO')
   await connectMongo();
-  console.log('CONNECTED TO MONGO')
 
-  console.log('FETCHING DOCUMENT');
   const user = await User.find({name: username});
-  console.log('FETCHED DOCUMENT');
   return user;
 }
 
 const getBallots = async (pollVoter) => {
-  console.log('pollVoter:', pollVoter);
   let users = await getUserList(pollVoter);
-  console.log('user list:', users);
-  
-  if(pollVoter){
 
-  }
-  else if(!pollVoter){
-    console.log('pollVoter:', pollVoter);
-    console.log('false');
-    console.log('user list:', users);
-  }
-  
-  console.log('CONNECTING TO MONGO');
   await connectMongo();
-  console.log('CONNECTED TO MONGO')
 
-  console.log('FETCHING DOCUMENT');
   const ballots = await UserBallot.find({user: {$in: users}});
-  console.log('FETCHED DOCUMENT');
-  
-  console.log('ballots:', ballots);
+
   let voters = [];
   for(let i = 0; i < ballots.length; i++){
     let user = await getUserInfo(ballots[i].user);
@@ -469,135 +395,155 @@ const getBallots = async (pollVoter) => {
       url: url
     })
   }
-  console.log('voters:', voters);
   return voters;
 }
 
 async function getTeam(id){
-  console.log('CONNECTING TO MONGO')
   await connectMongo();
-  console.log('CONNECTED TO MONGO')
-  console.log('FETCHING DOCUMENT');
+
   const teamData = await TeamData.findOne({_id: id});
-  console.log('FETCHED DOCUMENT');
 
   return teamData;
 }
 
+const getPoll = async (week, season) => {
+  await connectMongo();
+  const poll = await Userpoll.findOne({week: week, season: season});  
+  const userpoll = JSON.parse(JSON.stringify(poll));
+  console.log('userpoll:', userpoll);
+  return userpoll;
+}
 
 const getUserpoll = async () => {
-  let userArray = await getUserList(true);
-
-  console.log('CONNECTING TO MONGO');
-  await connectMongo();
-  console.log('CONNECTED TO MONGO');
-
-  console.log('FETCHING APP');
-  const ballots = await UserBallot.find({week: "Pre-Season", user: {$in: userArray} });
-  const ballotList = JSON.parse(JSON.stringify(ballots));
-  console.log('FETCHED APP');
-
-  let numberOne = {};
-  let pointTotals = {};
-  for(let i = 0; i < ballotList.length; i++){
-    if(numberOne[ballotList[i].one.id] == null){
-      numberOne[ballotList[i].one.id] = 0;
-    }
-    numberOne[ballotList[i].one.id]++;
-
-    pointTotals[ballotList[i].one.id] = getPoints(pointTotals, ballotList[i].one.id, ballotList[i].one.points);
-    pointTotals[ballotList[i].two.id] = getPoints(pointTotals, ballotList[i].two.id, ballotList[i].two.points);
-    pointTotals[ballotList[i].three.id] = getPoints(pointTotals, ballotList[i].three.id, ballotList[i].three.points);
-    pointTotals[ballotList[i].four.id] = getPoints(pointTotals, ballotList[i].four.id, ballotList[i].four.points);
-    pointTotals[ballotList[i].five.id] = getPoints(pointTotals, ballotList[i].five.id, ballotList[i].five.points);
-    pointTotals[ballotList[i].six.id] = getPoints(pointTotals, ballotList[i].six.id, ballotList[i].six.points);
-    pointTotals[ballotList[i].seven.id] = getPoints(pointTotals, ballotList[i].seven.id, ballotList[i].seven.points);
-    pointTotals[ballotList[i].eight.id] = getPoints(pointTotals, ballotList[i].eight.id, ballotList[i].eight.points);
-    pointTotals[ballotList[i].nine.id] = getPoints(pointTotals, ballotList[i].nine.id, ballotList[i].nine.points);
-    pointTotals[ballotList[i].ten.id] = getPoints(pointTotals, ballotList[i].ten.id, ballotList[i].ten.points);
-    pointTotals[ballotList[i].eleven.id] = getPoints(pointTotals, ballotList[i].eleven.id, ballotList[i].eleven.points);
-    pointTotals[ballotList[i].twelve.id] = getPoints(pointTotals, ballotList[i].twelve.id, ballotList[i].twelve.points);
-    pointTotals[ballotList[i].thirteen.id] = getPoints(pointTotals, ballotList[i].thirteen.id, ballotList[i].thirteen.points);
-    pointTotals[ballotList[i].fourteen.id] = getPoints(pointTotals, ballotList[i].fourteen.id, ballotList[i].fourteen.points);
-    pointTotals[ballotList[i].fifteen.id] = getPoints(pointTotals, ballotList[i].fifteen.id, ballotList[i].fifteen.points);
-    pointTotals[ballotList[i].sixteen.id] = getPoints(pointTotals, ballotList[i].sixteen.id, ballotList[i].sixteen.points);
-    pointTotals[ballotList[i].seventeen.id] = getPoints(pointTotals, ballotList[i].seventeen.id, ballotList[i].seventeen.points);
-    pointTotals[ballotList[i].eighteen.id] = getPoints(pointTotals, ballotList[i].eighteen.id, ballotList[i].eighteen.points);
-    pointTotals[ballotList[i].nineteen.id] = getPoints(pointTotals, ballotList[i].nineteen.id, ballotList[i].nineteen.points);
-    pointTotals[ballotList[i].twenty.id] = getPoints(pointTotals, ballotList[i].twenty.id, ballotList[i].twenty.points);
-    pointTotals[ballotList[i].twentyOne.id] = getPoints(pointTotals, ballotList[i].twentyOne.id, ballotList[i].twentyOne.points);
-    pointTotals[ballotList[i].twentyTwo.id] = getPoints(pointTotals, ballotList[i].twentyTwo.id, ballotList[i].twentyTwo.points);
-    pointTotals[ballotList[i].twentyThree.id] = getPoints(pointTotals, ballotList[i].twentyThree.id, ballotList[i].twentyThree.points);
-    pointTotals[ballotList[i].twentyFour.id] = getPoints(pointTotals, ballotList[i].twentyFour.id, ballotList[i].twentyFour.points);
-    pointTotals[ballotList[i].twentyFive.id] = getPoints(pointTotals, ballotList[i].twentyFive.id, ballotList[i].twentyFive.points);
+  async function findPoll(){
+    let poll = await Userpoll.exists({week: "Pre-Season", season: "2022-2023"});
+    console.log('poll:', poll);
+    return poll;
   }
 
-  function getPoints(obj, id, points){
-    if(obj[id] == null){
-      obj[id] = 0;
-    }
-    obj[id] += points;
-    return obj[id];
+  let poll = await findPoll();
+  console.log(poll);
+  
+  if(poll){
+    console.log('if poll then...');
+    let week = "Pre-Season";
+    let season = "2022-2023";
+    let userpoll = await getPoll(week, season);
+    return userpoll;
   }
+  else{
+    console.log('else poll then...');
 
-  let pointTotalSort = Object.entries(pointTotals).sort((a,b) => b[1] - a[1]);
+    let userArray = await getUserList(true);
 
-  let rank;
-  for (let i = 0; i < pointTotalSort.length; i++){
-    if(i === 0){
-      rank = 1;
-      pointTotalSort[i].push(rank);
+    await connectMongo();
+  
+    const ballots = await UserBallot.find({week: "Pre-Season", user: {$in: userArray} });
+    const ballotList = JSON.parse(JSON.stringify(ballots));
+  
+    let numberOne = {};
+    let pointTotals = {};
+    for(let i = 0; i < ballotList.length; i++){
+      if(numberOne[ballotList[i].one.id] == null){
+        numberOne[ballotList[i].one.id] = 0;
+      }
+      numberOne[ballotList[i].one.id]++;
+  
+      pointTotals[ballotList[i].one.id] = getPoints(pointTotals, ballotList[i].one.id, ballotList[i].one.points);
+      pointTotals[ballotList[i].two.id] = getPoints(pointTotals, ballotList[i].two.id, ballotList[i].two.points);
+      pointTotals[ballotList[i].three.id] = getPoints(pointTotals, ballotList[i].three.id, ballotList[i].three.points);
+      pointTotals[ballotList[i].four.id] = getPoints(pointTotals, ballotList[i].four.id, ballotList[i].four.points);
+      pointTotals[ballotList[i].five.id] = getPoints(pointTotals, ballotList[i].five.id, ballotList[i].five.points);
+      pointTotals[ballotList[i].six.id] = getPoints(pointTotals, ballotList[i].six.id, ballotList[i].six.points);
+      pointTotals[ballotList[i].seven.id] = getPoints(pointTotals, ballotList[i].seven.id, ballotList[i].seven.points);
+      pointTotals[ballotList[i].eight.id] = getPoints(pointTotals, ballotList[i].eight.id, ballotList[i].eight.points);
+      pointTotals[ballotList[i].nine.id] = getPoints(pointTotals, ballotList[i].nine.id, ballotList[i].nine.points);
+      pointTotals[ballotList[i].ten.id] = getPoints(pointTotals, ballotList[i].ten.id, ballotList[i].ten.points);
+      pointTotals[ballotList[i].eleven.id] = getPoints(pointTotals, ballotList[i].eleven.id, ballotList[i].eleven.points);
+      pointTotals[ballotList[i].twelve.id] = getPoints(pointTotals, ballotList[i].twelve.id, ballotList[i].twelve.points);
+      pointTotals[ballotList[i].thirteen.id] = getPoints(pointTotals, ballotList[i].thirteen.id, ballotList[i].thirteen.points);
+      pointTotals[ballotList[i].fourteen.id] = getPoints(pointTotals, ballotList[i].fourteen.id, ballotList[i].fourteen.points);
+      pointTotals[ballotList[i].fifteen.id] = getPoints(pointTotals, ballotList[i].fifteen.id, ballotList[i].fifteen.points);
+      pointTotals[ballotList[i].sixteen.id] = getPoints(pointTotals, ballotList[i].sixteen.id, ballotList[i].sixteen.points);
+      pointTotals[ballotList[i].seventeen.id] = getPoints(pointTotals, ballotList[i].seventeen.id, ballotList[i].seventeen.points);
+      pointTotals[ballotList[i].eighteen.id] = getPoints(pointTotals, ballotList[i].eighteen.id, ballotList[i].eighteen.points);
+      pointTotals[ballotList[i].nineteen.id] = getPoints(pointTotals, ballotList[i].nineteen.id, ballotList[i].nineteen.points);
+      pointTotals[ballotList[i].twenty.id] = getPoints(pointTotals, ballotList[i].twenty.id, ballotList[i].twenty.points);
+      pointTotals[ballotList[i].twentyOne.id] = getPoints(pointTotals, ballotList[i].twentyOne.id, ballotList[i].twentyOne.points);
+      pointTotals[ballotList[i].twentyTwo.id] = getPoints(pointTotals, ballotList[i].twentyTwo.id, ballotList[i].twentyTwo.points);
+      pointTotals[ballotList[i].twentyThree.id] = getPoints(pointTotals, ballotList[i].twentyThree.id, ballotList[i].twentyThree.points);
+      pointTotals[ballotList[i].twentyFour.id] = getPoints(pointTotals, ballotList[i].twentyFour.id, ballotList[i].twentyFour.points);
+      pointTotals[ballotList[i].twentyFive.id] = getPoints(pointTotals, ballotList[i].twentyFive.id, ballotList[i].twentyFive.points);
     }
-    else{
-      if(pointTotalSort[i][1] === pointTotalSort[i-1][1]){
+  
+    function getPoints(obj, id, points){
+      if(obj[id] == null){
+        obj[id] = 0;
+      }
+      obj[id] += points;
+      return obj[id];
+    }
+  
+    let pointTotalSort = Object.entries(pointTotals).sort((a,b) => b[1] - a[1]);
+  
+    let rank;
+    for (let i = 0; i < pointTotalSort.length; i++){
+      if(i === 0){
+        rank = 1;
         pointTotalSort[i].push(rank);
-        rank++;
       }
       else{
-        rank++;
-        pointTotalSort[i].push(rank);
+        if(pointTotalSort[i][1] === pointTotalSort[i-1][1]){
+          pointTotalSort[i].push(rank);
+          rank++;
+        }
+        else{
+          rank++;
+          pointTotalSort[i].push(rank);
+        }
+  
       }
-
     }
-  }
-
-  let userpoll = [];
-
-
-  for(let i = 0; i < pointTotalSort.length; i++){
-    let team = await getTeam(pointTotalSort[i][0]);
-    let fullName = concatName(team.shortName, team.nickname);
-
-    userpoll.push({
-      rank: pointTotalSort[i][2],
-      teamId: pointTotalSort[i][0],
-      teamName: fullName,
-      shortName: team.shortName,
-      points: pointTotalSort[i][1],
-      firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
-      url: team.url
-    });
-  }
-
-  let userpollData = {
-    week: "Pre-Season",
-    season: "2022-2023",
-    poll: userpoll 
-  }
-
-  function concatName(shortName, nickname){
-    return shortName + " " + nickname;
-  }
-
-  function getFirstPlaceVotes(id){
-    if(numberOne[id]==null){
-      return 0;
+  
+    let userpoll = [];
+  
+  
+    for(let i = 0; i < pointTotalSort.length; i++){
+      let team = await getTeam(pointTotalSort[i][0]);
+      let fullName = concatName(team.shortName, team.nickname);
+  
+      userpoll.push({
+        rank: pointTotalSort[i][2],
+        teamId: pointTotalSort[i][0],
+        teamName: fullName,
+        shortName: team.shortName,
+        points: pointTotalSort[i][1],
+        firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
+        url: team.url
+      });
     }
-    else{
-      return numberOne[id];
+  
+    function concatName(shortName, nickname){
+      return shortName + " " + nickname;
     }
-  }
+  
+    function getFirstPlaceVotes(id){
+      if(numberOne[id]==null){
+        return 0;
+      }
+      else{
+        return numberOne[id];
+      }
+    }
 
-  return userpoll;
+    let userpollData = {
+      week: "Pre-Season",
+      season: "2022-2023",
+      poll: userpoll,
+      new: true
+    }
+
+    return userpollData;
+  }
 } 
 

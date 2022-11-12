@@ -25,7 +25,8 @@ export default function Profile({ user }) {
         </h1>
         
         <div>
-          <h2>Official voter profiles coming soon! Apply <a href='./application'>here</a> to be an official voter.</h2>
+          <h2>Official voter profiles coming soon!</h2>
+          {/* <h2>Official voter profiles coming soon! Apply <a href='./application'>here</a> to be an official voter.</h2> */}
         </div>
 
         <div>
