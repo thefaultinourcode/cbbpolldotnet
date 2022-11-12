@@ -519,7 +519,7 @@ const getUserpoll = async () => {
         shortName: team.shortName,
         points: pointTotalSort[i][1],
         firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
-        url: team.url
+        url: 'https://cbbpoll.net/public'+team.url
       });
     }
   
