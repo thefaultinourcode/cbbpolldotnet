@@ -7,7 +7,7 @@ import Image from 'next/image';
 import User from "../models/User";
 import UserBallot from "../models/UserBallot";
 import TeamData from "../models/TeamData";
-import Userpoll from "../models/Userpoll";
+//import Userpoll from "../models/Userpoll";
 import TeamRow from "../components/pollrow";
 import { connectMongo } from "../utils/connect";
 import Link from 'next/link';
@@ -406,33 +406,33 @@ async function getTeam(id){
   return teamData;
 }
 
-const getPoll = async (week, season) => {
-  await connectMongo();
-  const poll = await Userpoll.findOne({week: week, season: season});  
-  const userpoll = JSON.parse(JSON.stringify(poll));
-  console.log('userpoll:', userpoll);
-  return userpoll;
-}
+// const getPoll = async (week, season) => {
+//   await connectMongo();
+//   const poll = await Userpoll.findOne({week: week, season: season});  
+//   const userpoll = JSON.parse(JSON.stringify(poll));
+//   console.log('userpoll:', userpoll);
+//   return userpoll;
+// }
 
 const getUserpoll = async () => {
-  async function findPoll(){
-    let poll = await Userpoll.exists({week: "Pre-Season", season: "2022-2023"});
-    console.log('poll:', poll);
-    return poll;
-  }
+  // async function findPoll(){
+  //   let poll = await Userpoll.exists({week: "Pre-Season", season: "2022-2023"});
+  //   console.log('poll:', poll);
+  //   return poll;
+  // }
 
-  let poll = await findPoll();
-  console.log(poll);
+  // let poll = await findPoll();
+  // console.log(poll);
   
-  if(poll){
-    console.log('if poll then...');
-    let week = "Pre-Season";
-    let season = "2022-2023";
-    let userpoll = await getPoll(week, season);
-    return userpoll;
-  }
-  else{
-    console.log('else poll then...');
+  // if(poll){
+  //   console.log('if poll then...');
+  //   let week = "Pre-Season";
+  //   let season = "2022-2023";
+  //   let userpoll = await getPoll(week, season);
+  //   return userpoll;
+  // }
+  //else{
+    // console.log('else poll then...');
 
     let userArray = await getUserList(true);
 
@@ -519,7 +519,7 @@ const getUserpoll = async () => {
         shortName: team.shortName,
         points: pointTotalSort[i][1],
         firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
-        url: 'https://cbbpoll.net/public'+team.url
+        url: /*'https://cbbpoll.net/public'+*/team.url
       });
     }
   
@@ -544,6 +544,6 @@ const getUserpoll = async () => {
     }
 
     return userpollData;
-  }
+  //}
 } 
 
