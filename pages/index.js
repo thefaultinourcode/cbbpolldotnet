@@ -15,7 +15,8 @@ import Link from 'next/link';
 const DURATION = "permanent";
 const SCOPE = "identity";
 
-const REDIRECT_URI = process.env.REDIRECT_URI;
+//const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URI = "http://localhost:3000/profile";
 //const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
@@ -23,9 +24,11 @@ const RESPONSE_TYPE = "code";
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 
-const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&state=${RANDOM_STRING}&redirect_uri=${REDIRECT_URI}&duration=${DURATION}&scope=${SCOPE}`;
+//const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&state=${RANDOM_STRING}&redirect_uri=${REDIRECT_URI}&duration=${DURATION}&scope=${SCOPE}`;
+const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&state=${RANDOM_STRING}&redirect_uri=http://localhost:3000/profile&duration=${DURATION}&scope=${SCOPE}`;
 
 export default function Home(props) {
+
   let pollDate = new Date('31 October 2022 14:00 UTC');
   let today = new Date();
   //let today = new Date('31 October 2022 14:00 UTC');
@@ -63,6 +66,8 @@ export default function Home(props) {
   }
 
   
+  console.log('URL:', URL);
+
   let pollVoters = props.pollVoters;
   let provisionalVoters = props.provisionalVoters;
   let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
