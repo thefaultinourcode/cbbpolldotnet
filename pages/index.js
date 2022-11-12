@@ -53,13 +53,14 @@ export default function Home(props) {
   const data = await res.json();
   }
 
-  let userpoll = props.userpoll.poll;
-  let week = props.userpoll.week;
-  let season = props.userpoll.season;
-  console.log('userpoll:', userpoll);
+  let userpoll = props.userpoll;
+  
+  // let week = props.userpoll.week;
+  // let season = props.userpoll.season;
+  //console.log('userpoll:', userpoll);
 
   if(props.userpoll.new){
-    console.log('userpoll');
+    //console.log('userpoll');
     let userpollData = {
       week: "Pre-Season",
       season: "2022-2023",
@@ -85,7 +86,8 @@ export default function Home(props) {
 
   let othersReceivingVotes = '';
 
-  let rowArray = [];           
+  let rowArray = [];      
+       
   for(let i = 0; i < userpoll.length; i++){
     if(userpoll[i].rank <= 25){      
       rowArray.push(<TeamRow rank={userpoll[i].rank} url={userpoll[i].url} teamName={userpoll[i].teamName} firstPlaceVotes={userpoll[i].firstPlaceVotes} points={userpoll[i].points}></TeamRow>)
@@ -519,7 +521,7 @@ const getUserpoll = async () => {
         shortName: team.shortName,
         points: pointTotalSort[i][1],
         firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
-        url: 'https://cbbpoll.net/public'+team.url
+        url: team.url
       });
     }
   
@@ -543,7 +545,9 @@ const getUserpoll = async () => {
       new: true
     }
 
-    return userpollData;
+    console.log('userpollData:', userpollData);
+
+    return userpoll;
   //}
 } 
 
