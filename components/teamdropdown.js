@@ -18,8 +18,8 @@ export default function TeamDropdown(props){
     teamsParse.sort((a,b) => (b.allTimeApVotes > a.allTimeApVotes) ? 1 : -1);
 
     for(let i = 0; i < teamsParse.length; i++){
-        let label = teamsParse[i].shortName + " " + teamsParse[i].longName;
-        teamList.push({value:teamsParse[i]._id, label: label, url: teamsParse[i].url, shortName: teamsParse[i].shortName, name: teamsParse[i].name});
+        let label = teamsParse[i].shortName + " " + teamsParse[i].name;
+        teamList.push({value:teamsParse[i]._id, label: label, url: teamsParse[i].url, shortName: teamsParse[i].shortName, name: teamsParse[i].name, rank: props.rank});
     }
 
     
@@ -43,6 +43,7 @@ export default function TeamDropdown(props){
     }
 
     const twoCalls = e => {
+        props.update(e);
         props.change(e);
         handleChange(e);
     }
@@ -53,9 +54,8 @@ export default function TeamDropdown(props){
     }
 
     if(props.presetTeam){
-        console.log('props.presetTeam:', props.presetTeam);
         let obj = teamList.find(o => o.value === props.presetTeam);
-        console.log('obj:', obj);
+
         return(
             <div>
                  <Select    id={id}
@@ -64,7 +64,7 @@ export default function TeamDropdown(props){
                             options={teamList}
                             defaultValue={{label:obj.label, value:obj.value, shortName:obj.shortName, url:obj.url, name:obj.name}}
                             onChange={event => twoCalls(event)}
-                        
+                            rank={props.rank}
                             // onLoad={() => handleLoad(obj.value, obj.label)}
                             // value={teamList.filter(obj => obj.value === selectedValue)}
                             // label={teamList.filter(obj => obj.label === selectedLabel)}
@@ -88,6 +88,7 @@ export default function TeamDropdown(props){
                             label={teamList.filter(obj => obj.label === selectedLabel)}
                             options={teamList}
                             onChange={event => twoCalls(event)}
+                            rank={props.rank}
                             formatOptionLabel={team => (
                                     <div className="teamOption ">    
                                         <Image src={team.url} width={25} height={25} alt={team.name}></Image>                                            
