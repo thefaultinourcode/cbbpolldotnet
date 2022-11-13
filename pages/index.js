@@ -387,7 +387,7 @@ const getBallots = async (pollVoter) => {
 
   await connectMongo();
 
-  const ballots = await UserBallot.find({user: {$in: users}});
+  const ballots = await UserBallot.find({user: {$in: users}, week: "Pre-Season"});
 
   let voters = [];
   for(let i = 0; i < ballots.length; i++){
