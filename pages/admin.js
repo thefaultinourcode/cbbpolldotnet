@@ -20,6 +20,40 @@ export default function Admin(props){
     let usersInDB = [];
     users.map(element => usersInDB.push(element.name));
 
+    async function handleSubmit(e){
+      e.preventDefault();
+      console.log('e:', e);
+      let seasonDates = {
+        season: e.target.season.value,
+        preseasonDates: {
+          open: e.target.preseasonOpen.value,
+          close: e.target.preseasonClose.value
+        },
+        seasonDates: {
+          open: e.target.seasonOpen.value,
+          close: e.target.seasonClose.value
+        },
+        postseasonDates: {
+          open: e.target.postseasonOpen.value,
+          close: e.target.postseasonClose.value
+        }
+      }
+
+      console.log('seasonDates:', seasonDates);
+
+      const res = await fetch('/api/addSeasonDates',{
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+            seasonDates
+        ),
+      });
+
+      const data = await res.json();
+    }
+
     async function handleClick(e){
         
         console.log(e.target.getAttribute('data-username'));
@@ -83,6 +117,24 @@ export default function Admin(props){
         return(
             <div>
                 <h1>{props.user.name} is an admin</h1>
+                <form id="seasonDates" onSubmit={handleSubmit}>
+                  <label>Season: <input id="season" type="text"></input></label>
+                  <br/>
+                  <br/>
+                  <label>Pre-Season Poll Opening: <input id="preseasonOpen" type="date"></input></label>
+                  <label>Pre-Season Poll Closing: <input id="preseasonClose" type="date"></input></label>
+                  <br/>
+                  <br/>
+                  <label>Season Poll Opening: <input id="seasonOpen" type="date"></input></label>
+                  <label>Season Poll Closing: <input id="seasonClose" type="date"></input></label>
+                  <br/>
+                  <br/>
+                  <label>Post-Season Poll Opening: <input id="postseasonOpen" type="date"></input></label>
+                  <label>Post-Season Poll Closing: <input id="postseasonClose" type="date"></input></label>
+                  <br/>
+                  <button type="submit">Submit</button>
+                </form>
+                
                 <table>
                     <tbody>
                         <tr>
