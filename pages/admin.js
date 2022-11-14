@@ -117,6 +117,9 @@ export default function Admin(props){
         return(
             <div>
                 <h1>{props.user.name} is an admin</h1>
+                <h2><Link href='/admin/preview'>Preview of Week 2</Link></h2>
+                <br/>
+                <h2>Set Season Dates</h2>
                 <form id="seasonDates" onSubmit={handleSubmit}>
                   <label>Season: <input id="season" type="text"></input></label>
                   <br/>
@@ -135,6 +138,7 @@ export default function Admin(props){
                   <button type="submit">Submit</button>
                 </form>
                 
+                <h2>Approve Voters</h2>
                 <table>
                     <tbody>
                         <tr>

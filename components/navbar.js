@@ -15,6 +15,7 @@ export default function Navbar(props) {
     
     const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&state=${RANDOM_STRING}&redirect_uri=${REDIRECT_URI}&duration=${DURATION}&scope=${SCOPE}`;
     
+    const year = 2023;
 
     return props.user ? (
         <div className='navbar'>
@@ -42,6 +43,18 @@ export default function Navbar(props) {
                         <div className='homefield'>
                             <a href='https://www.homefieldapparel.com/products/r-cbb-logo-t-shirt' target='_blank' rel="noreferrer"><Image src={props.homefieldLogo} width="258" height="75"></Image></a>                            
                         </div>                    
+                    </li>
+                </div>
+
+                <div className='linkBlock'>
+                    <li className='navbar-list-item center'>
+                    <Link href={`../seasons/${year}`}>
+                    {/* <a href="../ballotBox"> */}
+                        <div className='navbar-link'>
+                            Results
+                        </div>
+                    {/* </a> */}
+                    </Link>                    
                     </li>
                 </div>
 
