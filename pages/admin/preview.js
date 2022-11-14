@@ -150,8 +150,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
       if (access_token) {
         const user = await getUser(access_token);
         const userpoll = await getUserpoll(week);
-        const pollVoters = await getBallots(true);
-        const provisionalVoters = await getBallots(false);
+        const pollVoters = await getBallots(true, week);
+        const provisionalVoters = await getBallots(false, week);
         return { props: { user, userpoll, pollVoters, provisionalVoters } };
       } else {
         const token = await getToken({
@@ -170,8 +170,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
         });
         const user = await getUser(token.access_token);
         const userpoll = await getUserpoll(week);
-        const pollVoters = await getBallots(true);
-        const provisionalVoters = await getBallots(false);
+        const pollVoters = await getBallots(true, week);
+        const provisionalVoters = await getBallots(false, week);
         return { props: { user, userpoll, pollVoters, provisionalVoters } };
       }
     } else if (query.code && query.state === RANDOM_STRING) {
@@ -193,8 +193,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
         });
         const user = await getUser(token.access_token);
         const userpoll = await getUserpoll(week);
-        const pollVoters = await getBallots(true);
-        const provisionalVoters = await getBallots(false);
+        const pollVoters = await getBallots(true, week);
+        const provisionalVoters = await getBallots(false, week);
         return { props: { user, userpoll, pollVoters, provisionalVoters } };
       } catch (e) {
         console.log(e);
@@ -202,8 +202,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
       }
     } else {
       const userpoll = await getUserpoll(week);
-      const pollVoters = await getBallots(true);
-      const provisionalVoters = await getBallots(false);
+      const pollVoters = await getBallots(true, week);
+      const provisionalVoters = await getBallots(false, week);
       return { props: { user: null, userpoll, pollVoters, provisionalVoters } };
     }
   };
@@ -238,12 +238,12 @@ export const getServerSideProps = async ({ query, req, res }) => {
     return user;
   }
   
-  const getBallots = async (pollVoter) => {
+  const getBallots = async (pollVoter, week) => {
     let users = await getUserList(pollVoter);
   
     await connectMongo();
   
-    const ballots = await UserBallot.find({user: {$in: users}, week: 2});
+    const ballots = await UserBallot.find({user: {$in: users}, week: week});
   
     let voters = [];
     for(let i = 0; i < ballots.length; i++){

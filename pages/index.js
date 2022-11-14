@@ -81,8 +81,6 @@ export default function Home(props) {
     console.log('no userplol');
   }
 
-  console.log('URL:', URL);
-
   let pollVoters = props.pollVoters;
   let provisionalVoters = props.provisionalVoters;
   let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
@@ -179,6 +177,8 @@ export default function Home(props) {
               </a>
               <h3>Week 2 closes Monday, November 14, at 9:59am EST</h3>
           </div>
+          <br/>
+          <br/>
           <div id="pollTable">
             <h1>Week {week} Poll</h1>
             <table>
@@ -206,12 +206,12 @@ export default function Home(props) {
         <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
         <div className="content">  
           <div id="ballotBox">
-                <h3>Become a poll voter!</h3>
-                <h3>Sign in to apply!</h3>
+                <h3>Vote in the poll!</h3>
+                <h3>Sign in!</h3>
               <a href={URL}>
                 <button>Sign in with Reddit</button>          
               </a>
-              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+              <h3>Voting opens at 10AM EST every Saturday</h3>
           </div>
           <div id="pollTable">
             <h1>Preseason Poll</h1>
@@ -242,16 +242,33 @@ export default function Home(props) {
         <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
   
         <div className="content">  
-          <div id="ballotBox">
-                <h3>Become a poll voter!</h3>
-                <h3>Apply now {props.user.name}!</h3>
-              <a href={'/application'}>
-                <button>Apply Now!</button>          
+        <div id="ballotBox">
+                <h3>Vote for Week 2!</h3>
+              <a href={'/ballotBox'}>
+                <button>VOTE NOW</button>          
               </a>
-              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+              <br/>
+              <h3>Week 2 closes Monday, November 14, at 9:59am EST</h3>
           </div>
         </div>  
-  
+        <div id="pollTable">
+            <h1>Week {week} Poll</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team (#1 Votes)</th>
+                  <th>Points</th>
+                </tr>
+                {rowArray.map(row => row)}
+              </tbody>
+            </table>
+            <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+            <h2>Official Ballots</h2>
+            {pollVoterArray.map(voter => voter)}
+            <h2>Provisional Ballots</h2>
+            {provisionalVoterArray.map(voter => voter)}
+          </div>
       </div>
     ) :  (    
       <div className="homepage">
@@ -259,12 +276,30 @@ export default function Home(props) {
         <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
         <div className="content">  
           <div id="ballotBox">
-                <h3>Become a poll voter!</h3>
-                <h3>Sign in to apply!</h3>
+                <h3>Vote in the poll!</h3>
+                <h3>Sign in!</h3>
               <a href={URL}>
                 <button>Sign in with Reddit</button>          
               </a>
-              <h3>Applications close Friday, October 28, at 11:59pm EDT</h3>
+              <h3>Voting opens at 10AM EST every Saturday</h3>
+          </div>
+          <div id="pollTable">
+            <h1>Week {week} Poll</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team (#1 Votes)</th>
+                  <th>Points</th>
+                </tr>
+                {rowArray.map(row => row)}
+              </tbody>
+            </table>
+            <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+            <h2>Official Ballots</h2>
+            {pollVoterArray.map(voter => voter)}
+            <h2>Provisional Ballots</h2>
+            {provisionalVoterArray.map(voter => voter)}
           </div>
         </div>  
       </div>
