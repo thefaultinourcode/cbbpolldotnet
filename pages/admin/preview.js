@@ -113,7 +113,7 @@ export default function Preview (props){
     return(<div>
         {title}
         <Poll teams={table}></Poll>
-        <span class="boldText">Others Receiving Votes: </span>{othersReceivingVotes}
+        <span className="boldText">Others Receiving Votes: </span>{othersReceivingVotes}
         <h2>Poll Voters</h2>
         {pollVoterArray.map(voter=>voter)}
         <h2>Provisional Voters</h2>
