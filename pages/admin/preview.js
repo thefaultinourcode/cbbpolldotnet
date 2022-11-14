@@ -70,7 +70,7 @@ export default function Preview (props){
     for(let i = 0; i < pollVoters.length; i++){
       if(i !== pollVoters.length - 1){
         pollVoterArray.push(
-                            <Link href={`/ballots/${pollVoters[i].ballotId}`}>
+                            <Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>
                               <span>                              
                                 <a> <Image src={pollVoters[i].url} width={25} height={25}></Image> {pollVoters[i].username}, </a>                               
                               </span>
@@ -80,7 +80,7 @@ export default function Preview (props){
       }
       else{
         pollVoterArray.push(      
-          <Link href={`/ballots/${pollVoters[i].ballotId}`}>
+          <Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>
             <span>
               <a><Image src={pollVoters[i].url} width={25} height={25}></Image>  {pollVoters[i].username}</a>          
             </span>
@@ -92,7 +92,7 @@ export default function Preview (props){
     for(let i = 0; i < provisionalVoters.length; i++){
       if(i !== pollVoters.length - 1){
         provisionalVoterArray.push(
-                                  <Link href={`/ballots/${provisionalVoters[i].ballotId}`}>
+                                  <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>
                                     <span>
                                       <a><Image src={provisionalVoters[i].url} width={25} height={25}></Image> {provisionalVoters[i].username}, </a>
                                     </span>
@@ -102,7 +102,7 @@ export default function Preview (props){
       }
       else{
         provisionalVoterArray.push(   
-          <Link href={`/ballots/${provisionalVoters[i].ballotId}`}>
+          <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>
             <span>
               <a><Image src={provisionalVoters[i].url} width={25} height={25}></Image>  {provisionalVoters[i].username} </a>
             </span>
