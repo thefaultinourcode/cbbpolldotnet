@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function TeamRow(props){
+export default function PollRow(props){
 
     let team;
     if(props.firstPlaceVotes > 0){
@@ -17,9 +17,6 @@ export default function TeamRow(props){
             </td>
             <td>
                 {team}
-            </td>
-            <td>
-            -
             </td>
             <td>
             {props.points}

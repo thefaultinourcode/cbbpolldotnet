@@ -10,11 +10,6 @@ let ObjectId = require('mongodb').ObjectID;
 export default function UserRanking (props){
     const router = useRouter();
     const { id } = router.query;   
-    console.log('router.query:', router.query);
-    console.log('props:', props);
-    console.log('props:', props.user);
-    console.log('teams:', props.team);
-    console.log('urls:', props.urls)
 
     return(
         <div>
