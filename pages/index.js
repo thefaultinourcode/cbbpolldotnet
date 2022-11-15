@@ -214,7 +214,7 @@ export default function Home(props) {
               <h3>Voting opens at 10AM EST every Saturday</h3>
           </div>
           <div id="pollTable">
-            <h1>Preseason Poll</h1>
+            <h1>Week {week} Poll</h1>
             <table>
               <tbody>
                 <tr>
