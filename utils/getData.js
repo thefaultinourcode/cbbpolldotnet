@@ -20,3 +20,21 @@ export const getProfileBallots = async (user) => {
     const profileBallots = await UserBallot.find({user: user});
     return profileBallots;
 }
+
+
+export const getTeams = async () => {
+    try{
+        await connectMongo();
+
+        const teams = await TeamData.find({});
+        const allTeams = JSON.parse(JSON.stringify(teams));
+        return allTeams;
+
+    }
+    catch(error){
+        console.log(error);
+        return{
+            notFound: true
+        }
+    }
+}

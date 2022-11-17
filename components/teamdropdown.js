@@ -38,12 +38,12 @@ export default function TeamDropdown(props){
     const handleLoad = (value, label) => {
         setSelectedValue(value);
         setSelectedLabel(label);
-        console.log('values:', selectedValue, selectedLabel);
-        console.log('SOS');
     }
 
     const twoCalls = e => {
-        props.update(e);
+        if(props.update){
+            props.update(e);
+        }
         props.change(e);
         handleChange(e);
     }
