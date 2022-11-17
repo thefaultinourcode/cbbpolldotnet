@@ -11,8 +11,8 @@ export const getHomePageDates = async (season) => {
     return seasonDates;
 } 
 
-const getWeek = () => {
-
+const getWeek = (seasonDates) => {
+    let today = new Date();
 }
 
 export const getSeason = () => {

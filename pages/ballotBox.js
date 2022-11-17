@@ -19,6 +19,17 @@ export default function BallotBox (props){
     let openDate = new Date(Date.UTC(2022, 10, 19, 15));
     let closeDate = new Date(Date.UTC(2022, 10, 21, 14, 59));
 
+    const [ballot, setBallot] = useState(
+        {
+            date: Date.now(),
+            week: 3,
+            user: props.user.name,
+        }
+    );
+
+    const [errorBallot, setErrorBallot] = useState();
+
+
     let validatedUser;
     if(props.userprofile){
         validatedUser = true;
@@ -43,16 +54,6 @@ export default function BallotBox (props){
         </div>)
     }
     console.log('validatedUser:', validatedUser);
-
-    const [ballot, setBallot] = useState(
-        {
-            date: Date.now(),
-            week: 3,
-            user: props.user.name,
-        }
-    );
-
-    const [errorBallot, setErrorBallot] = useState();
 
     if(props.user == null){
         return(<h1>Please login</h1>);
