@@ -7,19 +7,47 @@ import axios, { Axios } from "axios";
 import Navbar from '../components/navbar';
 import React, { useDebugValue, useState, useRef, setState, useEffect } from "react";
 import { useRouter } from 'next/router';
+import { getUserInfo } from '../utils/getData';
+// import { getSeason } from '../utils/getDates';
+import Link from 'next/link'
 
 
 export default function BallotBox (props){
     const router = useRouter();
     let today = new Date();
     //let today = new Date(2022, 10, 13, 10, 59); 
-    let openDate = new Date(Date.UTC(2022, 10, 12, 14, 59));
-    let closeDate = new Date(Date.UTC(2022, 10, 14, 14, 59));
+    let openDate = new Date(Date.UTC(2022, 10, 19, 15));
+    let closeDate = new Date(Date.UTC(2022, 10, 21, 14, 59));
+
+    let validatedUser;
+    if(props.userprofile){
+        validatedUser = true;
+    }
+    else{
+        validatedUser = false;
+    }
+
+    if(!props.user){
+        return(
+            <div>
+                <h1>Please login to vote.</h1>
+            </div>
+        )
+    }
+
+    if(!validatedUser){
+        return(<div>
+            <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+            <h1>Please set your team affiliation.</h1>
+            Set your team affiliation on your <Link href='/profile'><a>profile</a></Link>.
+        </div>)
+    }
+    console.log('validatedUser:', validatedUser);
 
     const [ballot, setBallot] = useState(
         {
             date: Date.now(),
-            week: 2,
+            week: 3,
             user: props.user.name,
         }
     );
@@ -67,92 +95,12 @@ export default function BallotBox (props){
         console.log('ballotObj:', ballotObj);
         console.log('show ballot:', ballot);      
 
-        // setBallot({...ballot,
-        //         1: {...ballot[1],
-        //             reasoning: event.target.reasoning1.value
-        //         },
-        //         2: {...ballot[2],
-        //             reasoning: event.target.reasoning2.value
-        //         },
-        //         3: {...ballot[3],
-        //             reasoning: event.target.reasoning3.value
-        //         },
-        //         4: {...ballot[4],
-        //             reasoning: event.target.reasoning4.value
-        //         },
-        //         5: {...ballot[5],
-        //             reasoning: event.target.reasoning5.value
-        //         },
-        //         6: {...ballot[6],
-        //             reasoning: event.target.reasoning6.value
-        //         },
-        //         7: {...ballot[7],
-        //             reasoning: event.target.reasoning7.value
-        //         },
-        //         8: {...ballot[8],
-        //             reasoning: event.target.reasoning8.value
-        //         },
-        //         9: {...ballot[9],
-        //             reasoning: event.target.reasoning9.value
-        //         },
-        //         10: {...ballot[10],
-        //             reasoning: event.target.reasoning10.value
-        //         },
-        //         11: {...ballot[11],
-        //             reasoning: event.target.reasoning11.value
-        //         },
-        //         12: {...ballot[12],
-        //             reasoning: event.target.reasoning12.value
-        //         },
-        //         13: {...ballot[13],
-        //             reasoning: event.target.reasoning13.value
-        //         },
-        //         14: {...ballot[14],
-        //             reasoning: event.target.reasoning14.value
-        //         },
-        //         15: {...ballot[15],
-        //             reasoning: event.target.reasoning15.value
-        //         },
-        //         16: {...ballot[16],
-        //             reasoning: event.target.reasoning16.value
-        //         },
-        //         17: {...ballot[17],
-        //             reasoning: event.target.reasoning17.value
-        //         },
-        //         18: {...ballot[18],
-        //             reasoning: event.target.reasoning18.value
-        //         },
-        //         19: {...ballot[19],
-        //             reasoning: event.target.reasoning19.value
-        //         },
-        //         20: {...ballot[20],
-        //             reasoning: event.target.reasoning20.value
-        //         },
-        //         21: {...ballot[21],
-        //             reasoning: event.target.reasoning21.value
-        //         },
-        //         22: {...ballot[22],
-        //             reasoning: event.target.reasoning22.value
-        //         },
-        //         23: {...ballot[23],
-        //             reasoning: event.target.reasoning23.value
-        //         },
-        //         24: {...ballot[24],
-        //             reasoning: event.target.reasoning24.value
-        //         },
-        //         25: {...ballot[25],
-        //             reasoning: event.target.reasoning25.value
-        //         },
-        //         overallReasoning: event.target.overallReasoning.value
-        // });
+       
         test(event);
 
         if(props.ballot){
             ballotObj = props.ballot;
         }
-        // else{
-        //     ballotObj = ballot;
-        // }
 
         let validBallot = validateBallot(ballotObj);
 
@@ -507,7 +455,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
       if (access_token) {
         const user = await getUser(access_token);
         let ballot = await getBallot(user);
-        return { props: { user, teams, ballot } };
+        let userprofile = await getUserInfo(user.name);
+        userprofile = JSON.parse(JSON.stringify(userprofile));
+        return { props: { user, teams, ballot, userprofile } };
       } else {
         const token = await getToken({
           refresh_token: refresh_token,
@@ -525,7 +475,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
         });
         const user = await getUser(token.access_token);
         let ballot = await getBallot(user);
-        return { props: { user, teams, ballot } };
+        let userprofile = await getUserInfo(user.name);
+        userprofile = JSON.parse(JSON.stringify(userprofile));
+        return { props: { user, teams, ballot, userprofile } };
       }
     } else if (query.code && query.state === RANDOM_STRING) {
       try {
@@ -546,7 +498,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
         });
         const user = await getUser(token.access_token);
         let ballot = await getBallot(user);
-        return { props: { user, teams, ballot } };
+        let userprofile = await getUserInfo(user.name);
+        userprofile = JSON.parse(JSON.stringify(userprofile));
+        return { props: { user, teams, ballot, userprofile } };
       } catch (e) {
         console.log(e);
         return { props: { user: null } };
@@ -587,10 +541,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
 }
 
 const getBallot = async (user) => {
-
     await connectMongo();
 
-    const ballot = await UserBallot.findOne({'user': user.name, 'week': 2});
+    const ballot = await UserBallot.findOne({'user': user.name, 'week': 3});
     const userBallot = JSON.parse(JSON.stringify(ballot));
 
     return userBallot;
