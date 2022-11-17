@@ -135,6 +135,7 @@ export default function Profile({ user, teams, userprofile }) {
           Welcome {user.name} 
         </h1>
         <form onSubmit={handleSubmit}>
+          <h2>Set Team Affiliations</h2>
           <input type='textbox' id='user' value={user.name} hidden readOnly></input>
           <h2>Primary Team</h2>
           {teamdropdowns}
