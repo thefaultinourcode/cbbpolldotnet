@@ -102,9 +102,12 @@ export default function Profile({ user, teams, userprofile }) {
                 name: event.target.user.value,
                 primaryTeam: primaryTeamValue,
                 secondaryTeam: secondaryTeamValue,
-                tertiaryTeam: tertiaryTeamValue,
-                pollVoter: false
+                tertiaryTeam: tertiaryTeamValue
               };
+
+    if(!userprofile){
+      user.pollVoter = false;
+    }
     console.log(event.target.user.value);
     console.log('user data:', user);
     

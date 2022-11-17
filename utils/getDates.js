@@ -7,15 +7,25 @@ export const getHomePageDates = async (season) => {
 
     const dates = await SeasonDates.findOne({'season': {season}});
     const seasonDates = JSON.parse(JSON.stringify(dates));
-    
 
     return seasonDates;
 } 
 
 const getWeek = () => {
-    
+
 }
 
-const getSeason = () => {
+export const getSeason = () => {
+    let today = new Date();
+    let month = today.getMonth();
 
+    let season;
+    if(month < 9){
+        season = today.getFullYear();
+    }
+    else{
+        season = today.getFullYear() + 1;
+    }
+
+    return season;
 }
