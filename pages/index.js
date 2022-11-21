@@ -37,16 +37,20 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 export default function Home(props) {
 
-  let pollDate = new Date('14 November 2022 15:00 UTC');
+  let pollDate = new Date('21 November 2022 15:00 UTC');
   let today = new Date();
-  //let today = new Date('31 October 2022 14:00 UTC');
+  //let today = new Date('1 May 2023 16:00 UTC');
   let week;
   if(today > pollDate){
-    week = 2;
+    // week = 2;
+    week = 3;
   }
   else{
-    week = "Pre-Season";
+    // week = "Pre-Season";
+    week = 2;
   }
+
+  console.log('week:', week);
 
   async function addPoll(userpollData){
     const res = await fetch('/api/addPoll',{
@@ -112,22 +116,20 @@ export default function Home(props) {
   let pollVoterArray = [];
   for(let i = 0; i < pollVoters.length; i++){
     if(i !== pollVoters.length - 1){
-      pollVoterArray.push(
-                          <Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>
-                            <span>                              
-                              <a> <Image src={pollVoters[i].url} width={25} height={25}></Image> {pollVoters[i].username}, </a>                               
+      pollVoterArray.push(                       
+                            <span>  
+                              <Image src={pollVoters[i].url} width={25} height={25}></Image>                            
+                              <Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>,                              
                             </span>
-                          </Link>
-
       );
     }
     else{
       pollVoterArray.push(      
-        <Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>
           <span>
-            <a><Image src={pollVoters[i].url} width={25} height={25}></Image>  {pollVoters[i].username}</a>          
+            <Image src={pollVoters[i].url} width={25} height={25}></Image>
+            <Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>          
           </span>
-        </Link>);
+        );
     }
   }
 
@@ -135,21 +137,22 @@ export default function Home(props) {
   for(let i = 0; i < provisionalVoters.length; i++){
     if(i !== pollVoters.length - 1){
       provisionalVoterArray.push(
-                                <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>
+                                
                                   <span>
-                                    <a><Image src={provisionalVoters[i].url} width={25} height={25}></Image> {provisionalVoters[i].username}, </a>
+                                    <Image src={provisionalVoters[i].url} width={25} height={25}></Image>
+                                    <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>,
                                   </span>
-                                </Link>
+                                
 
       );
     }
     else{
       provisionalVoterArray.push(   
-        <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>
           <span>
-            <a><Image src={provisionalVoters[i].url} width={25} height={25}></Image>  {provisionalVoters[i].username} </a>
+            <Image src={provisionalVoters[i].url} width={25} height={25}></Image>  
+            <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>
           </span>
-        </Link>);
+       );
     }
   }
 
@@ -171,11 +174,11 @@ export default function Home(props) {
   
         <div className="content">  
           <div id="ballotBox">
-                <h3>Vote for Week 2!</h3>
+                <h3>Vote for Week 3!</h3>
               <a href={'/ballotBox'}>
                 <button>VOTE NOW</button>          
               </a>
-              <h3>Week 2 closes Monday, November 14, at 9:59am EST</h3>
+              <h3>Week 3 closes Monday, November 21, at 9:59am EST</h3>
           </div>
           <br/>
           <br/>
@@ -326,16 +329,16 @@ const getToken = async (body) => {
 
 export const getServerSideProps = async ({ query, req, res }) => {
   
-  let pollDate = new Date('14 November 2022 15:00 UTC');
+  let pollDate = new Date('21 November 2022 15:00 UTC');
+  //let today = new Date('3 May 2023 15:00 UTC');
   let today = new Date();
   let week;
   if(today > pollDate){
-    week = 2;
+    week = 3;
   }
   else{
-    week = "Pre-Season";
+    week = 2;
   }
-  console.log('week:', week);
 
   const refresh_token = getCookie("refresh_token", { req, res });
   const access_token = getCookie("access_token", { req, res });
@@ -437,15 +440,18 @@ const getBallots = async (pollVoter) => {
 
   await connectMongo();
 
-  let pollDate = new Date('14 November 2022 15:00 UTC');
+  let pollDate = new Date('21 November 2022 15:00 UTC');
   let today = new Date();
+  //let today = new Date('3 May 2023 15:00 UTC');
   let week;
   if(today > pollDate){
-    week = 2;
+    week = 3;
   }
   else{
-    week = "Pre-Season";
+    week = 2;
   }
+
+
 
   const ballots = await UserBallot.find({user: {$in: users}, week: week});
 
