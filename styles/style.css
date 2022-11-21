@@ -262,3 +262,12 @@ button{
 .fixedImage{
     min-width: 100%;
 }
+
+#profileTable{
+    width: 50%;
+    text-align: center;
+}
+
+.ballotCell td:nth-child(1){
+    text-align: center;
+}

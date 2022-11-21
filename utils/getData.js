@@ -38,3 +38,11 @@ export const getTeams = async () => {
         }
     }
 }
+
+export const getPollVoters = async () => {
+    await connectMongo();
+
+    const pollVoters = await User.find({pollVoters: true});
+    const parsedVoters = JSON.parse(JSON.stringify(pollVoters));
+    return parsedVoters;
+}

@@ -5,6 +5,7 @@ import UserBallot from '../../../models/UserBallot';
 import User from '../../../models/User';
 import { connectMongo } from "../../../utils/connect";
 import Image from 'next/image';
+import Link from 'next/link';
 
 let ObjectId = require('mongodb').ObjectID;
 export default function UserRanking (props){
@@ -16,7 +17,7 @@ export default function UserRanking (props){
     if(week === "Pre-Season"){
         return(
             <div>
-                <span><h1><Image src={props.team.url} width={100} height={100}></Image>{props.ballot.user}&apos;s Ballot</h1></span>
+                <span><h1><Image src={props.team.url} width={100} height={100}></Image>{props.ballot.user}&apos;s {week} Ballot</h1></span>
                 <h2>{id}</h2>
                 <table>
                     <tbody>
@@ -163,9 +164,10 @@ export default function UserRanking (props){
 
         }
 
+        let titleName = props.ballot.user + "'s";
         return(
             <div>
-                <span><h1><Image src={props.team.url} width={100} height={100}></Image>{props.ballot.user}&apos;s Ballot</h1></span>
+                <span><h1><Image src={props.team.url} width={100} height={100}></Image><Link href={`/users/${props.ballot.user}`}>{titleName}</Link> Week {week} Ballot</h1></span>
                 <h2>{id}</h2>
                 <table>
                     <tbody>

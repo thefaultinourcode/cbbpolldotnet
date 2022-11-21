@@ -5,6 +5,7 @@ import Navbar from "../../components/navbar";
 import { useRouter } from 'next/router';
 import { getUserInfo, getTeam, getProfileBallots } from "../../utils/getData";
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function UserProfile (props){
     //this gets an object with the username passed into the URL
@@ -12,7 +13,15 @@ export default function UserProfile (props){
     const router = useRouter();
     let profile = router.query;
     //username passed in from reddit account
-    let user = props.user.name;
+    let user;
+    if(props.user){
+      user = props.user.name;
+    }
+    else{
+      user = null;
+    }
+    console.log(props);
+
 
     //profileData - Object
         // name: String,
@@ -46,16 +55,37 @@ export default function UserProfile (props){
     //this can be expanded to include more tags for the styling that you want
     let ballotArray = [];
     for(let i = 0; i < ballots.length; i++ ){
-        let link = <Link href={`/ballots/${ballots[i].week}/${ballots[i]._id}`} key={ballots[i]._id}><a>{ballots[i].week}</a></Link>
+        let link = <tr key={ballots[i]._id} class="ballotCell"><td><Link href={`/ballots/${ballots[i].week}/${ballots[i]._id}`}><a>Week {ballots[i].week}</a></Link></td></tr>
         ballotArray.push(link);
     }
 
     let navbar;
-    if(props.user.name){
+    if(user){
         navbar = <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user}></Navbar> 
     }
     else{
         navbar = <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+    }
+    let verified;
+    if(profileData.pollVoter){
+      console.log(profileData.pollVoter);
+      verified=<Image src="/static/OfficialVoterCheckmark.png" alt="Official Voter Checkmark" width={40} height={40}></Image>
+    }
+    else{
+      verified='';
+    }
+
+    let alsoSupports;
+    if(secondaryTeam && tertiaryTeam){
+      alsoSupports = <h2>Also supports: <Image src={secondaryTeam.url} width={30} height={30}></Image> <Image src={tertiaryTeam.url} width={30} height={30}></Image></h2>
+
+    }
+    else if(secondaryTeam){
+      alsoSupports = <h2>Also supports: <Image src={secondaryTeam.url} width={30} height={30}></Image> </h2>
+
+    }
+    else{
+     alsoSupports = ''; 
     }
 
     //here's where you put html and React components
@@ -63,8 +93,16 @@ export default function UserProfile (props){
     //everything goes between these div tags
     <div>
         {navbar}
-        <h1>{profile.userprofile}&apos;s Profile</h1>
-        {ballotArray.map(ballot => ballot)}
+        <h1>{verified} <Image src={primaryTeam.url} width={40} height={40}></Image> {profile.userprofile}</h1>
+        {alsoSupports}
+        <table id='profileTable'>
+          <tbody>
+            <tr>
+              <th>2023 Ballots</th>
+            </tr>
+            {ballotArray.map(ballot => ballot)}
+          </tbody>
+        </table>
     </div>)
 }
 
@@ -101,12 +139,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
   
     if (refresh_token) {
       if (access_token) {
-        // const user = await getUser(access_token);
-        // let profile = await getUserInfo(query.userprofile);
-        // profile = JSON.parse(JSON.stringify(profile));
-        // let primaryTeam = await getTeam(profile.primaryTeam);
-        // primaryTeam = JSON.parse(JSON.stringify(primaryTeam));
-        // console.log('profile:', profile);
         let propData = await getPropData(access_token, query.userprofile);
         return { props:  propData };
       } else {
@@ -164,7 +196,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
       }
     } else {
       console.log('else');
-      return { props: { user: null } };
+      let propData = await getPropData(access_token, query.userprofile);
+      return { props: propData };
     }
   };
   
@@ -180,7 +213,14 @@ export const getServerSideProps = async ({ query, req, res }) => {
   };
   
   const getPropData = async (access_token, userprofile) => {
-    const user = await getUser(access_token);
+    let user;
+    if(access_token){
+      user = await getUser(access_token);
+    }
+    else{
+      user = 'none';
+    }
+    // const user = await getUser(access_token);
     let profile = await getUserInfo(userprofile);
     profile = JSON.parse(JSON.stringify(profile));
     let primaryTeam = await getTeam(profile.primaryTeam);
