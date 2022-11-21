@@ -55,7 +55,7 @@ export default function UserProfile (props){
     //this can be expanded to include more tags for the styling that you want
     let ballotArray = [];
     for(let i = 0; i < ballots.length; i++ ){
-        let link = <tr key={ballots[i]._id} class="ballotCell"><td><Link href={`/ballots/${ballots[i].week}/${ballots[i]._id}`}><a>Week {ballots[i].week}</a></Link></td></tr>
+        let link = <tr key={ballots[i]._id} className="ballotCell"><td><Link href={`/ballots/${ballots[i].week}/${ballots[i]._id}`}><a>Week {ballots[i].week}</a></Link></td></tr>
         ballotArray.push(link);
     }
 
