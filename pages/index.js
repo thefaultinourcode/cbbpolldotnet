@@ -16,8 +16,8 @@ import Link from 'next/link';
 const DURATION = "permanent";
 const SCOPE = "identity";
 
-//const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = "http://cbbpoll.net/profile";
+const REDIRECT_URI = process.env.REDIRECT_URI;
+//const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
@@ -37,17 +37,17 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 export default function Home(props) {
 
-  let pollDate = new Date('21 November 2022 15:00 UTC');
+  let pollDate = new Date('28 November 2022 15:00 UTC');
   let today = new Date();
   //let today = new Date('1 May 2023 16:00 UTC');
   let week;
   if(today > pollDate){
     // week = 2;
-    week = 3;
+    week = 4;
   }
   else{
     // week = "Pre-Season";
-    week = 2;
+    week = 3;
   }
 
   console.log('week:', week);
@@ -246,12 +246,12 @@ export default function Home(props) {
   
         <div className="content">  
         <div id="ballotBox">
-                <h3>Vote for Week 2!</h3>
+                <h3>Vote!</h3>
               <a href={'/ballotBox'}>
                 <button>VOTE NOW</button>          
               </a>
               <br/>
-              <h3>Week 2 closes Monday, November 14, at 9:59am EST</h3>
+              <h3>Polls close weekly on Mondays at 9:59am EST</h3>
           </div>
         </div>  
         <div id="pollTable">
@@ -329,15 +329,15 @@ const getToken = async (body) => {
 
 export const getServerSideProps = async ({ query, req, res }) => {
   
-  let pollDate = new Date('21 November 2022 15:00 UTC');
+  let pollDate = new Date('28 November 2022 15:00 UTC');
   //let today = new Date('3 May 2023 15:00 UTC');
   let today = new Date();
   let week;
   if(today > pollDate){
-    week = 3;
+    week = 4;
   }
   else{
-    week = 2;
+    week = 3;
   }
 
   const refresh_token = getCookie("refresh_token", { req, res });
@@ -440,15 +440,15 @@ const getBallots = async (pollVoter) => {
 
   await connectMongo();
 
-  let pollDate = new Date('21 November 2022 15:00 UTC');
+  let pollDate = new Date('28 November 2022 15:00 UTC');
   let today = new Date();
   //let today = new Date('3 May 2023 15:00 UTC');
   let week;
   if(today > pollDate){
-    week = 3;
+    week = 4;
   }
   else{
-    week = 2;
+    week = 3;
   }
 
 

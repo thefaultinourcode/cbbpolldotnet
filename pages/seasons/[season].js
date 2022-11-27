@@ -11,8 +11,8 @@ export default function Season (props){
     let links = [];
 
     let pollDate = new Date('28 November 2022 15:00 UTC');
-    //let today = new Date();
-    let today = new Date('3 May 2023 14:00 UTC');
+    let today = new Date();
+    //let today = new Date('3 May 2023 14:00 UTC');
     let week;
 
     if(today > pollDate){
