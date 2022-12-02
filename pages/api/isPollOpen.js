@@ -7,9 +7,8 @@ export default async function handler(req, res) {
 	let nextPollOpen;
 	let nextPollClose;
 
-	console.log(DateTime.now().setZone("America/New_York").toISO());
-
-	console.log("now:", now.weekdayLong);
+	//gets the date of the saturday of the current week
+	//(except our 'week' starts on monday so we have to subtract a few days to make it think its the previous week)
 	if (now.weekday !== 1) {
 		nextPollOpen = now.setZone("America/New_York").set({
 			weekday: 6,
@@ -35,6 +34,7 @@ export default async function handler(req, res) {
 
 	now = DateTime.now();
 
+	//checks if the time is between the opening and closing of the poll
 	if (now.toMillis() > nextPollOpen.toMillis() && now.toMillis() < nextPollClose.toMillis()) {
 		res.status(200).json({ open: true });
 		return;
