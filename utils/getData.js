@@ -2,6 +2,7 @@ import { connectMongo } from "./connect";
 import User from "../models/User";
 import TeamData from "../models/TeamData";
 import UserBallot from "../models/UserBallot";
+import Poll from "../models/poll";
 
 export const getUserInfo = async (username) =>{
     await connectMongo();
@@ -45,4 +46,11 @@ export const getPollVoters = async () => {
     const pollVoters = await User.find({pollVoters: true});
     const parsedVoters = JSON.parse(JSON.stringify(pollVoters));
     return parsedVoters;
+}
+
+export const getPoll = async (week) => {
+    await connectMongo();
+
+    const poll = await Poll.find({week: week});
+    return poll;
 }

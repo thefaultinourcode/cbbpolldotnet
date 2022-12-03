@@ -124,10 +124,6 @@ export default function Profile({ user, teams, userprofile }) {
     const data = await res.json();
   }
 
-  // let favoriteTeam = 1;
-  // let favoriteTeam2 = 2;
-  // let favoriteTeam3 = 3;
-
   return user != null ? (
     <>
       <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
@@ -180,8 +176,8 @@ export default function Profile({ user, teams, userprofile }) {
 
 
 
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = "http://cbbpoll.net/profile";
+const REDIRECT_URI = "http://localhost:3000/profile";
+//const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
