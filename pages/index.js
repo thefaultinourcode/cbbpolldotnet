@@ -46,6 +46,8 @@ export default function Home(props) {
 
 	console.log("week:", week);
 
+	console.log("index props", props);
+
 	async function addPoll(userpollData) {
 		const res = await fetch("/api/addPoll", {
 			method: "POST",
@@ -119,14 +121,24 @@ export default function Home(props) {
 		if (i !== pollVoters.length - 1) {
 			pollVoterArray.push(
 				<span>
-					<Image src={pollVoters[i].url} width={25} height={25}></Image>
+					<Image
+						src={pollVoters[i].url}
+						width={25}
+						height={25}
+						alt="User's Affiliated Team Logo"
+					></Image>
 					<Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>,
 				</span>
 			);
 		} else {
 			pollVoterArray.push(
 				<span>
-					<Image src={pollVoters[i].url} width={25} height={25}></Image>
+					<Image
+						src={pollVoters[i].url}
+						width={25}
+						height={25}
+						alt="User's Affiliated Team Logo"
+					></Image>
 					<Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>
 				</span>
 			);
@@ -138,7 +150,12 @@ export default function Home(props) {
 		if (i !== pollVoters.length - 1) {
 			provisionalVoterArray.push(
 				<span>
-					<Image src={provisionalVoters[i].url} width={25} height={25}></Image>
+					<Image
+						src={provisionalVoters[i].url}
+						width={25}
+						height={25}
+						alt="Provisional User's Affiliated Team Logo"
+					></Image>
 					<Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>
 						{provisionalVoters[i].username}
 					</Link>
@@ -148,7 +165,12 @@ export default function Home(props) {
 		} else {
 			provisionalVoterArray.push(
 				<span>
-					<Image src={provisionalVoters[i].url} width={25} height={25}></Image>
+					<Image
+						src={provisionalVoters[i].url}
+						width={25}
+						height={25}
+						alt="Provisional User's Affiliated Team Logo"
+					></Image>
 					<Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>
 						{provisionalVoters[i].username}
 					</Link>
@@ -311,7 +333,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			const userpoll = await getUserpoll(week);
 			const pollVoters = await getBallots(true);
 			const provisionalVoters = await getBallots(false);
-			return { props: { user, userpoll, pollVoters, provisionalVoters } };
+			return { props: { userpoll, pollVoters, provisionalVoters } };
 		} else {
 			const token = await getToken({
 				refresh_token: refresh_token,
@@ -331,7 +353,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			const userpoll = await getUserpoll(week);
 			const pollVoters = await getBallots(true);
 			const provisionalVoters = await getBallots(false);
-			return { props: { user, userpoll, pollVoters, provisionalVoters } };
+			return { props: { userpoll, pollVoters, provisionalVoters } };
 		}
 	} else if (query.code && query.state === RANDOM_STRING) {
 		try {
@@ -354,7 +376,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			const userpoll = await getUserpoll(week);
 			const pollVoters = await getBallots(true);
 			const provisionalVoters = await getBallots(false);
-			return { props: { user, userpoll, pollVoters, provisionalVoters } };
+			return { props: { userpoll, pollVoters, provisionalVoters } };
 		} catch (e) {
 			console.log(e);
 			return { props: { user: null } };
@@ -363,6 +385,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
 		const userpoll = await getUserpoll(week);
 		const pollVoters = await getBallots(true);
 		const provisionalVoters = await getBallots(false);
-		return { props: { user: null, userpoll, pollVoters, provisionalVoters } };
+		return { props: { userpoll, pollVoters, provisionalVoters } };
 	}
 };

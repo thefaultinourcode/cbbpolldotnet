@@ -176,7 +176,7 @@ export default function Navbar(props) {
 						</div>
 					</ul>
 				</div>
-				{props.children}
+				{React.cloneElement(props.children, { user: user.user })}
 			</div>
 		);
 	}
