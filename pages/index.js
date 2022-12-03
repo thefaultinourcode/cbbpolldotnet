@@ -590,19 +590,7 @@ const getUserpoll = async (week) => {
   let poll = await getPoll(week);
 
   if(poll.length===0){
-
     let weeklyPoll = {ballots: poll, week: week};
-    const res = await fetch('/api/addPoll',{
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-          weeklyPoll
-      ),
-  });
-
-const data = await res.json();
   }
 
   console.log('poll:', poll);
