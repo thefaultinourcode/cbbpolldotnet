@@ -2,9 +2,8 @@ import { connectMongo } from "../utils/connect";
 import Ballot from "../components/ballot";
 import TeamData from "../models/TeamData";
 import UserBallot from "../models/UserBallot";
-import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import axios, { Axios } from "axios";
-import Navbar from "../components/navbar";
 import React, { useDebugValue, useState, useRef, setState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { getUserInfo } from "../utils/getData";
@@ -54,11 +53,6 @@ export default function BallotBox(props) {
 	if (!validatedUser) {
 		return (
 			<div>
-				<Navbar
-					cbbLogo="/static/CBBlogo2.png"
-					homefieldLogo="/static/SponsoredByHomefield.png"
-					user={props.user.name}
-				></Navbar>
 				<h1>Please set your team affiliation.</h1>
 				Set your team affiliation on your{" "}
 				<Link href="/profile">
@@ -398,11 +392,6 @@ export default function BallotBox(props) {
 	if (isLoading) {
 		return (
 			<div>
-				<Navbar
-					cbbLogo="/static/CBBlogo2.png"
-					homefieldLogo="/static/SponsoredByHomefield.png"
-					user={props.user.name}
-				></Navbar>
 				<h1>Loading</h1>
 			</div>
 		);
@@ -413,11 +402,6 @@ export default function BallotBox(props) {
 		console.log("openDate:", openDate);
 		return (
 			<div>
-				<Navbar
-					cbbLogo="/static/CBBlogo2.png"
-					homefieldLogo="/static/SponsoredByHomefield.png"
-					user={props.user.name}
-				></Navbar>
 				<br></br>
 				<form onSubmit={handleSubmit}>
 					{ballotComp}
@@ -432,11 +416,6 @@ export default function BallotBox(props) {
 	} else {
 		return (
 			<div>
-				<Navbar
-					cbbLogo="/static/CBBlogo2.png"
-					homefieldLogo="/static/SponsoredByHomefield.png"
-					user={props.user.name}
-				></Navbar>
 				<h1>Poll has closed</h1>
 			</div>
 		);
