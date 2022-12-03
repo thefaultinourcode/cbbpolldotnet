@@ -1,110 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
-    font-family: JosefinSansRegular;
-    src: url(josefin-sans-font/JosefinSansRegular-x3LYV.ttf);
+	font-family: JosefinSansRegular;
+	src: url(josefin-sans-font/JosefinSansRegular-x3LYV.ttf);
 }
 
 body {
-    background-color: #D3ECFF;
-    font-family: JosefinSansRegular;
+	background-color: #d3ecff;
+	font-family: JosefinSansRegular;
 }
 
-a{
-    color: #3366CC;
+a {
+	color: #3366cc;
 }
 
-p{
-    margin-top: 0;
+p {
+	margin-top: 0;
 }
 
-h2{
-    margin-top: 1;
-    margin-bottom: auto;
+h2 {
+	margin-top: 1;
+	margin-bottom: auto;
 }
 
-h4{
-    margin-top: 0;
-    margin-bottom: 0;
+h4 {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 ul {
-    /* list-style-type: none; */
-    margin: 1;
-  }
+	/* list-style-type: none; */
+	margin: 1;
+}
 
 li {
-    /* display: inline; */
-    /* float: left; */
-    padding-bottom: 5px;
-  }
-
-table{
-    width: 100%;
-    font-size: x-large;
-    color: #1C3271;
+	/* display: inline; */
+	/* float: left; */
+	padding-bottom: 5px;
 }
 
-table td:nth-child(1) { 
-    text-align: end; 
-    width: 10%;
+table {
+	width: 100%;
+	font-size: x-large;
+	color: #1c3271;
 }
 
-table td:nth-child(2) { 
-    text-align: left; 
-    width: 50%;
+table td:nth-child(1) {
+	text-align: end;
+	width: 10%;
+}
+
+table td:nth-child(2) {
+	text-align: left;
+	width: 50%;
 }
 
 th {
-    background-color: #EFA94D;
-    padding: 5px;
+	background-color: #efa94d;
+	padding: 5px;
 }
 
-tr:nth-child(even) {background:#A3D8FF }
-tr:nth-child(odd) {background: #82CAFF}
-
-button{
-    background-color: #1C3271;
-    color: #FFF;
-    border-radius: 5px;
-    padding: 5px;
-    font-family: JosefinSansRegular;
-    font-size: large;
+tr:nth-child(even) {
+	background: #a3d8ff;
+}
+tr:nth-child(odd) {
+	background: #82caff;
 }
 
-.boldText{
-    font-weight: bold;
+button {
+	background-color: #1c3271;
+	color: #fff;
+	border-radius: 5px;
+	padding: 5px;
+	font-family: JosefinSansRegular;
+	font-size: large;
 }
 
-.navbar{
-    background-color: #1C3271;
-    display: flex;
-    margin: auto;
-    width: 100%;
-    top: 0;
+.boldText {
+	font-weight: bold;
 }
 
-.navbar-list{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    display: inline-flex;
-    text-align: center;
+.navbar {
+	background-color: #1c3271;
+	display: flex;
+	margin: auto;
+	width: 100%;
+	top: 0;
+}
+
+.navbar-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	width: 100%;
+	position: relative;
+	display: inline-flex;
+	text-align: center;
 }
 
 .center {
-    position: relative;
-    top: 50%;
-    transform: translate(0, -50%);
-    padding: 10px;
-    margin: auto;
-    }
+	position: relative;
+	top: 50%;
+	transform: translate(0, -50%);
+	padding: 10px;
+	margin: auto;
+}
 
 /* .linkBLock{
     margin: auto;
 } */
-
 
 /* .navbar img {
     display: block;
@@ -115,30 +122,30 @@ button{
     float: left;
 } */
 
-.navbar-list a{
-    display: block;
-    padding-left: 20px;
-    padding-right: 20px;
+.navbar-list a {
+	display: block;
+	padding-left: 20px;
+	padding-right: 20px;
 
-    text-align: center;
-    text-decoration: none;
+	text-align: center;
+	text-decoration: none;
 }
 
-.homepage{
-    position: relative;
+.homepage {
+	position: relative;
 }
 
-.content{
-    position: relative;
+.content {
+	position: relative;
 }
 
-#cbbLogo{
-    padding-left: 10px;
-    padding-top: 10px;
+#cbbLogo {
+	padding-left: 10px;
+	padding-top: 10px;
 }
 
-.homefield{
-    margin: auto;
+.homefield {
+	margin: auto;
 }
 
 /* .navbar-list img{
@@ -152,122 +159,120 @@ button{
     padding-bottom: 9%; 
 } */
 
-.cbbup{
-    color: #EFA94D;
-    font-size: xx-large;
-    margin: auto;
-    /* padding-top: 9%;
+.cbbup {
+	color: #efa94d;
+	font-size: xx-large;
+	margin: auto;
+	/* padding-top: 9%;
     padding-bottom: 9%; */
-    padding-left: 20px;
+	padding-left: 20px;
 }
 
-.navbar-link{
-    color: #EFA94D;
-    font-size: x-large;
-    margin: auto;
-    padding-left: 20px;
+.navbar-link {
+	color: #efa94d;
+	font-size: x-large;
+	margin: auto;
+	padding-left: 20px;
 }
 
-.userName{
-    font-size: large;
+.userName {
+	font-size: large;
 }
 
-#usernameFloat{
-    float: right;
-    margin-bottom: auto;
-    padding-left: 10%;
+#usernameFloat {
+	float: right;
+	margin-bottom: auto;
+	padding-left: 10%;
 }
 
-#pollTable{
-    top: 200px;
-    /* display: inline-block; */
-    position: absolute;
-    width: 100%;
-    text-align: center;
+#pollTable {
+	top: 200px;
+	/* display: inline-block; */
+	position: absolute;
+	width: 100%;
+	text-align: center;
 }
 
+#ballotBox {
+	background-color: #efa94d;
+	position: absolute;
+	top: 5px;
+	display: inline-block;
+	text-align: center;
+	border-radius: 25px;
+	text-decoration: none;
 
-#ballotBox{
-    background-color: #EFA94D;
-    position: absolute;
-    top: 5px;
-    display: inline-block;
-    text-align: center;
-    border-radius: 25px;
-    text-decoration: none;
-
-    /* margin-left: 20%;
+	/* margin-left: 20%;
     margin-right: 10%; */
-    width: 100%;
-
+	width: 100%;
 }
 
-.teamOptions{
-    /* display: flex; */
-    position: relative;
+.teamOptions {
+	/* display: flex; */
+	position: relative;
 }
 
-.teamLabel{
-    position: absolute;
-    display: inline;
-    /* height: 10px; */
-    /* top:50%; */
-    margin: auto;
-    padding-top: 6px;
-    padding-left: 10px;
+.teamLabel {
+	position: absolute;
+	display: inline;
+	/* height: 10px; */
+	/* top:50%; */
+	margin: auto;
+	padding-top: 6px;
+	padding-left: 10px;
 }
 
-.error input{
-    border-bottom: 1px solid #eb516d;
+.error input {
+	border-bottom: 1px solid #eb516d;
 }
 
-.errorMsg{
-    color: #7E0000;
-    padding: 5px;
-    /* border-style: solid;
+.errorMsg {
+	color: #7e0000;
+	padding: 5px;
+	/* border-style: solid;
     border-width: 1px; */
 }
 
-.ballotTable{
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+.ballotTable {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.reasoning{
-    display: block;
-    width: 95%;
-    margin:auto;
+.reasoning {
+	display: block;
+	width: 95%;
+	margin: auto;
 }
 
-.overallRationale{
-    display: flex;
-    align-items: center;
-    width: 95%;
-    margin: auto;   
-    text-align: center;
-    justify-content: center;
+.overallRationale {
+	display: flex;
+	align-items: center;
+	width: 95%;
+	margin: auto;
+	text-align: center;
+	justify-content: center;
 }
 
-.submitBallot{
-    display: flex;
-    align-items: flex-end;
-    float: right;
+.submitBallot {
+	display: flex;
+	align-items: flex-end;
+	float: right;
 }
 
-.userTable{
-    width: 50%;
-    margin: auto;
+.userTable {
+	width: 50%;
+	margin: auto;
 }
-.fixedImage{
-    min-width: 100%;
-}
-
-#profileTable{
-    width: 50%;
-    text-align: center;
+.fixedImage {
+	min-width: 100%;
 }
 
-.ballotCell td:nth-child(1){
-    text-align: center;
+#profileTable {
+	width: 50%;
+	text-align: center;
+}
+
+.ballotCell td:nth-child(1) {
+	text-align: center;
 }

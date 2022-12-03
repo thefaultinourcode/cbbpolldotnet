@@ -11,10 +11,10 @@ import { getTeams, getUserInfo } from "../utils/getData";
 
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
-
 //import mongoose from "mongoose";
 
 export default function Profile({ user, teams, userprofile }) {
+
 
   let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 
@@ -156,6 +156,7 @@ export default function Profile({ user, teams, userprofile }) {
           }
         </div>
         {/* <a href='./voterForm'>Poll</a>
+
         <a href='./application'>Poll Vote Application</a>
         <Link href={{
           pathname: "voterForm",
@@ -163,18 +164,18 @@ export default function Profile({ user, teams, userprofile }) {
         }}>
           Test
         </Link> */}
-      </div>
-    </>
-  ) : (
-    <div>
-        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-        <p>Please login</p>
-    </div>
-
-  );
+			</div>
+		</>
+	) : (
+		<div>
+			<Navbar
+				cbbLogo="/static/CBBlogo2.png"
+				homefieldLogo="/static/SponsoredByHomefield.png"
+			></Navbar>
+			<p>Please login</p>
+		</div>
+	);
 }
-
-
 
 const REDIRECT_URI = "http://localhost:3000/profile";
 //const REDIRECT_URI = "http://cbbpoll.net/profile";
@@ -184,99 +185,97 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 
 const getToken = async (body) => {
-  const data = await axios.post(
-    "https://www.reddit.com/api/v1/access_token",
-    querystring.stringify(body),
-    {
-      headers: {
-        Authorization: `Basic ${Buffer.from(
-          `${CLIENT_ID}:${CLIENT_SECRET}`
-        ).toString("base64")}`,
-        "content-type": "application/x-www-form-urlencoded",
-      },
-    }
-  );
-  return data.data;
+	const data = await axios.post(
+		"https://www.reddit.com/api/v1/access_token",
+		querystring.stringify(body),
+		{
+			headers: {
+				Authorization: `Basic ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64")}`,
+				"content-type": "application/x-www-form-urlencoded",
+			},
+		}
+	);
+	return data.data;
 };
 
 export const getServerSideProps = async ({ query, req, res }) => {
-  let teams = await getTeams();
-  teams = JSON.stringify(teams);
-  
-  const refresh_token = getCookie("refresh_token", { req, res });
-  const access_token = getCookie("access_token", { req, res });
+	let teams = await getTeams();
+	teams = JSON.stringify(teams);
 
-  if(query.state === RANDOM_STRING){
-    console.log('test');
-  }
+	const refresh_token = getCookie("refresh_token", { req, res });
+	const access_token = getCookie("access_token", { req, res });
 
-  if (refresh_token) {
-    if (access_token) {
-      const user = await getUser(access_token);
-      let userprofile = await getUserInfo(user.name);
-      userprofile = JSON.parse(JSON.stringify(userprofile));
-      return { props: { user, teams, userprofile } };
-    } else {
-      const token = await getToken({
-        refresh_token: refresh_token,
-        grant_type: "refresh_token",
-      });
-      console.log('token:', token);
-      setCookie("refresh_token", token.refresh_token, {
-        req,
-        res,
-        maxAge: 60 * 60,
-      });
-      setCookie("access_token", token.access_token, {
-        req,
-        res,
-        maxAge: 60 * 60 * 24,
-      });
-      const user = await getUser(token.access_token);
-      let userprofile = await getUserInfo(user.name);
-      userprofile = JSON.parse(JSON.stringify(userprofile));
-      return { props: { user, teams, userprofile } };
-    }
-  } else if (query.code && query.state === RANDOM_STRING) {
-    try {
-      const token = await getToken({
-        code: query.code,
-        grant_type: "authorization_code",
-        redirect_uri: REDIRECT_URI,
-      });
-      setCookie("refresh_token", token.refresh_token, {
-        req,
-        res,
-        maxAge: 60 * 60,
-      });
-      setCookie("access_token", token.access_token, {
-        req,
-        res,
-        maxAge: 60 * 60 * 24,
-      });
-      const user = await getUser(token.access_token);
-      let userprofile = await getUserInfo(user.name);
-      userprofile = JSON.parse(JSON.stringify(userprofile));
-      return { props: { user, teams, userprofile } };
-    } catch (e) {
-      console.log(e);
-      return { props: { user: null } };
-    }
-  } else {
-    console.log('else');
-    return { props: { user: null } };
-  }
+	if (query.state === RANDOM_STRING) {
+		console.log("test");
+	}
+
+	if (refresh_token) {
+		if (access_token) {
+			const user = await getUser(access_token);
+			let userprofile = await getUserInfo(user.name);
+			userprofile = JSON.parse(JSON.stringify(userprofile));
+			return { props: { user, teams, userprofile } };
+		} else {
+			const token = await getToken({
+				refresh_token: refresh_token,
+				grant_type: "refresh_token",
+			});
+			console.log("token:", token);
+			setCookie("refresh_token", token.refresh_token, {
+				req,
+				res,
+				maxAge: 60 * 60,
+			});
+			setCookie("access_token", token.access_token, {
+				req,
+				res,
+				maxAge: 60 * 60 * 24,
+			});
+			const user = await getUser(token.access_token);
+			let userprofile = await getUserInfo(user.name);
+			userprofile = JSON.parse(JSON.stringify(userprofile));
+			return { props: { user, teams, userprofile } };
+		}
+	} else if (query.code && query.state === RANDOM_STRING) {
+		try {
+			const token = await getToken({
+				code: query.code,
+				grant_type: "authorization_code",
+				redirect_uri: REDIRECT_URI,
+			});
+			setCookie("refresh_token", token.refresh_token, {
+				req,
+				res,
+				maxAge: 60 * 60,
+			});
+			setCookie("access_token", token.access_token, {
+				req,
+				res,
+				maxAge: 60 * 60 * 24,
+			});
+			const user = await getUser(token.access_token);
+			let userprofile = await getUserInfo(user.name);
+			userprofile = JSON.parse(JSON.stringify(userprofile));
+			return { props: { user, teams, userprofile } };
+		} catch (e) {
+			console.log(e);
+			return { props: { user: null } };
+		}
+	} else {
+		console.log("else");
+		return { props: { user: null } };
+	}
 };
 
 const getUser = async (access_token) => {
-  const data = await axios.get("https://oauth.reddit.com/api/v1/me", {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-      content_type: "application/json",
-    },
-  });
+	const data = await axios.get("https://oauth.reddit.com/api/v1/me", {
+		headers: {
+			Authorization: `Bearer ${access_token}`,
+			content_type: "application/json",
+		},
+	});
 
-  return data.data;
+	return data.data;
 };
 
 // const insertUser = async (user) => {
