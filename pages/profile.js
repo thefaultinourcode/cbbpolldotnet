@@ -1,177 +1,168 @@
 import React, { useDebugValue, useState, useRef, setState, useEffect } from "react";
 import axios, { Axios } from "axios";
 import querystring from "querystring";
-//import Link from "next/link";
-import Navbar from "../components/navbar";
-// import { connectMongo } from "../utils/connect";
-// import User from "../models/User";
 import Link from "next/link";
 import TeamDropdown from "../components/teamdropdown";
 import { getTeams, getUserInfo } from "../utils/getData";
 
 import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
-//import mongoose from "mongoose";
-
 export default function Profile({ user, teams, userprofile }) {
+	let modlist = ["broadwaystarVGC", "SleveMcDichael4", "DEP61"];
 
+	console.log("userprofile:", userprofile);
 
-  let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
+	let favoriteTeam, favoriteTeam2, favoriteTeam3;
+	if (userprofile) {
+		favoriteTeam = parseInt(userprofile.primaryTeam);
+		favoriteTeam2 = parseInt(userprofile.secondaryTeam);
+		favoriteTeam3 = parseInt(userprofile.tertiaryTeam);
+	} else {
+		favoriteTeam = null;
+		favoriteTeam2 = null;
+		favoriteTeam3 = null;
+	}
 
-  console.log('userprofile:', userprofile);
+	const [primaryTeamValue, setPrimaryTeamValue] = useState(favoriteTeam);
 
-  let favoriteTeam, favoriteTeam2, favoriteTeam3;
-  if(userprofile){
-    favoriteTeam = parseInt(userprofile.primaryTeam);
-    favoriteTeam2 = parseInt(userprofile.secondaryTeam);
-    favoriteTeam3 = parseInt(userprofile.tertiaryTeam);
-  }
-  else{
-    favoriteTeam = null;
-    favoriteTeam2 = null;
-    favoriteTeam3 = null;
-  }
+	const [secondaryTeamValue, setSecondaryTeamValue] = useState(favoriteTeam2);
 
+	const [tertiaryTeamValue, setTertiaryTeamValue] = useState(favoriteTeam3);
 
-  const [primaryTeamValue, setPrimaryTeamValue] = useState(favoriteTeam);
+	const handleChange = (e) => {
+		setPrimaryTeamValue(e.value);
+	};
 
-  const [secondaryTeamValue, setSecondaryTeamValue] = useState(favoriteTeam2);
+	const handleChange2 = (e) => {
+		setSecondaryTeamValue(e.value);
+	};
 
-  const [tertiaryTeamValue, setTertiaryTeamValue] = useState(favoriteTeam3);
+	const handleChange3 = (e) => {
+		setTertiaryTeamValue(e.value);
+	};
 
-  const handleChange = e => {
-    setPrimaryTeamValue(e.value);
-}
+	let teamdropdowns;
+	if (userprofile == null) {
+		teamdropdowns = (
+			<div>
+				<TeamDropdown teams={teams} id="favoriteTeam" change={handleChange}></TeamDropdown>
+				<h2>Secondary Team</h2>
+				<TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2}></TeamDropdown>
+				<h2>Tertiary Team</h2>
+				<TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3}></TeamDropdown>
+			</div>
+		);
+	} else {
+		teamdropdowns = (
+			<div>
+				<TeamDropdown
+					teams={teams}
+					id="favoriteTeam"
+					change={handleChange}
+					presetTeam={favoriteTeam}
+				></TeamDropdown>
+				<h2>Secondary Team</h2>
+				<TeamDropdown
+					teams={teams}
+					id="favoriteTeam2"
+					change={handleChange2}
+					presetTeam={favoriteTeam2}
+				></TeamDropdown>
+				<h2>Tertiary Team</h2>
+				<TeamDropdown
+					teams={teams}
+					id="favoriteTeam3"
+					change={handleChange3}
+					presetTeam={favoriteTeam3}
+				></TeamDropdown>
+			</div>
+		);
+	}
 
-  const handleChange2 = e => {
-      setSecondaryTeamValue(e.value);
-  }
+	const validTeams = (primaryTeam, secondaryTeam, tertiaryTeam) => {
+		let valid = true;
+		if (primaryTeam == null) {
+			valid = false;
+			alert("Please enter a primary team affiliation.");
+		} else if (
+			primaryTeam == secondaryTeam ||
+			primaryTeam == tertiaryTeam ||
+			(!(secondaryTeam == null) && secondaryTeam == tertiaryTeam)
+		) {
+			valid = false;
+			console.log("secondaryTeam:", secondaryTeam);
+			alert("Please only select a team once.");
+		} else if (secondaryTeam == null && !(tertiaryTeam == null)) {
+			valid = false;
+			alert("Please enter a secondary team before a tertiary team");
+		}
+		return valid;
+	};
 
-  const handleChange3 = e => {
-      setTertiaryTeamValue(e.value);
-  }
+	const handleSubmit = async (event) => {
+		event.preventDefault();
 
-  let teamdropdowns;
-  if(userprofile == null){
-    teamdropdowns = <div>
-          <TeamDropdown teams={teams} id="favoriteTeam" change={handleChange}></TeamDropdown>
-          <h2>Secondary Team</h2>
-          <TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2}></TeamDropdown>
-          <h2>Tertiary Team</h2>
-          <TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3}></TeamDropdown>
-    </div>
-  }
-  else{
-    teamdropdowns = <div>
-          <TeamDropdown teams={teams} id="favoriteTeam" change={handleChange} presetTeam={favoriteTeam}></TeamDropdown>
-          <h2>Secondary Team</h2>
-          <TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2} presetTeam={favoriteTeam2}></TeamDropdown>
-          <h2>Tertiary Team</h2>
-          <TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3} presetTeam={favoriteTeam3}></TeamDropdown>
-    </div>
-  }
+		let valid = validTeams(primaryTeamValue, secondaryTeamValue, tertiaryTeamValue);
 
-  const validTeams = (primaryTeam, secondaryTeam, tertiaryTeam) =>{
-    let valid = true;
-    if(primaryTeam == null){
-      valid=false;
-      alert('Please enter a primary team affiliation.');
-    }
-    else if(primaryTeam == secondaryTeam || primaryTeam == tertiaryTeam || (!(secondaryTeam == null) && secondaryTeam == tertiaryTeam)){
-      valid=false;
-      console.log('secondaryTeam:', secondaryTeam);
-      alert('Please only select a team once.')
-    }
-    else if(secondaryTeam == null && !(tertiaryTeam == null)){
-      valid=false;
-      alert('Please enter a secondary team before a tertiary team');
-    }
-    return valid;
-  }
+		if (!valid) {
+			return;
+		}
 
-  const handleSubmit = async(event) => {
-    event.preventDefault();
-    
-    let valid = validTeams(primaryTeamValue, secondaryTeamValue, tertiaryTeamValue);
+		let user = {
+			name: event.target.user.value,
+			primaryTeam: primaryTeamValue,
+			secondaryTeam: secondaryTeamValue,
+			tertiaryTeam: tertiaryTeamValue,
+		};
 
-    if(!valid){
-      return;
-    }
+		if (!userprofile) {
+			user.pollVoter = false;
+		}
+		console.log(event.target.user.value);
+		console.log("user data:", user);
 
-    let user = {
-                name: event.target.user.value,
-                primaryTeam: primaryTeamValue,
-                secondaryTeam: secondaryTeamValue,
-                tertiaryTeam: tertiaryTeamValue
-              };
+		const res = await fetch("/api/addUser", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(user),
+		});
 
-    if(!userprofile){
-      user.pollVoter = false;
-    }
-    console.log(event.target.user.value);
-    console.log('user data:', user);
-    
-    const res = await fetch('/api/addUser',{
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-          user
-      ),
-    });
+		const data = await res.json();
+	};
 
-    const data = await res.json();
-  }
-
-  return user != null ? (
-    <>
-      <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
-      <div className="profile">
-      
-        <h1>
-          {/* <img src={user.snoovatar_img} width="50" height="64"/>  */}
-          Welcome {user.name} 
-        </h1>
-        <form onSubmit={handleSubmit}>
-          <h2>Set Team Affiliations</h2>
-          <input type='textbox' id='user' value={user.name} hidden readOnly></input>
-          <h2>Primary Team</h2>
-          {teamdropdowns}
-          <button type='submit'>Submit</button>
-        </form>
-        <div>
-          <h2>Official voter profiles coming soon!</h2>
-          {/* <h2>Official voter profiles coming soon! Apply <a href='./application'>here</a> to be an official voter.</h2> */}
-        </div>
-
-        <div>
-          {
-               (() => {
-                if (modlist.includes(user.name))
-                   return (<div>
-                      <Link href='/admin'>Go to Admin View</Link>
-                   </div>)
-            })()
-          }
-        </div>
-        {/* <a href='./voterForm'>Poll</a>
-
-        <a href='./application'>Poll Vote Application</a>
-        <Link href={{
-          pathname: "voterForm",
-          query: {user: user.name}
-        }}>
-          Test
-        </Link> */}
+	return user != null ? (
+		<>
+			<div className="profile ">
+				<h1>
+					{/* <img src={user.snoovatar_img} width="50" height="64"/>  */}
+					Welcome {user.name}
+				</h1>
+				<form onSubmit={handleSubmit}>
+					<h2>Set Team Affiliations</h2>
+					<input type="textbox" id="user" value={user.name} hidden readOnly></input>
+					<h2>Primary Team</h2>
+					{teamdropdowns}
+					<button type="submit">Submit</button>
+				</form>
+				<div>
+					<h2>Official voter profiles coming soon!</h2>
+					{/* <h2>Official voter profiles coming soon! Apply <a href='./application'>here</a> to be an official voter.</h2> */}
+				</div>
+				<a href="./application">Poll Vote Application</a>
+				<Link
+					href={{
+						pathname: "voterForm",
+						query: { user: user.name },
+					}}
+				>
+					Test
+				</Link>{" "}
 			</div>
 		</>
 	) : (
 		<div>
-			<Navbar
-				cbbLogo="/static/CBBlogo2.png"
-				homefieldLogo="/static/SponsoredByHomefield.png"
-			></Navbar>
 			<p>Please login</p>
 		</div>
 	);

@@ -39,6 +39,8 @@ li {
 	/* display: inline; */
 	/* float: left; */
 	padding-bottom: 5px;
+	display: list-item;
+	margin-left: 3em;
 }
 
 table {
