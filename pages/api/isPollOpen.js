@@ -32,7 +32,7 @@ export default async function handler(req, res) {
 		nextPollClose = nextPollOpen.plus({ days: 2 });
 	}
 
-	now = DateTime.now();
+	now = DateTime.now().plus({ days: 1 });
 
 	//checks if the time is between the opening and closing of the poll
 	if (now.toMillis() > nextPollOpen.toMillis() && now.toMillis() < nextPollClose.toMillis()) {
