@@ -135,6 +135,7 @@ export default function UserProfile(props) {
 			</table>
 		</div>
 	);
+
 }
 
 //BACKEND CODE BEGINS HERE

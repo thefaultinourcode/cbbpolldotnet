@@ -7,10 +7,11 @@ import Image from 'next/image';
 import User from "../models/User";
 import UserBallot from "../models/UserBallot";
 import TeamData from "../models/TeamData";
-//import Userpoll from "../models/Userpoll";
+//import Poll from "../models/Poll";
 import TeamRow from "../components/pollrow";
 import { connectMongo } from "../utils/connect";
 // import { getSeason } from "../utils/getDates";
+import { getPoll } from "../utils/getData";
 import Link from 'next/link';
 
 const DURATION = "permanent";
@@ -515,8 +516,9 @@ const getUserpoll = async (week) => {
   
     let numberOne = {};
     let pointTotals = {};
+    let ballotIds = [];
     for(let i = 0; i < ballotList.length; i++){
-        
+      ballotIds.push(ballotList[i]._id);
       if(week === "Pre-Season"){
         if(numberOne[ballotList[i]['one'].id] == null){
           numberOne[ballotList[i]['one'].id] = 0;
@@ -582,7 +584,17 @@ const getUserpoll = async (week) => {
         pointTotals[ballotList[i][25].id] = getPoints(pointTotals, ballotList[i][25].id, ballotList[i][25].points);
       }    
   }
+
+  console.log('ballotIds:',ballotIds);
   
+  let poll = await getPoll(week);
+
+  if(poll.length===0){
+    let weeklyPoll = {ballots: poll, week: week};
+  }
+
+  console.log('poll:', poll);
+
     function getPoints(obj, id, points){
       if(obj[id] == null){
         obj[id] = 0;

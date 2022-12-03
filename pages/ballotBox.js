@@ -542,9 +542,9 @@ const getTeams = async () => {
 
 const getBallot = async (user) => {
 	await connectMongo();
+  const ballot = await UserBallot.findOne({'user': user.name, 'week': 4});
+  const userBallot = JSON.parse(JSON.stringify(ballot));
 
-	const ballot = await UserBallot.findOne({ "user": user.name, "week": 3 });
-	const userBallot = JSON.parse(JSON.stringify(ballot));
 
 	return userBallot;
 };
