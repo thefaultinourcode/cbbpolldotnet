@@ -144,9 +144,9 @@ export default function Navbar(props) {
 						</div>
 						<div className="linkBlock">
 							<li className="navbar-list-item center">
-								<a href="../ballotBox">
-									<div className="navbar-link">Vote</div>
-								</a>
+								<Link href="../ballotBox">
+									<div className="navbar-link cursor-pointer">Vote</div>
+								</Link>
 							</li>
 						</div>
 						{/* Application Link */}
@@ -161,18 +161,17 @@ export default function Navbar(props) {
                     </div> */}
 						<div className="linkBlock">
 							<li className="navbar-list-item center">
-								<a href="../about">
-									<div className="navbar-link">About</div>
-								</a>
+								<Link href="../about">
+									<div className="navbar-link cursor-pointer">About</div>
+								</Link>
 							</li>
 						</div>
 
 						<div id="usernameFloat" className="center">
 							<li className="navbar-list-item">
-								<a href="../profile">
-									{" "}
-									<div className="navbar-link userName center">{user.user.name}</div>
-								</a>
+								<Link href="../profile">
+									<div className="navbar-link userName center cursor-pointer">{user.user.name}</div>
+								</Link>
 							</li>
 						</div>
 					</ul>
