@@ -159,7 +159,6 @@ export default function Profile({ user, teams, userprofile }) {
 				>
 					Test
 				</Link>{" "}
-				*/}
 			</div>
 		</>
 	) : (
