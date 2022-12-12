@@ -140,7 +140,7 @@ const getToken = async (body) => {
 
 export const getServerSideProps = async ({ query, req, res }) => {
   
-    let week = 5;
+    let week = 6;
     console.log(week);
 
     const refresh_token = getCookie("refresh_token", { req, res });
