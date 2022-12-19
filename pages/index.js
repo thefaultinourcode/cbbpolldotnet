@@ -43,11 +43,11 @@ export default function Home(props) {
   let week;
   if(today > pollDate){
     // week = 2;
-    week = 6;
+    week = 7;
   }
   else{
     // week = "Pre-Season";
-    week = 5;
+    week = 6;
   }
 
   console.log('week:', week);
@@ -329,15 +329,15 @@ const getToken = async (body) => {
 
 export const getServerSideProps = async ({ query, req, res }) => {
   
-  let pollDate = new Date('12 December 2022 15:00 UTC');
+  let pollDate = new Date('19 December 2022 15:00 UTC');
   //let today = new Date('3 May 2023 15:00 UTC');
   let today = new Date();
   let week;
   if(today > pollDate){
-    week = 6;
+    week = 7;
   }
   else{
-    week = 5;
+    week = 6;
   }
 
   const refresh_token = getCookie("refresh_token", { req, res });
@@ -440,15 +440,15 @@ const getBallots = async (pollVoter) => {
 
   await connectMongo();
 
-  let pollDate = new Date('12 December 2022 15:00 UTC');
+  let pollDate = new Date('19 December 2022 15:00 UTC');
   let today = new Date();
   //let today = new Date('3 May 2023 15:00 UTC');
   let week;
   if(today > pollDate){
-    week = 6;
+    week = 7;
   }
   else{
-    week = 5;
+    week = 6;
   }
 
 
