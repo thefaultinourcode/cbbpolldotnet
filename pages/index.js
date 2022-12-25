@@ -37,20 +37,18 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 export default function Home(props) {
 
-  let pollDate = new Date('12 December 2022 15:00 UTC');
+  let pollDate = new Date('26 December 2022 15:00 UTC');
   let today = new Date();
   //let today = new Date('1 May 2023 16:00 UTC');
   let week;
   if(today > pollDate){
     // week = 2;
-    week = 7;
+    week = 8;
   }
   else{
     // week = "Pre-Season";
-    week = 6;
+    week = 7;
   }
-
-  console.log('week:', week);
 
   async function addPoll(userpollData){
     const res = await fetch('/api/addPoll',{
@@ -136,8 +134,7 @@ export default function Home(props) {
   let provisionalVoterArray = [];
   for(let i = 0; i < provisionalVoters.length; i++){
     if(i !== pollVoters.length - 1){
-      provisionalVoterArray.push(
-                                
+      provisionalVoterArray.push(                            
                                   <span>
                                     <Image src={provisionalVoters[i].url} width={25} height={25}></Image>
                                     <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>,
@@ -329,15 +326,15 @@ const getToken = async (body) => {
 
 export const getServerSideProps = async ({ query, req, res }) => {
   
-  let pollDate = new Date('19 December 2022 15:00 UTC');
+  let pollDate = new Date('26 December 2022 15:00 UTC');
   //let today = new Date('3 May 2023 15:00 UTC');
   let today = new Date();
   let week;
   if(today > pollDate){
-    week = 7;
+    week = 8;
   }
   else{
-    week = 6;
+    week = 7;
   }
 
   const refresh_token = getCookie("refresh_token", { req, res });
@@ -440,15 +437,15 @@ const getBallots = async (pollVoter) => {
 
   await connectMongo();
 
-  let pollDate = new Date('19 December 2022 15:00 UTC');
+  let pollDate = new Date('26 December 2022 15:00 UTC');
   let today = new Date();
   //let today = new Date('3 May 2023 15:00 UTC');
   let week;
   if(today > pollDate){
-    week = 7;
+    week = 8;
   }
   else{
-    week = 6;
+    week = 7;
   }
 
 

@@ -29,7 +29,7 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 export default function Preview (props){
     let title;
     let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
-    let week = 7;
+    let week = 8;
 
     if(!modlist.includes(props.user.name)){
         return(<div>

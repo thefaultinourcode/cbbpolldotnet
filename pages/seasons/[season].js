@@ -5,29 +5,29 @@ import Link from 'next/link';
 export default function Season (props){
     const router = useRouter();
     const season = router.query;
-    let weeks = ['Pre-Season', 2, 3, 4, 5, 6, 7];
+    let weeks = ['Pre-Season', 2, 3, 4, 5, 6, 7, 8];
     let year = 2023;
 
     let links = [];
 
-    let pollDate = new Date('19 December 2022 15:00 UTC');
+    let pollDate = new Date('26 December 2022 15:00 UTC');
     let today = new Date();
     //let today = new Date('3 May 2023 14:00 UTC');
     let week;
 
     if(today > pollDate){
-      week = 7;
+      week = 8;
     }
     else if (today < pollDate){
-      week = 6;
+      week = 7;
     }
 
-    if(week === 7){
+    if(week === 8){
         for(let i = 0; i < weeks.length; i++){
             links.push(<li><Link href={`./${year}/${weeks[i]}`}>{weeks[i]}</Link></li>)
         }    
     }
-    else if (week === 6){
+    else if (week === 7){
         for(let i = 0; i < weeks.length-1; i++){
             links.push(<li><Link href={`./${year}/${weeks[i]}`}>{weeks[i]}</Link></li>)
         }  

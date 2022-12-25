@@ -54,7 +54,31 @@ export default function UserProfile (props){
     //this iterates through the list of ballots and creates am array of link components that can be passed to the webpage
     //this can be expanded to include more tags for the styling that you want
     let ballotArray = [];
-    for(let i = 0; i < ballots.length; i++ ){
+    let ballotLength;
+    
+    //update
+    let week;
+    let openDate = new Date('26 December 2022 15:00 UTC');
+    let today = new Date();
+
+    if(today >= openDate){
+      week = 8;
+    }
+    else{
+      week = 7;
+    }
+
+
+    // ballotLength = ballots.length;
+    if(week === 8){
+      ballotLength = ballots.length;
+    }
+    else if(week < 8){
+      ballotLength = ballots.length - 1;
+    }
+
+
+    for(let i = 0; i < ballotLength; i++ ){
         let link = <tr key={ballots[i]._id} className="ballotCell"><td><Link href={`/ballots/${ballots[i].week}/${ballots[i]._id}`}><a>Week {ballots[i].week}</a></Link></td></tr>
         ballotArray.push(link);
     }
@@ -109,8 +133,8 @@ export default function UserProfile (props){
 //BACKEND CODE BEGINS HERE
 
 //Reddit login code
-const REDIRECT_URI = "http://localhost:3000/profile";
-//const REDIRECT_URI = "http://cbbpoll.net/profile";
+//const REDIRECT_URI = "http://localhost:3000/profile";
+const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
