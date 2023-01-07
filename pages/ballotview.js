@@ -185,7 +185,7 @@ const getToken = async (body) => {
     console.log('CONNECTED TO MONGO');
 
     console.log('FETCHING BALLOT');
-    const ballot = await UserBallot.findOne({'user': user.name, 'week': 9});
+    const ballot = await UserBallot.findOne({'user': user.name, 'week': 10});
     const userBallot = JSON.parse(JSON.stringify(ballot));
     console.log('FETCHED BALLOT');
     return userBallot;
