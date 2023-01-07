@@ -4,7 +4,7 @@ import Poll from "../../components/poll";
 
 export default async function addPoll(req, res){
     //const {week, season, userpoll } = req.body;
-    const{ballots, week} = req.body;
+    const{ballots, week, season} = req.body;
 
 
     await connectMongo();

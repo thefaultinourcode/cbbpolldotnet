@@ -1,12 +1,13 @@
-import Navbar from "../components/navbar";
+//import Navbar from "../components/navbar";
 import { getCookie, getCookies, setCookie } from "cookies-next";
 import Image from "next/image";
 import TeamRow from "../components/pollrow";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
+//import { useQuery } from "@tanstack/react-query";
 
-import { getBallots, getUserpoll } from "../lib/server";
+import { getBallots, getUserpoll, getPoll } from "../lib/server";
 import { getUser, getToken, userQuery } from "../lib/client";
+//import { getPoll } from "../utils/getData";
 
 const DURATION = "permanent";
 const SCOPE = "identity";
@@ -28,10 +29,11 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 //display
 
 export default function Home(props) {
-	let pollDate = new Date("21 November 2022 15:00 UTC");
+	let pollDate = new Date("7 January 2023 15:00 UTC");
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
-	let week;
+	let season = 2023;
+  let week;
 	if (today > pollDate) {
 		// week = 2;
 		week = 3;
@@ -42,11 +44,11 @@ export default function Home(props) {
 
 	const cookies = getCookies();
 
-	console.log("getting cookies", cookies);
+	// console.log("getting cookies", cookies);
 
-	console.log("week:", week);
+	// console.log("week:", week);
 
-	console.log("index props", props);
+	// console.log("index props", props);
 
 	async function addPoll(userpollData) {
 		const res = await fetch("/api/addPoll", {
@@ -66,14 +68,26 @@ export default function Home(props) {
 	// let season = props.userpoll.season;
 	//console.log('userpoll:', userpoll);
 
-	if (props.userpoll.new) {
+  console.log('props', props);
+
+  console.log(props.pollVoters);
+
+  let officialBallots= [];
+  for(let i = 0; i < props.pollVoters.length; i++){
+    console.log(props.pollVoters[i].ballotId);
+    officialBallots.push(props.pollVoters[i].ballotId);
+  }
+  console.log('officialBallots:', officialBallots);
+
+	if (!props.pollExists) {
 		//console.log('userpoll');
 		let userpollData = {
-			week: "Pre-Season",
-			season: 2023,
-			poll: userpoll,
+			ballots: officialBallots,
+      week: week,
+			season: season			
 		};
-		addPoll(userpollData);
+    console.log('userplolData:', userpollData);
+		//addPoll(userpollData);
 	} else {
 		console.log("no userplol");
 	}
@@ -194,7 +208,7 @@ export default function Home(props) {
 					<a href={"/ballotBox"}>
 						<button>VOTE NOW</button>
 					</a>
-					<h3>Week 3 closes Monday, November 21, at 9:59am EST</h3>
+					<h3>Polls close at 9:59 EST every Monday</h3>
 				</div>
 				<div className="text-center w-full">
 					<h1 className="text-4xl font-bold mt-16">Week {week} Poll</h1>
@@ -257,7 +271,7 @@ export default function Home(props) {
 							<button>VOTE NOW</button>
 						</a>
 						<br />
-						<h3>Week 2 closes Monday, November 14, at 9:59am EST</h3>
+						<h3>Voting closes every Monday at 9:59am EST</h3>
 					</div>
 				</div>
 				<div id="pollTable">
@@ -313,16 +327,63 @@ export default function Home(props) {
 		);
 	}
 }
+
+// export const checkWeek = async (week) => {
+
+// }
+
 export const getServerSideProps = async ({ query, req, res }) => {
-	let pollDate = new Date("21 November 2022 15:00 UTC");
+
+  let pollDate = new Date("7 January 2023 15:00 UTC");
 	//let today = new Date('3 May 2023 15:00 UTC');
 	let today = new Date();
 	let week;
+  let season = 2023;
 	if (today > pollDate) {
 		week = 3;
 	} else {
 		week = 2;
 	}
+
+  //add poll down here
+  
+
+  let poll = await getPoll(week);
+  console.log('poll fetched:', poll);
+  let pollExists;
+  if(poll.length === 0){
+    pollExists = false;
+  }
+  else{
+    pollExists = true;
+  }
+
+  const pollVoters = await getBallots(true);
+
+  let officialBallots = [];
+  if(!pollExists){
+    for(let i = 0; i < pollVoters.length; i++){
+      console.log(pollVoters[i].ballotId);
+      officialBallots.push(pollVoters[i].ballotId);
+    }
+    console.log('officialBallots:', officialBallots);
+
+    const pollData = {
+      week: week,
+      season, season,
+      ballots: officialBallots
+    };
+
+  }
+  else{
+
+  }
+  
+
+
+  
+
+
 
 	const refresh_token = getCookie("refresh_token", { req, res });
 	const access_token = getCookie("access_token", { req, res });
@@ -331,9 +392,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
 		if (access_token) {
 			const user = await getUser(access_token);
 			const userpoll = await getUserpoll(week);
-			const pollVoters = await getBallots(true);
+			
 			const provisionalVoters = await getBallots(false);
-			return { props: { userpoll, pollVoters, provisionalVoters } };
+			return { props: { userpoll, pollVoters, provisionalVoters, pollExists } };
 		} else {
 			const token = await getToken({
 				refresh_token: refresh_token,
@@ -351,9 +412,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			});
 			const user = await getUser(token.access_token);
 			const userpoll = await getUserpoll(week);
-			const pollVoters = await getBallots(true);
+			//const pollVoters = await getBallots(true);
 			const provisionalVoters = await getBallots(false);
-			return { props: { userpoll, pollVoters, provisionalVoters } };
+			return { props: { userpoll, pollVoters, provisionalVoters, pollExists } };
 		}
 	} else if (query.code && query.state === RANDOM_STRING) {
 		try {
@@ -374,17 +435,17 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			});
 			const user = await getUser(token.access_token);
 			const userpoll = await getUserpoll(week);
-			const pollVoters = await getBallots(true);
+			//const pollVoters = await getBallots(true);
 			const provisionalVoters = await getBallots(false);
-			return { props: { userpoll, pollVoters, provisionalVoters } };
+			return { props: { userpoll, pollVoters, provisionalVoters, pollExists } };
 		} catch (e) {
 			console.log(e);
 			return { props: { user: null } };
 		}
 	} else {
 		const userpoll = await getUserpoll(week);
-		const pollVoters = await getBallots(true);
+		//const pollVoters = await getBallots(true);
 		const provisionalVoters = await getBallots(false);
-		return { props: { userpoll, pollVoters, provisionalVoters } };
+		return { props: { userpoll, pollVoters, provisionalVoters, pollExists } };
 	}
 };

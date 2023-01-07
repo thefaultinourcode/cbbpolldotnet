@@ -2,7 +2,7 @@ import { connectMongo } from "./connect";
 import User from "../models/User";
 import TeamData from "../models/TeamData";
 import UserBallot from "../models/UserBallot";
-// import Poll from "../models/poll";
+import Poll from "../models/Poll";
 
 export const getUserInfo = async (username) => {
 	await connectMongo();
