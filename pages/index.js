@@ -68,6 +68,10 @@ export default function Home(props) {
 	// let season = props.userpoll.season;
 	//console.log('userpoll:', userpoll);
 
+  async function handleLoad(e){
+
+  }
+
   console.log('props', props);
 
   console.log(props.pollVoters);
@@ -373,6 +377,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
       season, season,
       ballots: officialBallots
     };
+    console.log('pollData:', pollData);
 
   }
   else{

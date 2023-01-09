@@ -90,6 +90,7 @@ export default function Navbar(props) {
 	}
 
 	if (user.user) {
+		console.log('props.children:', props);
 		return (
 			<div className="flex flex-col w-full h-fit p-2 gap-3 bg-[#d3ecff]">
 				<div className="navbar">
