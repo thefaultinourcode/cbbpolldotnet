@@ -33,20 +33,20 @@ export default function Week (props){
     const router = useRouter();
     const week = router.query;
 
-    let pollDate = new Date('2 January 2023 15:00 UTC');
+    let pollDate = new Date('9 January 2023 15:00 UTC');
     //let today = new Date('3 May 2023 15:00 UTC');
     let today = new Date();
     
     let weekNum;
     if(today > pollDate){
-      weekNum = 9;
+      weekNum = 10;
     }
     else{
-      weekNum = 8;
+      weekNum = 9;
     }
   
     console.log('week.week:', week.week);
-    if(week.week === '9' && weekNum < 9){
+    if(week.week === '10' && weekNum < 10){
       return(<div>
         <p>You do not have permission to view this page.</p>
       </div>)
