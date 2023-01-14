@@ -5,7 +5,7 @@ import TeamRow from "../components/pollrow";
 import Link from "next/link";
 //import { useQuery } from "@tanstack/react-query";
 
-import { getBallots, getUserpoll, getPoll } from "../lib/server";
+import { getBallots, getUserpoll, getPoll, checkPoll } from "../lib/server";
 import { getUser, getToken, userQuery } from "../lib/client";
 //import { getPoll } from "../utils/getData";
 
@@ -350,17 +350,29 @@ export const getServerSideProps = async ({ query, req, res }) => {
 	}
 
   //add poll down here
-  
+
+  let testW3 = await checkPoll(3,2023);
+
+  let pollExists = await checkPoll(week, season);
+  if(pollExists){
+
+  }
+  else{
+	
+  }
+
+
+  console.log('test week 3:', testW3);
 
   let poll = await getPoll(week);
   console.log('poll fetched:', poll);
-  let pollExists;
-  if(poll.length === 0){
-    pollExists = false;
-  }
-  else{
-    pollExists = true;
-  }
+//   let pollExists;
+//   if(poll.length === 0){
+//     pollExists = false;
+//   }
+//   else{
+//     pollExists = true;
+//   }
 
   const pollVoters = await getBallots(true);
 
