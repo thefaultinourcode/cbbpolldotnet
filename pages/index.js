@@ -352,13 +352,14 @@ export const getServerSideProps = async ({ query, req, res }) => {
   //add poll down here
 
   let testW3 = await checkPoll(3,2023);
+  const pollVoters = await getBallots(true);
 
   let pollExists = await checkPoll(week, season);
   if(pollExists){
 
   }
   else{
-	
+
   }
 
 
@@ -374,7 +375,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
 //     pollExists = true;
 //   }
 
-  const pollVoters = await getBallots(true);
 
   let officialBallots = [];
   if(!pollExists){
