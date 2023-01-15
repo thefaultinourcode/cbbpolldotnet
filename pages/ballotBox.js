@@ -16,8 +16,8 @@ export default function BallotBox (props){
     const router = useRouter();
     let today = new Date();
     //let today = new Date(2022, 10, 13, 10, 59); 
-    let openDate = new Date(Date.UTC(2023, 0, 7, 15));
-    let closeDate = new Date(Date.UTC(2023, 0, 9, 14, 59));
+    let openDate = new Date(Date.UTC(2023, 0, 14, 15));
+    let closeDate = new Date(Date.UTC(2023, 0, 9, 16, 59));
 
     const [ballot, setBallot] = useState(
         {
