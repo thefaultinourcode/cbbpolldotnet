@@ -22,12 +22,12 @@ export default function Season (props){
       week = 10;
     }
 
-    if(week === 10){
+    if(week === 11){
         for(let i = 0; i < weeks.length; i++){
             links.push(<li><Link href={`./${year}/${weeks[i]}`}>{weeks[i]}</Link></li>)
         }    
     }
-    else if (week === 9){
+    else if (week === 10){
         for(let i = 0; i < weeks.length-1; i++){
             links.push(<li><Link href={`./${year}/${weeks[i]}`}>{weeks[i]}</Link></li>)
         }  
