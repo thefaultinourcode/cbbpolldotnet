@@ -5,8 +5,9 @@ import TeamRow from "../components/pollrow";
 import Link from "next/link";
 //import { useQuery } from "@tanstack/react-query";
 
-import { getBallots, getUserpoll, getPoll, checkPoll } from "../lib/server";
+import { getBallots, getUserpoll, getPoll, checkPoll, addPoll } from "../lib/server";
 import { getUser, getToken, userQuery } from "../lib/client";
+//import addPoll from "./api/addPoll";
 //import { getPoll } from "../utils/getData";
 
 const DURATION = "permanent";
@@ -363,7 +364,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
   }
 
 
-  console.log('test week 3:', testW3);
+   console.log('test week 3:', testW3);
 
   let poll = await getPoll(week);
   console.log('poll fetched:', poll);
@@ -390,11 +391,13 @@ export const getServerSideProps = async ({ query, req, res }) => {
       ballots: officialBallots
     };
     console.log('pollData:', pollData);
-
+	await addPoll(pollData);
   }
   else{
 
   }
+
+	//let pollExists	= 'test';
   
 
 
