@@ -5,7 +5,7 @@ import TeamRow from "../components/pollrow";
 import Link from "next/link";
 //import { useQuery } from "@tanstack/react-query";
 
-import { getBallots, getUserpoll, getPoll, checkPoll, addPoll } from "../lib/server";
+import { getBallots, getUserpoll, checkPoll, addPoll, getUserpollTest, getPoll } from "../lib/server";
 import { getUser, getToken, userQuery } from "../lib/client";
 //import addPoll from "./api/addPoll";
 //import { getPoll } from "../utils/getData";
@@ -51,27 +51,23 @@ export default function Home(props) {
 
 	// console.log("index props", props);
 
-	async function addPoll(userpollData) {
-		const res = await fetch("/api/addPoll", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(userpollData),
-		});
+	// async function addPoll(userpollData) {
+	// 	const res = await fetch("/api/addPoll", {
+	// 		method: "POST",
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 		body: JSON.stringify(userpollData),
+	// 	});
 
-		const data = await res.json();
-	}
+	// 	const data = await res.json();
+	// }
 
 	let userpoll = props.userpoll;
 
 	// let week = props.userpoll.week;
 	// let season = props.userpoll.season;
 	//console.log('userpoll:', userpoll);
-
-  async function handleLoad(e){
-
-  }
 
   console.log('props', props);
 
@@ -88,7 +84,7 @@ export default function Home(props) {
 		//console.log('userpoll');
 		let userpollData = {
 			ballots: officialBallots,
-      week: week,
+      		week: week,
 			season: season			
 		};
     console.log('userplolData:', userpollData);
@@ -266,7 +262,8 @@ export default function Home(props) {
 				</div>
 			</div>
 		);
-	} else if (today < pollDate) {
+	} 
+	else if (today < pollDate) {
 		return props.user ? (
 			<div className="homepage">
 				<div className="content">
@@ -352,7 +349,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
 
   //add poll down here
 
-  let testW3 = await checkPoll(3,2023);
   const pollVoters = await getBallots(true);
 
   let pollExists = await checkPoll(week, season);
@@ -360,14 +356,11 @@ export const getServerSideProps = async ({ query, req, res }) => {
 
   }
   else{
-	
+
   }
 
-
-   console.log('test week 3:', testW3);
-
-  let poll = await getPoll(week);
-  console.log('poll fetched:', poll);
+//   let poll = await getPoll(week);
+//   console.log('poll fetched:', poll);
 //   let pollExists;
 //   if(poll.length === 0){
 //     pollExists = false;
@@ -378,6 +371,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
 
 
   let officialBallots = [];
+  let poll;
   if(!pollExists){
     for(let i = 0; i < pollVoters.length; i++){
       console.log(pollVoters[i].ballotId);
@@ -392,17 +386,16 @@ export const getServerSideProps = async ({ query, req, res }) => {
     };
     console.log('pollData:', pollData);
 	await addPoll(pollData);
+	poll = pollData;
   }
   else{
-
+	poll = await getPoll(week);
   }
 
-	//let pollExists	= 'test';
   
+  const userplol = await getUserpollTest(poll);
 
-
-  
-
+  console.log('userplol:', userplol);
 
 
 	const refresh_token = getCookie("refresh_token", { req, res });
