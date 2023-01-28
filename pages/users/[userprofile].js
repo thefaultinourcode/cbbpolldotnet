@@ -58,22 +58,22 @@ export default function UserProfile (props){
     
     //update
     let week;
-    let openDate = new Date('23 January 2023 15:00 UTC');
+    let openDate = new Date('30 January 2023 15:00 UTC');
     let today = new Date();
 
     if(today >= openDate){
-      week = 12;
+      week = 13;
     }
     else{
-      week = 11;
+      week = 12;
     }
 
 
     // ballotLength = ballots.length;
-    if(week === 12){
+    if(week === 13){
       ballotLength = ballots.length;
     }
-    else if(week < 12){
+    else if(week < 13){
       ballotLength = ballots.length - 1;
     }
 
