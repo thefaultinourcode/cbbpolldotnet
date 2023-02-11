@@ -16,13 +16,13 @@ export default function BallotBox (props){
     const router = useRouter();
     let today = new Date();
     //let today = new Date(2022, 10, 13, 10, 59); 
-    let openDate = new Date(Date.UTC(2023, 1, 4, 15));
-    let closeDate = new Date(Date.UTC(2023, 1, 6, 14, 59));
+    let openDate = new Date(Date.UTC(2023, 1, 11, 15));
+    let closeDate = new Date(Date.UTC(2023, 1, 13, 14, 59));
 
     const [ballot, setBallot] = useState(
         {
             date: Date.now(),
-            week: 14,
+            week: 15,
             user: props.user.name,
         }
     );
@@ -542,7 +542,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
 const getBallot = async (user) => {
     await connectMongo();
 
-    const ballot = await UserBallot.findOne({'user': user.name, 'week': 14});
+    const ballot = await UserBallot.findOne({'user': user.name, 'week': 15});
     const userBallot = JSON.parse(JSON.stringify(ballot));
 
     return userBallot;
