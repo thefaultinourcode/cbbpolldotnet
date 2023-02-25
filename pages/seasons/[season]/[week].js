@@ -39,14 +39,14 @@ export default function Week (props){
     
     let weekNum;
     if(today > pollDate){
-      weekNum = 16;
+      weekNum = 17;
     }
     else{
-      weekNum = 15;
+      weekNum = 16;
     }
   
     console.log('week.week:', week.week);
-    if(week.week === '16' && weekNum < 16){
+    if(week.week === '17' && weekNum < 17){
       return(<div>
         <p>You do not have permission to view this page.</p>
       </div>)
