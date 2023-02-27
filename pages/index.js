@@ -37,17 +37,17 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 export default function Home(props) {
 
-  let pollDate = new Date('20 February 2023 15:00 UTC');
+  let pollDate = new Date('27 February 2023 15:00 UTC');
   let today = new Date();
   //let today = new Date('1 May 2023 16:00 UTC');
   let week;
   if(today > pollDate){
     // week = 2;
-    week = 16;
+    week = 17;
   }
   else{
     // week = "Pre-Season";
-    week = 15;
+    week = 16;
   }
 
   async function addPoll(userpollData){
@@ -326,15 +326,15 @@ const getToken = async (body) => {
 
 export const getServerSideProps = async ({ query, req, res }) => {
   
-  let pollDate = new Date('20 February 2023 15:00 UTC');
+  let pollDate = new Date('27 February 2023 15:00 UTC');
   //let today = new Date('3 May 2023 15:00 UTC');
   let today = new Date();
   let week;
   if(today > pollDate){
-    week = 16;
+    week = 17;
   }
   else{
-    week = 15;
+    week = 16;
   }
 
   const refresh_token = getCookie("refresh_token", { req, res });
@@ -437,15 +437,15 @@ const getBallots = async (pollVoter) => {
 
   await connectMongo();
 
-  let pollDate = new Date('20 February 2023 15:00 UTC');
+  let pollDate = new Date('27 February 2023 15:00 UTC');
   let today = new Date();
   //let today = new Date('3 May 2023 15:00 UTC');
   let week;
   if(today > pollDate){
-    week = 16;
+    week = 17;
   }
   else{
-    week = 15;
+    week = 16;
   }
 
 
