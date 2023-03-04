@@ -29,7 +29,7 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 export default function Preview (props){
     let title;
     let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
-    let week = 17;
+    let week = 18;
 
     if(!modlist.includes(props.user.name)){
         return(<div>
@@ -140,8 +140,7 @@ const getToken = async (body) => {
 
 export const getServerSideProps = async ({ query, req, res }) => {
   
-    let week = 17;
-    console.log(week);
+    let week = 18;
 
     const refresh_token = getCookie("refresh_token", { req, res });
     const access_token = getCookie("access_token", { req, res });
