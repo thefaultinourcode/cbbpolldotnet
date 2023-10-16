@@ -175,10 +175,10 @@ export default function Home(props) {
         <div className="content">  
           <div id="ballotBox">
                 <h3>Vote!</h3>
-              <a href={'/ballotBox'}>
-                <button>VOTE NOW</button>          
+              <a href={'/applicationV2'}>
+                <button>APPLY NOW</button>          
               </a>
-              <h3>Voting closes Monday at 9:59am EST</h3>
+              <h3>Application closes Friday October 27th at 11:59PM EDT</h3>
           </div>
           <br/>
           <br/>
@@ -246,12 +246,11 @@ export default function Home(props) {
   
         <div className="content">  
         <div id="ballotBox">
-                <h3>Vote!</h3>
-              <a href={'/ballotBox'}>
-                <button>VOTE NOW</button>          
+                <h3>Apply!</h3>
+              <a href={'/applicationV2'}>
+                <button>APPLY NOW</button>          
               </a>
-              <br/>
-              <h3>Polls close weekly on Mondays at 9:59am EST</h3>
+              <h3>Application closes Friday October 27th at 11:59PM EDT</h3>
           </div>
         </div>  
         <div id="pollTable">
