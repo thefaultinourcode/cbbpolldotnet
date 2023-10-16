@@ -850,7 +850,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                         <div className="errorMsg">{errorBias}</div>
                         <label>
                             <input type='checkbox' id="memeRequirement" ref={meme}></input>
-                        I understand that my ballots shall represent my honest perception of the top 25 men's college basketball teams in Division I. I also understand that, per the new voter guidelines on the "About" page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
+                        I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
                         </label>
                         <div className="errorMsg">{errorMeme}</div>
                         <br/>
@@ -1122,7 +1122,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                         <div className="errorMsg">{errorBias}</div>
                         <label>
                             <input type='checkbox' id="memeRequirement" ref={meme}></input>
-                        I understand that my ballots shall represent my honest perception of the top 25 men's college basketball teams in Division I. I also understand that, per the new voter guidelines on the "About" page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
+                        I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
                         </label>
                         <div className="errorMsg">{errorMeme}</div>
                         <br/>
@@ -1405,7 +1405,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                             <div className="errorMsg">{errorBias}</div>
                             <label>
                                 <input type='checkbox' id="memeRequirement" ref={meme} defaultChecked={app.memeRequirement}></input>
-                            I understand that my ballots shall represent my honest perception of the top 25 men's college basketball teams in Division I. I also understand that, per the new voter guidelines on the "About" page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
+                            I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
                             </label>
                         <div className="errorMsg">{errorMeme}</div>
                             <br/>
@@ -1687,7 +1687,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                             <div className="errorMsg">{errorBias}</div>
                             <label>
                                 <input type='checkbox' id="memeRequirement" ref={meme} defaultChecked={app.memeRequirement}></input>
-                            I understand that my ballots shall represent my honest perception of the top 25 men's college basketball teams in Division I. I also understand that, per the new voter guidelines on the "About" page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
+                            I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
                             </label>
                         <div className="errorMsg">{errorMeme}</div>
                             <br/>
