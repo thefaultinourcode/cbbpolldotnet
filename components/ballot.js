@@ -11,7 +11,6 @@ export default function Ballot(props){
     const [reasoning, setReasoning] = useState('');
 
     const changeState = (e) => {
-        console.log('ballot e:', e);
         const value = e.value;
         const label = e.label;
         const rank = e.rank;
@@ -32,14 +31,9 @@ export default function Ballot(props){
     }
 
     const changeReasoning = (e) => {
-        console.log('reasoning e:', e);
-        console.log('target:', e.target.id);
 
         let id = e.target.id;
         id = id.replace('reasoning','');
-        console.log('id:', id);
-
-        console.log(e.target.value);
 
         return {
             id: id,

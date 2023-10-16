@@ -16,8 +16,8 @@ import Link from 'next/link';
 const DURATION = "permanent";
 const SCOPE = "identity";
 
-//const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = "http://cbbpoll.net/profile";
+const REDIRECT_URI = process.env.REDIRECT_URI;
+//const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
@@ -65,7 +65,10 @@ export default function Home(props) {
   }
 
   let userpoll = props.userpoll;
-  
+  for(let i=0; i < userpoll.length; i++){
+	console.log('name:', userpoll[i].teamName);
+  }
+
   // let week = props.userpoll.week;
   // let season = props.userpoll.season;
   //console.log('userpoll:', userpoll);
@@ -413,17 +416,17 @@ const getUser = async (access_token) => {
   return data.data;
 };
 
-const getUserList = async (pollVoter) => {
-  await connectMongo();
+// const getUserList = async (pollVoter) => {
+//   await connectMongo();
 
-  const users = await User.find({pollVoter: pollVoter});
-  const userList = JSON.parse(JSON.stringify(users));
-  let userArray = [];
-  for(let i = 0; i < userList.length; i++){
-    userArray.push(userList[i].name);
-  }
-  return userArray;
-}
+//   const users = await User.find({pollVoter: pollVoter});
+//   const userList = JSON.parse(JSON.stringify(users));
+//   let userArray = [];
+//   for(let i = 0; i < userList.length; i++){
+//     userArray.push(userList[i].name);
+//   }
+//   return userArray;
+// }
 
 const getUserInfo = async (username) =>{
   await connectMongo();
@@ -432,8 +435,8 @@ const getUserInfo = async (username) =>{
   return user;
 }
 
-const getBallots = async (pollVoter) => {
-  let users = await getUserList(pollVoter);
+const getBallots = async (official) => {
+  //let users = await getUserList(pollVoter);
 
   await connectMongo();
 
@@ -448,9 +451,7 @@ const getBallots = async (pollVoter) => {
     week = 19;
   }
 
-
-
-  const ballots = await UserBallot.find({user: {$in: users}, week: week});
+  const ballots = await UserBallot.find({official: official, week: week});
 
   let voters = [];
   for(let i = 0; i < ballots.length; i++){
@@ -502,82 +503,90 @@ const getUserpoll = async (week) => {
   //else{
     // console.log('else poll then...');
 
-    let userArray = await getUserList(true);
+	//
+    //let userArray = await getUserList(true);
 
     await connectMongo();
   
-    const ballots = await UserBallot.find({user: {$in: userArray}, week: week });
+    const ballots = await UserBallot.find({official: true, week: week });
     const ballotList = JSON.parse(JSON.stringify(ballots));
 
-  
+	for(let i = 0; i < ballots.length; i++){
+		//console.log('user:', ballots[i].user);
+	}
+
     let numberOne = {};
     let pointTotals = {};
     for(let i = 0; i < ballotList.length; i++){
         
-      if(week === "Pre-Season"){
-        if(numberOne[ballotList[i]['one'].id] == null){
-          numberOne[ballotList[i]['one'].id] = 0;
-        }
-        numberOne[ballotList[i]['one'].id]++;
+    //   if(week === "Pre-Season"){
+    //     if(numberOne[ballotList[i]['one'].id] == null){
+    //       numberOne[ballotList[i]['one'].id] = 0;
+    //     }
+    //     numberOne[ballotList[i]['one'].id]++;
     
-        pointTotals[ballotList[i]['one'].id] = getPoints(pointTotals, ballotList[i]['one'].id, ballotList[i]['one'].points);
-        pointTotals[ballotList[i]['two'].id] = getPoints(pointTotals, ballotList[i]['two'].id, ballotList[i]['two'].points);
-        pointTotals[ballotList[i]['three'].id] = getPoints(pointTotals, ballotList[i]['three'].id, ballotList[i]['three'].points);
-        pointTotals[ballotList[i]['four'].id] = getPoints(pointTotals, ballotList[i]['four'].id, ballotList[i]['four'].points);
-        pointTotals[ballotList[i]['five'].id] = getPoints(pointTotals, ballotList[i]['five'].id, ballotList[i]['five'].points);
-        pointTotals[ballotList[i]['six'].id] = getPoints(pointTotals, ballotList[i]['six'].id, ballotList[i]['six'].points);
-        pointTotals[ballotList[i]['seven'].id] = getPoints(pointTotals, ballotList[i]['seven'].id, ballotList[i]['seven'].points);
-        pointTotals[ballotList[i]['eight'].id] = getPoints(pointTotals, ballotList[i]['eight'].id, ballotList[i]['eight'].points);
-        pointTotals[ballotList[i]['nine'].id] = getPoints(pointTotals, ballotList[i]['nine'].id, ballotList[i]['nine'].points);
-        pointTotals[ballotList[i]['ten'].id] = getPoints(pointTotals, ballotList[i]['ten'].id, ballotList[i]['ten'].points);
-        pointTotals[ballotList[i]['eleven'].id] = getPoints(pointTotals, ballotList[i]['eleven'].id, ballotList[i]['eleven'].points);
-        pointTotals[ballotList[i]['twelve'].id] = getPoints(pointTotals, ballotList[i]['twelve'].id, ballotList[i]['twelve'].points);
-        pointTotals[ballotList[i]['thirteen'].id] = getPoints(pointTotals, ballotList[i]['thirteen'].id, ballotList[i]['thirteen'].points);
-        pointTotals[ballotList[i]['fourteen'].id] = getPoints(pointTotals, ballotList[i]['fourteen'].id, ballotList[i]['fourteen'].points);
-        pointTotals[ballotList[i]['fifteen'].id] = getPoints(pointTotals, ballotList[i]['fifteen'].id, ballotList[i]['fifteen'].points);
-        pointTotals[ballotList[i]['sixteen'].id] = getPoints(pointTotals, ballotList[i]['sixteen'].id, ballotList[i]['sixteen'].points);
-        pointTotals[ballotList[i]['seventeen'].id] = getPoints(pointTotals, ballotList[i]['seventeen'].id, ballotList[i]['seventeen'].points);
-        pointTotals[ballotList[i]['eighteen'].id] = getPoints(pointTotals, ballotList[i]['eighteen'].id, ballotList[i]['eighteen'].points);
-        pointTotals[ballotList[i]['nineteen'].id] = getPoints(pointTotals, ballotList[i]['nineteen'].id, ballotList[i]['nineteen'].points);
-        pointTotals[ballotList[i]['twenty'].id] = getPoints(pointTotals, ballotList[i]['twenty'].id, ballotList[i]['twenty'].points);
-        pointTotals[ballotList[i]['twentyOne'].id] = getPoints(pointTotals, ballotList[i]['twentyOne'].id, ballotList[i]['twentyOne'].points);
-        pointTotals[ballotList[i]['twentyTwo'].id] = getPoints(pointTotals, ballotList[i]['twentyTwo'].id, ballotList[i]['twentyTwo'].points);
-        pointTotals[ballotList[i]['twentyThree'].id] = getPoints(pointTotals, ballotList[i]['twentyThree'].id, ballotList[i]['twentyThree'].points);
-        pointTotals[ballotList[i]['twentyFour'].id] = getPoints(pointTotals, ballotList[i]['twentyFour'].id, ballotList[i]['twentyFour'].points);
-        pointTotals[ballotList[i]['twentyFive'].id] = getPoints(pointTotals, ballotList[i]['twentyFive'].id, ballotList[i]['twentyFive'].points);
-      }
-      else{
+    //     pointTotals[ballotList[i]['one'].id] = getPoints(pointTotals, ballotList[i]['one'].id, ballotList[i]['one'].points);
+    //     pointTotals[ballotList[i]['two'].id] = getPoints(pointTotals, ballotList[i]['two'].id, ballotList[i]['two'].points);
+    //     pointTotals[ballotList[i]['three'].id] = getPoints(pointTotals, ballotList[i]['three'].id, ballotList[i]['three'].points);
+    //     pointTotals[ballotList[i]['four'].id] = getPoints(pointTotals, ballotList[i]['four'].id, ballotList[i]['four'].points);
+    //     pointTotals[ballotList[i]['five'].id] = getPoints(pointTotals, ballotList[i]['five'].id, ballotList[i]['five'].points);
+    //     pointTotals[ballotList[i]['six'].id] = getPoints(pointTotals, ballotList[i]['six'].id, ballotList[i]['six'].points);
+    //     pointTotals[ballotList[i]['seven'].id] = getPoints(pointTotals, ballotList[i]['seven'].id, ballotList[i]['seven'].points);
+    //     pointTotals[ballotList[i]['eight'].id] = getPoints(pointTotals, ballotList[i]['eight'].id, ballotList[i]['eight'].points);
+    //     pointTotals[ballotList[i]['nine'].id] = getPoints(pointTotals, ballotList[i]['nine'].id, ballotList[i]['nine'].points);
+    //     pointTotals[ballotList[i]['ten'].id] = getPoints(pointTotals, ballotList[i]['ten'].id, ballotList[i]['ten'].points);
+    //     pointTotals[ballotList[i]['eleven'].id] = getPoints(pointTotals, ballotList[i]['eleven'].id, ballotList[i]['eleven'].points);
+    //     pointTotals[ballotList[i]['twelve'].id] = getPoints(pointTotals, ballotList[i]['twelve'].id, ballotList[i]['twelve'].points);
+    //     pointTotals[ballotList[i]['thirteen'].id] = getPoints(pointTotals, ballotList[i]['thirteen'].id, ballotList[i]['thirteen'].points);
+    //     pointTotals[ballotList[i]['fourteen'].id] = getPoints(pointTotals, ballotList[i]['fourteen'].id, ballotList[i]['fourteen'].points);
+    //     pointTotals[ballotList[i]['fifteen'].id] = getPoints(pointTotals, ballotList[i]['fifteen'].id, ballotList[i]['fifteen'].points);
+    //     pointTotals[ballotList[i]['sixteen'].id] = getPoints(pointTotals, ballotList[i]['sixteen'].id, ballotList[i]['sixteen'].points);
+    //     pointTotals[ballotList[i]['seventeen'].id] = getPoints(pointTotals, ballotList[i]['seventeen'].id, ballotList[i]['seventeen'].points);
+    //     pointTotals[ballotList[i]['eighteen'].id] = getPoints(pointTotals, ballotList[i]['eighteen'].id, ballotList[i]['eighteen'].points);
+    //     pointTotals[ballotList[i]['nineteen'].id] = getPoints(pointTotals, ballotList[i]['nineteen'].id, ballotList[i]['nineteen'].points);
+    //     pointTotals[ballotList[i]['twenty'].id] = getPoints(pointTotals, ballotList[i]['twenty'].id, ballotList[i]['twenty'].points);
+    //     pointTotals[ballotList[i]['twentyOne'].id] = getPoints(pointTotals, ballotList[i]['twentyOne'].id, ballotList[i]['twentyOne'].points);
+    //     pointTotals[ballotList[i]['twentyTwo'].id] = getPoints(pointTotals, ballotList[i]['twentyTwo'].id, ballotList[i]['twentyTwo'].points);
+    //     pointTotals[ballotList[i]['twentyThree'].id] = getPoints(pointTotals, ballotList[i]['twentyThree'].id, ballotList[i]['twentyThree'].points);
+    //     pointTotals[ballotList[i]['twentyFour'].id] = getPoints(pointTotals, ballotList[i]['twentyFour'].id, ballotList[i]['twentyFour'].points);
+    //     pointTotals[ballotList[i]['twentyFive'].id] = getPoints(pointTotals, ballotList[i]['twentyFive'].id, ballotList[i]['twentyFive'].points);
+    //   }
+      //else{
         if(numberOne[ballotList[i][1].id] == null){
           numberOne[ballotList[i][1].id] = 0;
         }
         numberOne[ballotList[i][1].id]++;
     
-        pointTotals[ballotList[i][1].id] = getPoints(pointTotals, ballotList[i][1].id, ballotList[i][1].points);
-        pointTotals[ballotList[i][2].id] = getPoints(pointTotals, ballotList[i][2].id, ballotList[i][2].points);
-        pointTotals[ballotList[i][3].id] = getPoints(pointTotals, ballotList[i][3].id, ballotList[i][3].points);
-        pointTotals[ballotList[i][4].id] = getPoints(pointTotals, ballotList[i][4].id, ballotList[i][4].points);
-        pointTotals[ballotList[i][5].id] = getPoints(pointTotals, ballotList[i][5].id, ballotList[i][5].points);
-        pointTotals[ballotList[i][6].id] = getPoints(pointTotals, ballotList[i][6].id, ballotList[i][6].points);
-        pointTotals[ballotList[i][7].id] = getPoints(pointTotals, ballotList[i][7].id, ballotList[i][7].points);
-        pointTotals[ballotList[i][8].id] = getPoints(pointTotals, ballotList[i][8].id, ballotList[i][8].points);
-        pointTotals[ballotList[i][9].id] = getPoints(pointTotals, ballotList[i][9].id, ballotList[i][9].points);
-        pointTotals[ballotList[i][10].id] = getPoints(pointTotals, ballotList[i][10].id, ballotList[i][10].points);
-        pointTotals[ballotList[i][11].id] = getPoints(pointTotals, ballotList[i][11].id, ballotList[i][11].points);
-        pointTotals[ballotList[i][12].id] = getPoints(pointTotals, ballotList[i][12].id, ballotList[i][12].points);
-        pointTotals[ballotList[i][13].id] = getPoints(pointTotals, ballotList[i][13].id, ballotList[i][13].points);
-        pointTotals[ballotList[i][14].id] = getPoints(pointTotals, ballotList[i][14].id, ballotList[i][14].points);
-        pointTotals[ballotList[i][15].id] = getPoints(pointTotals, ballotList[i][15].id, ballotList[i][15].points);
-        pointTotals[ballotList[i][16].id] = getPoints(pointTotals, ballotList[i][16].id, ballotList[i][16].points);
-        pointTotals[ballotList[i][17].id] = getPoints(pointTotals, ballotList[i][17].id, ballotList[i][17].points);
-        pointTotals[ballotList[i][18].id] = getPoints(pointTotals, ballotList[i][18].id, ballotList[i][18].points);
-        pointTotals[ballotList[i][19].id] = getPoints(pointTotals, ballotList[i][19].id, ballotList[i][19].points);
-        pointTotals[ballotList[i][20].id] = getPoints(pointTotals, ballotList[i][20].id, ballotList[i][20].points);
-        pointTotals[ballotList[i][21].id] = getPoints(pointTotals, ballotList[i][21].id, ballotList[i][21].points);
-        pointTotals[ballotList[i][22].id] = getPoints(pointTotals, ballotList[i][22].id, ballotList[i][22].points);
-        pointTotals[ballotList[i][23].id] = getPoints(pointTotals, ballotList[i][23].id, ballotList[i][23].points);
-        pointTotals[ballotList[i][24].id] = getPoints(pointTotals, ballotList[i][24].id, ballotList[i][24].points);
-        pointTotals[ballotList[i][25].id] = getPoints(pointTotals, ballotList[i][25].id, ballotList[i][25].points);
-      }    
+		for(let j = 1; j <= 25; j++){
+			pointTotals[ballotList[i][j].id] = getPoints(pointTotals, ballotList[i][j].id, ballotList[i][j].points);
+		}
+
+        // pointTotals[ballotList[i][1].id] = getPoints(pointTotals, ballotList[i][1].id, ballotList[i][1].points);
+        // pointTotals[ballotList[i][2].id] = getPoints(pointTotals, ballotList[i][2].id, ballotList[i][2].points);
+        // pointTotals[ballotList[i][3].id] = getPoints(pointTotals, ballotList[i][3].id, ballotList[i][3].points);
+        // pointTotals[ballotList[i][4].id] = getPoints(pointTotals, ballotList[i][4].id, ballotList[i][4].points);
+        // pointTotals[ballotList[i][5].id] = getPoints(pointTotals, ballotList[i][5].id, ballotList[i][5].points);
+        // pointTotals[ballotList[i][6].id] = getPoints(pointTotals, ballotList[i][6].id, ballotList[i][6].points);
+        // pointTotals[ballotList[i][7].id] = getPoints(pointTotals, ballotList[i][7].id, ballotList[i][7].points);
+        // pointTotals[ballotList[i][8].id] = getPoints(pointTotals, ballotList[i][8].id, ballotList[i][8].points);
+        // pointTotals[ballotList[i][9].id] = getPoints(pointTotals, ballotList[i][9].id, ballotList[i][9].points);
+        // pointTotals[ballotList[i][10].id] = getPoints(pointTotals, ballotList[i][10].id, ballotList[i][10].points);
+        // pointTotals[ballotList[i][11].id] = getPoints(pointTotals, ballotList[i][11].id, ballotList[i][11].points);
+        // pointTotals[ballotList[i][12].id] = getPoints(pointTotals, ballotList[i][12].id, ballotList[i][12].points);
+        // pointTotals[ballotList[i][13].id] = getPoints(pointTotals, ballotList[i][13].id, ballotList[i][13].points);
+        // pointTotals[ballotList[i][14].id] = getPoints(pointTotals, ballotList[i][14].id, ballotList[i][14].points);
+        // pointTotals[ballotList[i][15].id] = getPoints(pointTotals, ballotList[i][15].id, ballotList[i][15].points);
+        // pointTotals[ballotList[i][16].id] = getPoints(pointTotals, ballotList[i][16].id, ballotList[i][16].points);
+        // pointTotals[ballotList[i][17].id] = getPoints(pointTotals, ballotList[i][17].id, ballotList[i][17].points);
+        // pointTotals[ballotList[i][18].id] = getPoints(pointTotals, ballotList[i][18].id, ballotList[i][18].points);
+        // pointTotals[ballotList[i][19].id] = getPoints(pointTotals, ballotList[i][19].id, ballotList[i][19].points);
+        // pointTotals[ballotList[i][20].id] = getPoints(pointTotals, ballotList[i][20].id, ballotList[i][20].points);
+        // pointTotals[ballotList[i][21].id] = getPoints(pointTotals, ballotList[i][21].id, ballotList[i][21].points);
+        // pointTotals[ballotList[i][22].id] = getPoints(pointTotals, ballotList[i][22].id, ballotList[i][22].points);
+        // pointTotals[ballotList[i][23].id] = getPoints(pointTotals, ballotList[i][23].id, ballotList[i][23].points);
+        // pointTotals[ballotList[i][24].id] = getPoints(pointTotals, ballotList[i][24].id, ballotList[i][24].points);
+        // pointTotals[ballotList[i][25].id] = getPoints(pointTotals, ballotList[i][25].id, ballotList[i][25].points);
+      //}    
   }
   
     function getPoints(obj, id, points){
@@ -646,8 +655,6 @@ const getUserpoll = async (week) => {
       poll: userpoll,
       new: true
     }
-
-    console.log('userpollData:', userpollData);
 
     return userpoll;
   //}

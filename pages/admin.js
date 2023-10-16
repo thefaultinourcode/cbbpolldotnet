@@ -96,6 +96,24 @@ export default function Admin(props){
         window.location.reload(false);
     }
 
+    async function handleReset(e){
+      if(confirm("Selecting this button will reset every user's poll voter status. THIS CANNOT BE UNDONE. Do you want to proceed?")){
+        console.log('users will be reset');
+        const res = await fetch('/api/changeUserStatus',{
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          },
+        });
+        //implement a better solution later
+        window.location.reload(false);
+      }
+      else{
+        console.log('users will not be reset');
+        return;
+      }
+    }
+
     if(modlist.includes(props.user.name)){
         
         for(const app of apps){
@@ -176,6 +194,7 @@ export default function Admin(props){
                     </tbody>
                 </table>
                 
+                <button onClick={handleReset}>Reset Voter Status</button>
                 
             </div>  
         );   
@@ -190,8 +209,8 @@ export default function Admin(props){
 
 }
 
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = "http://cbbpoll.net/profile";
+const REDIRECT_URI = "http://localhost:3000/profile";
+//const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
@@ -297,7 +316,7 @@ const getToken = async (body) => {
     console.log('CONNECTED TO MONGO');
 
     console.log('FETCHING APP');
-    const app = await Application.find({});
+    const app = await Application.find({season:2024});
     const userApp = JSON.parse(JSON.stringify(app));
     console.log('userApp:', userApp);
     console.log('FETCHED APP');

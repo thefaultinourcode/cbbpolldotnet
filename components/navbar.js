@@ -69,15 +69,15 @@ export default function Navbar(props) {
                 </div>
 
                 {/* Application Link */}
-                {/* <div className='linkBlock'>
+                <div className='linkBlock'>
                     <li className='navbar-list-item center'>
-                    <a href="../application">
+                    <a href="../applicationV2">
                         <div className='navbar-link'>
                             Application
                         </div>
                     </a>                    
                     </li>
-                </div> */}
+                </div>
 
                 <div className='linkBlock'>
                     <li className='navbar-list-item center'>

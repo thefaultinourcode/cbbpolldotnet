@@ -13,14 +13,12 @@ class Dropdown extends React.Component{
         axios.get('/api/teamsData')
           .then(res => {
             const teamsData = res.data.data;
-            console.log('teams:', teamsData);
             this.setState({ teamsData });
           })
     }  
 
       render() {
         let options = this.state.teamsData;
-        console.log('options:', options);
         let teamList = []
 
 

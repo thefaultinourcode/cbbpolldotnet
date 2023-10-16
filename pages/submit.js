@@ -113,127 +113,127 @@ export default function Submit(props){
                     <tr>
                         <td>1</td>
                         <td><Image src={props.urlOne} width={25} height={25} alt={props.rankOne}></Image> <span className="boldText">{props.rankOne}</span> </td>
-                        <td>{props.ballot.one.reasoning}</td>
+                        <td>{props.ballot['1'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td><Image src={props.urlTwo} width={25} height={25} alt={props.rankTwo}></Image> <span className="boldText">{props.rankTwo}</span> </td>
-                        <td>{props.ballot.two.reasoning}</td>
+                        <td>{props.ballot['2'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td><Image src={props.urlThree} width={25} height={25} alt={props.rankThree}></Image> <span className="boldText">{props.rankThree}</span> </td>
-                        <td>{props.ballot.three.reasoning}</td>
+                        <td>{props.ballot['3'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td><Image src={props.urlFour} width={25} height={25} alt={props.rankFour}></Image> <span className="boldText">{props.rankFour}</span> </td>
-                        <td>{props.ballot.four.reasoning}</td>
+                        <td>{props.ballot['4'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>5</td>
                         <td><Image src={props.urlFive} width={25} height={25} alt={props.rankFive}></Image> <span className="boldText">{props.rankFive}</span> </td>
-                        <td>{props.ballot.five.reasoning}</td>
+                        <td>{props.ballot['5'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>6</td>
                         <td><Image src={props.urlSix} width={25} height={25} alt={props.rankSix}></Image> <span className="boldText">{props.rankSix}</span> </td>
-                        <td>{props.ballot.six.reasoning}</td>
+                        <td>{props.ballot['6'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>7</td>
                         <td><Image src={props.urlSeven} width={25} height={25} alt={props.rankSeven}></Image> <span className="boldText">{props.rankSeven}</span> </td>
-                        <td>{props.ballot.seven.reasoning}</td>
+                        <td>{props.ballot['7'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>8</td>
                         <td><Image src={props.urlEight} width={25} height={25} alt={props.rankEight}></Image> <span className="boldText">{props.rankEight}</span> </td>
-                        <td>{props.ballot.eight.reasoning}</td>
+                        <td>{props.ballot['8'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>9</td>
                         <td><Image src={props.urlNine} width={25} height={25} alt={props.rankNine}></Image> <span className="boldText">{props.rankNine}</span> </td>
-                        <td>{props.ballot.nine.reasoning}</td>
+                        <td>{props.ballot['9'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>10</td>
                         <td><Image src={props.urlTen} width={25} height={25} alt={props.rankTen}></Image> <span className="boldText">{props.rankTen}</span> </td>
-                        <td>{props.ballot.ten.reasoning}</td>
+                        <td>{props.ballot['10'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>11</td>
                         <td><Image src={props.urlEleven} width={25} height={25} alt={props.rankEleven}></Image> <span className="boldText">{props.rankEleven}</span> </td>
-                        <td>{props.ballot.eleven.reasoning}</td>
+                        <td>{props.ballot['11'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>12</td>
                         <td><Image src={props.urlTwelve} width={25} height={25} alt={props.rankTwelve}></Image> <span className="boldText">{props.rankTwelve}</span> </td>
-                        <td>{props.ballot.twelve.reasoning}</td>
+                        <td>{props.ballot['12'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>13</td>
                         <td><Image src={props.urlThirteen} width={25} height={25} alt={props.rankThirteen}></Image> <span className="boldText">{props.rankThirteen}</span> </td>
-                        <td>{props.ballot.thirteen.reasoning}</td>
+                        <td>{props.ballot['13'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>14</td>
                         <td><Image src={props.urlFourteen} width={25} height={25} alt={props.rankFourteen}></Image> <span className="boldText">{props.rankFourteen}</span> </td>
-                        <td>{props.ballot.fourteen.reasoning}</td>
+                        <td>{props.ballot['14'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>15</td>
                         <td><Image src={props.urlFifteen} width={25} height={25} alt={props.rankFifteen}></Image> <span className="boldText">{props.rankFifteen}</span> </td>
-                        <td>{props.ballot.fifteen.reasoning}</td>
+                        <td>{props.ballot['15'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>16</td>
                         <td><Image src={props.urlSixteen} width={25} height={25} alt={props.rankSixteen}></Image> <span className="boldText">{props.rankSixteen}</span> </td>
-                        <td>{props.ballot.sixteen.reasoning}</td>
+                        <td>{props.ballot['16'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>17</td>
                         <td><Image src={props.urlSeventeen} width={25} height={25} alt={props.rankSeventeen}></Image> <span className="boldText">{props.rankSeventeen}</span> </td>
-                        <td>{props.ballot.seventeen.reasoning}</td>
+                        <td>{props.ballot['17'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>18</td>
                         <td><Image src={props.urlEighteen} width={25} height={25} alt={props.rankEighteen}></Image> <span className="boldText">{props.rankEighteen}</span> </td>
-                        <td>{props.ballot.eighteen.reasoning}</td>
+                        <td>{props.ballot['18'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>19</td>
                         <td><Image src={props.urlNineteen} width={25} height={25} alt={props.rankNineteen}></Image> <span className="boldText">{props.rankNineteen}</span> </td>
-                        <td>{props.ballot.nineteen.reasoning}</td>
+                        <td>{props.ballot['19'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>20</td>
                         <td><Image src={props.urlTwenty} width={25} height={25} alt={props.rankTwenty}></Image> <span className="boldText">{props.rankTwenty}</span> </td>
-                        <td>{props.ballot.twenty.reasoning}</td>
+                        <td>{props.ballot['20'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>21</td>
                         <td><Image src={props.urlTwentyOne} width={25} height={25} alt={props.rankTwentyOne}></Image> <span className="boldText">{props.rankTwentyOne}</span> </td>
-                        <td>{props.ballot.twentyOne.reasoning}</td>
+                        <td>{props.ballot['21'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>22</td>
                         <td><Image src={props.urlTwentyTwo} width={25} height={25} alt={props.rankTwentyTwo}></Image> <span className="boldText">{props.rankTwentyTwo}</span> </td>
-                        <td>{props.ballot.twentyTwo.reasoning}</td>
+                        <td>{props.ballot['22'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>23</td>
                         <td><Image src={props.urlTwentyThree} width={25} height={25} alt={props.rankTwentyThree}></Image> <span className="boldText">{props.rankTwentyThree}</span> </td>
-                        <td>{props.ballot.twentyThree.reasoning}</td>
+                        <td>{props.ballot['23'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>24</td>
                         <td><Image src={props.urlTwentyFour} width={25} height={25} alt={props.rankTwentyFour}></Image> <span className="boldText">{props.rankTwentyFour}</span> </td>
-                        <td>{props.ballot.twentyFour.reasoning}</td>
+                        <td>{props.ballot['24'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>25</td>
                         <td><Image src={props.urlTwentyFive} width={25} height={25} alt={props.rankTwentyFive}></Image> <span className="boldText">{props.rankTwentyFive}</span> </td>
-                        <td>{props.ballot.twentyFive.reasoning}</td>
+                        <td>{props.ballot['25'].reasoning}</td>
                     </tr>
                 </tbody>
             </table>
@@ -420,80 +420,80 @@ const getData = async (user) => {
     let favTeam2 = await getTeamProp(app.favoriteTeam2, "shortName");
     let favTeam3 = await getTeamProp(app.favoriteTeam3, "shortName");
 
-    let rankOne = await getTeamProp(ballot.one.id, "shortName");
-    let urlOne = await getTeamProp(ballot.one.id, "url");
+    let rankOne = await getTeamProp(ballot['1'].id, "shortName");
+    let urlOne = await getTeamProp(ballot['1'].id, "url");
 
-    let rankTwo = await getTeamProp(ballot.two.id, "shortName");
-    let urlTwo = await getTeamProp(ballot.two.id, "url");
+    let rankTwo = await getTeamProp(ballot['2'].id, "shortName");
+    let urlTwo = await getTeamProp(ballot['2'].id, "url");
 
-    let rankThree = await getTeamProp(ballot.three.id, "shortName");
-    let urlThree = await getTeamProp(ballot.three.id, "url");
+    let rankThree = await getTeamProp(ballot['3'].id, "shortName");
+    let urlThree = await getTeamProp(ballot['3'].id, "url");
 
-    let rankFour = await getTeamProp(ballot.four.id, "shortName");
-    let urlFour = await getTeamProp(ballot.four.id, "url");
+    let rankFour = await getTeamProp(ballot['4'].id, "shortName");
+    let urlFour = await getTeamProp(ballot['4'].id, "url");
 
-    let rankFive = await getTeamProp(ballot.five.id, "shortName");
-    let urlFive = await getTeamProp(ballot.five.id, "url"); 
+    let rankFive = await getTeamProp(ballot['5'].id, "shortName");
+    let urlFive = await getTeamProp(ballot['5'].id, "url"); 
 
-    let rankSix = await getTeamProp(ballot.six.id, "shortName");
-    let urlSix = await getTeamProp(ballot.six.id, "url"); 
+    let rankSix = await getTeamProp(ballot['6'].id, "shortName");
+    let urlSix = await getTeamProp(ballot['6'].id, "url"); 
 
-    let rankSeven = await getTeamProp(ballot.seven.id, "shortName");
-    let urlSeven = await getTeamProp(ballot.seven.id, "url");
+    let rankSeven = await getTeamProp(ballot['7'].id, "shortName");
+    let urlSeven = await getTeamProp(ballot['7'].id, "url");
 
-    let rankEight = await getTeamProp(ballot.eight.id, "shortName");
-    let urlEight = await getTeamProp(ballot.eight.id, "url");
+    let rankEight = await getTeamProp(ballot['8'].id, "shortName");
+    let urlEight = await getTeamProp(ballot['8'].id, "url");
 
-    let rankNine = await getTeamProp(ballot.nine.id, "shortName");
-    let urlNine = await getTeamProp(ballot.nine.id, "url");
+    let rankNine = await getTeamProp(ballot['9'].id, "shortName");
+    let urlNine = await getTeamProp(ballot['9'].id, "url");
 
-    let rankTen = await getTeamProp(ballot.ten.id, "shortName");
-    let urlTen = await getTeamProp(ballot.ten.id, "url");
+    let rankTen = await getTeamProp(ballot['10'].id, "shortName");
+    let urlTen = await getTeamProp(ballot['10'].id, "url");
 
-    let rankEleven = await getTeamProp(ballot.eleven.id, "shortName");
-    let urlEleven = await getTeamProp(ballot.eleven.id, "url");
+    let rankEleven = await getTeamProp(ballot['11'].id, "shortName");
+    let urlEleven = await getTeamProp(ballot['11'].id, "url");
 
-    let rankTwelve = await getTeamProp(ballot.twelve.id, "shortName");
-    let urlTwelve = await getTeamProp(ballot.twelve.id, "url");
+    let rankTwelve = await getTeamProp(ballot['12'].id, "shortName");
+    let urlTwelve = await getTeamProp(ballot['12'].id, "url");
 
-    let rankThirteen = await getTeamProp(ballot.thirteen.id, "shortName");
-    let urlThirteen = await getTeamProp(ballot.thirteen.id, "url");
+    let rankThirteen = await getTeamProp(ballot['13'].id, "shortName");
+    let urlThirteen = await getTeamProp(ballot['13'].id, "url");
 
-    let rankFourteen = await getTeamProp(ballot.fourteen.id, "shortName");
-    let urlFourteen = await getTeamProp(ballot.fourteen.id, "url");
+    let rankFourteen = await getTeamProp(ballot['14'].id, "shortName");
+    let urlFourteen = await getTeamProp(ballot['14'].id, "url");
 
-    let rankFifteen = await getTeamProp(ballot.fifteen.id, "shortName");
-    let urlFifteen = await getTeamProp(ballot.fifteen.id, "url");
+    let rankFifteen = await getTeamProp(ballot['15'].id, "shortName");
+    let urlFifteen = await getTeamProp(ballot['15'].id, "url");
 
-    let rankSixteen = await getTeamProp(ballot.sixteen.id, "shortName");
-    let urlSixteen = await getTeamProp(ballot.sixteen.id, "url");
+    let rankSixteen = await getTeamProp(ballot['16'].id, "shortName");
+    let urlSixteen = await getTeamProp(ballot['16'].id, "url");
 
-    let rankSeventeen = await getTeamProp(ballot.seventeen.id, "shortName");
-    let urlSeventeen = await getTeamProp(ballot.seventeen.id, "url");
+    let rankSeventeen = await getTeamProp(ballot['17'].id, "shortName");
+    let urlSeventeen = await getTeamProp(ballot['17'].id, "url");
 
-    let rankEighteen = await getTeamProp(ballot.eighteen.id, "shortName");
-    let urlEighteen = await getTeamProp(ballot.eighteen.id, "url");
+    let rankEighteen = await getTeamProp(ballot['18'].id, "shortName");
+    let urlEighteen = await getTeamProp(ballot['18'].id, "url");
 
-    let rankNineteen = await getTeamProp(ballot.nineteen.id, "shortName");
-    let urlNineteen = await getTeamProp(ballot.nineteen.id, "url");
+    let rankNineteen = await getTeamProp(ballot['19'].id, "shortName");
+    let urlNineteen = await getTeamProp(ballot['19'].id, "url");
 
-    let rankTwenty = await getTeamProp(ballot.twenty.id, "shortName");
-    let urlTwenty = await getTeamProp(ballot.twenty.id, "url");
+    let rankTwenty = await getTeamProp(ballot['20'].id, "shortName");
+    let urlTwenty = await getTeamProp(ballot['20'].id, "url");
 
-    let rankTwentyOne = await getTeamProp(ballot.twentyOne.id, "shortName");
-    let urlTwentyOne = await getTeamProp(ballot.twentyOne.id, "url");
+    let rankTwentyOne = await getTeamProp(ballot['21'].id, "shortName");
+    let urlTwentyOne = await getTeamProp(ballot['21'].id, "url");
 
-    let rankTwentyTwo = await getTeamProp(ballot.twentyTwo.id, "shortName");
-    let urlTwentyTwo = await getTeamProp(ballot.twentyTwo.id, "url");
+    let rankTwentyTwo = await getTeamProp(ballot['22'].id, "shortName");
+    let urlTwentyTwo = await getTeamProp(ballot['22'].id, "url");
 
-    let rankTwentyThree = await getTeamProp(ballot.twentyThree.id, "shortName");
-    let urlTwentyThree = await getTeamProp(ballot.twentyThree.id, "url");
+    let rankTwentyThree = await getTeamProp(ballot['23'].id, "shortName");
+    let urlTwentyThree = await getTeamProp(ballot['23'].id, "url");
 
-    let rankTwentyFour = await getTeamProp(ballot.twentyFour.id, "shortName");
-    let urlTwentyFour = await getTeamProp(ballot.twentyFour.id, "url");
+    let rankTwentyFour = await getTeamProp(ballot['24'].id, "shortName");
+    let urlTwentyFour = await getTeamProp(ballot['24'].id, "url");
 
-    let rankTwentyFive = await getTeamProp(ballot.twentyFive.id, "shortName");
-    let urlTwentyFive = await getTeamProp(ballot.twentyFive.id, "url");
+    let rankTwentyFive = await getTeamProp(ballot['25'].id, "shortName");
+    let urlTwentyFive = await getTeamProp(ballot['25'].id, "url");
 
     return { props: { user, app, ballot, favTeam, favTeam2, favTeam3, rankOne, urlOne, rankTwo, urlTwo, rankThree, urlThree,
                         rankFour, urlFour, rankFive, urlFive, rankSix, urlSix, rankSeven, urlSeven, rankEight, urlEight, rankNine,

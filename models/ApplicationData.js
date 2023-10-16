@@ -1,6 +1,6 @@
 import {Schema, model, models} from 'mongoose';
 
-const Teama = new Schema({
+const Teams = new Schema({
   id: {type: Number, required: true},
   name: {type: String, required: true}
 });
@@ -25,7 +25,9 @@ const ApplicationDataSchema = new Schema({
   approach: String,
   extra: String,
   participationRequirement: {type: Boolean, required: true},
-  biasRequirement: {type: Boolean, required: true}
+  biasRequirement: {type: Boolean, required: true},
+  memeRequirement: {type: Boolean, required: true},
+  season: {type:Number, required:true}
 });
 
 const ApplicationData = models.ApplicationData || model('ApplicationData', ApplicationDataSchema);

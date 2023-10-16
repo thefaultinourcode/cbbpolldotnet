@@ -11,6 +11,7 @@ const UserBallotSchema = new Schema({
   date: {type: Date, required: true},
   week: {type: String, required: true},
   user: {type: String, required: true},
+  official: {type:Boolean, required:true},
   '1': {type: BallotFieldSchema, required: true},
   2: {type: BallotFieldSchema, required: true},
   3: {type: BallotFieldSchema, required: true},

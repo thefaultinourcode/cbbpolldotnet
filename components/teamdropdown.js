@@ -19,7 +19,9 @@ export default function TeamDropdown(props){
 
     for(let i = 0; i < teamsParse.length; i++){
         let label = teamsParse[i].shortName + " " + teamsParse[i].name;
-        teamList.push({value:teamsParse[i]._id, label: label, url: teamsParse[i].url, shortName: teamsParse[i].shortName, name: teamsParse[i].name, rank: props.rank});
+        if(teamsParse[i].active){
+            teamList.push({value:teamsParse[i]._id, label: label, url: teamsParse[i].url, shortName: teamsParse[i].shortName, name: teamsParse[i].name, rank: props.rank});
+        }
     }
 
     
@@ -55,6 +57,9 @@ export default function TeamDropdown(props){
 
     if(props.presetTeam){
         let obj = teamList.find(o => o.value === props.presetTeam);
+        console.log('teamList:', teamList);
+        console.log('props.presetTeam:', props.presetTeam);
+        console.log('obj:', obj);
 
         return(
             <div>

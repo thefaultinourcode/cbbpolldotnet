@@ -51,6 +51,7 @@ export default function UserApp (props) {
       }
   }
 
+  console.log('ballot:', ballot);
   return (
     <div>
       <h1>{app}</h1>
@@ -83,128 +84,128 @@ export default function UserApp (props) {
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td><span className="boldText">{props.ballot.one.name}</span> </td>
-                        <td>{props.ballot.one.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['1'].name}</span> </td>
+                        <td>{props.ballot['1'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td><span className="boldText">{props.ballot.two.name}</span> </td>
-                        <td>{props.ballot.two.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['2'].name}</span> </td>
+                        <td>{props.ballot['2'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td><span className="boldText">{props.ballot.three.name}</span> </td>
-                        <td>{props.ballot.three.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['3'].name}</span> </td>
+                        <td>{props.ballot['3'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td><span className="boldText">{props.ballot.four.name}</span> </td>
-                        <td>{props.ballot.four.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['4'].name}</span> </td>
+                        <td>{props.ballot['4'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td><span className="boldText">{props.ballot.five.name}</span> </td>
-                        <td>{props.ballot.five.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['5'].name}</span> </td>
+                        <td>{props.ballot['5'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td><span className="boldText">{props.ballot.six.name}</span> </td>
-                        <td>{props.ballot.six.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['6'].name}</span> </td>
+                        <td>{props.ballot['6'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>7</td>
-                        <td><span className="boldText">{props.ballot.seven.name}</span> </td>
-                        <td>{props.ballot.seven.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['7'].name}</span> </td>
+                        <td>{props.ballot['7'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>8</td>
-                        <td><span className="boldText">{props.ballot.eight.name}</span> </td>
-                        <td>{props.ballot.eight.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['8'].name}</span> </td>
+                        <td>{props.ballot['8'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>9</td>
-                        <td><span className="boldText">{props.ballot.nine.name}</span> </td>
-                        <td>{props.ballot.nine.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['9'].name}</span> </td>
+                        <td>{props.ballot['9'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>10</td>
-                        <td><span className="boldText">{props.ballot.ten.name}</span> </td>
-                        <td>{props.ballot.ten.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['10'].name}</span> </td>
+                        <td>{props.ballot['10'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>11</td>
-                        <td><span className="boldText">{props.ballot.eleven.name}</span> </td>
-                        <td>{props.ballot.eleven.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['11'].name}</span> </td>
+                        <td>{props.ballot['11'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>12</td>
-                        <td><span className="boldText">{props.ballot.twelve.name}</span> </td>
-                        <td>{props.ballot.twelve.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['12'].name}</span> </td>
+                        <td>{props.ballot['12'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>13</td>
-                        <td><span className="boldText">{props.ballot.thirteen.name}</span> </td>
-                        <td>{props.ballot.thirteen.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['13'].name}</span> </td>
+                        <td>{props.ballot['13'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>14</td>
-                        <td><span className="boldText">{props.ballot.fourteen.name}</span> </td>
-                        <td>{props.ballot.fourteen.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['14'].name}</span> </td>
+                        <td>{props.ballot['14'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>15</td>
-                        <td><span className="boldText">{props.ballot.fifteen.name}</span> </td>
-                        <td>{props.ballot.fifteen.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['15'].name}</span> </td>
+                        <td>{props.ballot['15'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>16</td>
-                        <td><span className="boldText">{props.ballot.sixteen.name}</span> </td>
-                        <td>{props.ballot.sixteen.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['16'].name}</span> </td>
+                        <td>{props.ballot['16'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>17</td>
-                        <td><span className="boldText">{props.ballot.seventeen.name}</span> </td>
-                        <td>{props.ballot.seventeen.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['17'].name}</span> </td>
+                        <td>{props.ballot['17'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>18</td>
-                        <td><span className="boldText">{props.ballot.eighteen.name}</span> </td>
-                        <td>{props.ballot.eighteen.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['18'].name}</span> </td>
+                        <td>{props.ballot['18'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>19</td>
-                        <td><span className="boldText">{props.ballot.nineteen.name}</span> </td>
-                        <td>{props.ballot.nineteen.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['19'].name}</span> </td>
+                        <td>{props.ballot['19'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>20</td>
-                        <td><span className="boldText">{props.ballot.twenty.name}</span> </td>
-                        <td>{props.ballot.twenty.reasoning}</td>
+                        <td><span className="boldText">{props.ballot['20'].name}</span> </td>
+                        <td>{props.ballot['20'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>21</td>
-                        <td> <span className="boldText">{props.ballot.twentyOne.name}</span> </td>
-                        <td>{props.ballot.twentyOne.reasoning}</td>
+                        <td> <span className="boldText">{props.ballot['21'].name}</span> </td>
+                        <td>{props.ballot['21'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>22</td>
-                        <td> <span className="boldText">{props.ballot.twentyTwo.name}</span> </td>
-                        <td>{props.ballot.twentyTwo.reasoning}</td>
+                        <td> <span className="boldText">{props.ballot['22'].name}</span> </td>
+                        <td>{props.ballot['22'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>23</td>
-                        <td> <span className="boldText">{props.ballot.twentyThree.name}</span> </td>
-                        <td>{props.ballot.twentyThree.reasoning}</td>
+                        <td> <span className="boldText">{props.ballot['23'].name}</span> </td>
+                        <td>{props.ballot['23'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>24</td>
-                        <td> <span className="boldText">{props.ballot.twentyFour.name}</span> </td>
-                        <td>{props.ballot.twentyFour.reasoning}</td>
+                        <td> <span className="boldText">{props.ballot['24'].name}</span> </td>
+                        <td>{props.ballot['24'].reasoning}</td>
                     </tr>
                     <tr>
                         <td>25</td>
-                        <td> <span className="boldText">{props.ballot.twentyFive.name}</span> </td>
-                        <td>{props.ballot.twentyFive.reasoning}</td>
+                        <td> <span className="boldText">{props.ballot['25'].name}</span> </td>
+                        <td>{props.ballot['25'].reasoning}</td>
                     </tr>
                 </tbody>
             </table>
@@ -247,7 +248,7 @@ const getBallot = async (user) => {
   await connectMongo();
 
 
-  const ballot = await UserBallot.findOne({'user': user, 'week': "Pre-Season"});
+  const ballot = await UserBallot.findOne({'user': user, 'week': "Pre-Season", 'season': 2024});
   const userBallot = JSON.parse(JSON.stringify(ballot));
   return userBallot;
 }
