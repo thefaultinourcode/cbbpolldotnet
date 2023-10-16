@@ -242,7 +242,7 @@ export default function Submit(props){
             <p>{props.ballot.overallReasoning}</p>
             
             <div className="submitBallot">
-                <Link href='/application'>
+                <Link href='/applicationV2'>
                     <button type='button'>Edit</button> 
                 </Link> 
             </div>
