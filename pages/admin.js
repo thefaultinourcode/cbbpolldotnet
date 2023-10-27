@@ -56,17 +56,20 @@ export default function Admin(props){
 
     async function handleClick(e){
         
+        let date = '2023-10-01';
         console.log(e.target.getAttribute('data-username'));
         let username = e.target.getAttribute('data-username');
 
-        let approved;
+        let approved, official;
         if(e.target.id === 'approve'){
             console.log('approved');
             approved = true;
+            official = true;
         }
         else if(e.target.id === 'deny'){
             console.log('deny')
             approved = false;
+            official = false;
         }
 
         let foundApp = apps.find(element => element.user === username);
@@ -78,6 +81,12 @@ export default function Admin(props){
             secondaryTeam: foundApp.favoriteTeam2,
             tertiaryTeam: foundApp.favoriteTeam3,
             pollVoter: approved
+        }
+
+        let ballotUpdate = {
+          user: username,
+          date: date,
+          official: official
         }
 
         const res = await fetch('/api/addUser',{
@@ -105,6 +114,19 @@ export default function Admin(props){
           'Content-Type': 'application/json',
           },
         });
+
+        let date = '2023-10-1';
+        let obj = {date: date}
+        
+
+        const res2 = await fetch('/api/changeBallotStatus',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(obj)
+        });
+
         //implement a better solution later
         window.location.reload(false);
       }
