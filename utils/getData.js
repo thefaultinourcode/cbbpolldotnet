@@ -46,3 +46,29 @@ export const getPollVoters = async () => {
     const parsedVoters = JSON.parse(JSON.stringify(pollVoters));
     return parsedVoters;
 }
+
+export const getHistoricalBallots = async (official, week, season) => {
+    let startYear = season - 1;
+
+    let startDate = startYear + '-10-01';
+    let endDate = season + '-05-01';
+    
+    await connectMongo();
+  
+    const ballots = await UserBallot.find({official: official, week: week, season: {$gte: startDate, $lt: endDate}});
+  
+    let voters = [];
+    
+    for(let i = 0; i < ballots.length; i++){
+      let user = await getUserInfo(ballots[i].user);
+      let team = await getTeam(user.primaryTeam);
+      console.log('team:', team);
+      let url = team.url;
+      voters.push({
+        username: ballots[i].user,
+        ballotId: ballots[i]._id.toString(),
+        url: url
+      })
+    }
+    return voters;
+  }
