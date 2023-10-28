@@ -61,8 +61,12 @@ export const getHistoricalBallots = async (official, week, season) => {
     
     for(let i = 0; i < ballots.length; i++){
       let user = await getUserInfo(ballots[i].user);
+      console.log(ballots[i]);
+      console.log('user:', user);
+      if(user === null){
+        continue;
+      }
       let team = await getTeam(user.primaryTeam);
-      console.log('team:', team);
       let url = team.url;
       voters.push({
         username: ballots[i].user,
