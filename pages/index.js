@@ -16,8 +16,8 @@ import Link from 'next/link';
 const DURATION = "permanent";
 const SCOPE = "identity";
 
-//const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = "http://cbbpoll.net/profile";
+const REDIRECT_URI = process.env.REDIRECT_URI;
+//const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
@@ -37,32 +37,36 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 export default function Home(props) {
 
-  let pollDate = new Date('6 April 2023 21:00 UTC');
+  let pollDate = new Date('30 October 2023 14:00 UTC');
   let today = new Date();
   //let today = new Date('1 May 2023 16:00 UTC');
-  let week;
+  let week, season;
   if(today > pollDate){
     // week = 2;
-    week = "Post-Season";
+    console.log('top pre-season');
+    week = "Pre-Season";
+    season = 2024;
   }
   else{
     // week = "Pre-Season";
-    week = 19;
+    console.log('top post-season');
+    week = "Post-Season";
+    season = 2023;
   }
 
-  async function addPoll(userpollData){
-    const res = await fetch('/api/addPoll',{
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-          userpollData
-      ),
-    });
+  // async function addPoll(userpollData){
+  //   const res = await fetch('/api/addPoll',{
+  //     method: 'POST',
+  //     headers: {
+  //     'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(
+  //         userpollData
+  //     ),
+  //   });
 
-  const data = await res.json();
-  }
+  // const data = await res.json();
+  // }
 
   let userpoll = props.userpoll;
   for(let i=0; i < userpoll.length; i++){
@@ -328,15 +332,19 @@ const getToken = async (body) => {
 
 export const getServerSideProps = async ({ query, req, res }) => {
   
-  let pollDate = new Date('6 April 2023 21:00 UTC');
-  //let today = new Date('3 May 2023 15:00 UTC');
+  let pollDate = new Date('30 October 2023 14:00 UTC');
   let today = new Date();
-  let week;
+  //let today = new Date('1 May 2023 16:00 UTC');
+  let week, season;
   if(today > pollDate){
-    week = "Post-Season";
+    // week = 2;
+    week = "Pre-Season";
+    season = 2024;
   }
   else{
-    week = 19;
+    // week = "Pre-Season";
+    week = "Post-Season";
+    season = 2023;
   }
 
   const refresh_token = getCookie("refresh_token", { req, res });
@@ -345,9 +353,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
   if (refresh_token) {
     if (access_token) {
       const user = await getUser(access_token);
-      const userpoll = await getUserpoll(week);
-      const pollVoters = await getBallots(true);
-      const provisionalVoters = await getBallots(false);
+      const userpoll = await getUserpoll(week, pollDate);
+      const pollVoters = await getBallots(true, pollDate);
+      const provisionalVoters = await getBallots(false, pollDate);
       return { props: { user, userpoll, pollVoters, provisionalVoters } };
     } else {
       const token = await getToken({
@@ -365,9 +373,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
         maxAge: 60 * 60 * 24,
       });
       const user = await getUser(token.access_token);
-      const userpoll = await getUserpoll(week);
-      const pollVoters = await getBallots(true);
-      const provisionalVoters = await getBallots(false);
+      const userpoll = await getUserpoll(week, pollDate);
+      const pollVoters = await getBallots(true, pollDate);
+      const provisionalVoters = await getBallots(false, pollDate);
       return { props: { user, userpoll, pollVoters, provisionalVoters } };
     }
   } else if (query.code && query.state === RANDOM_STRING) {
@@ -388,18 +396,18 @@ export const getServerSideProps = async ({ query, req, res }) => {
         maxAge: 60 * 60 * 24,
       });
       const user = await getUser(token.access_token);
-      const userpoll = await getUserpoll(week);
-      const pollVoters = await getBallots(true);
-      const provisionalVoters = await getBallots(false);
+      const userpoll = await getUserpoll(week, pollDate);
+      const pollVoters = await getBallots(true, pollDate);
+      const provisionalVoters = await getBallots(false, pollDate);
       return { props: { user, userpoll, pollVoters, provisionalVoters } };
     } catch (e) {
       console.log(e);
       return { props: { user: null } };
     }
   } else {
-    const userpoll = await getUserpoll(week);
-    const pollVoters = await getBallots(true);
-    const provisionalVoters = await getBallots(false);
+    const userpoll = await getUserpoll(week, pollDate);
+    const pollVoters = await getBallots(true, pollDate);
+    const provisionalVoters = await getBallots(false, pollDate);
     return { props: { user: null, userpoll, pollVoters, provisionalVoters } };
   }
 };
@@ -427,30 +435,45 @@ const getUser = async (access_token) => {
 //   return userArray;
 // }
 
-const getUserInfo = async (username) =>{
+const getUserInfo = async (username,) =>{
   await connectMongo();
 
   const user = await User.find({name: username});
   return user;
 }
 
-const getBallots = async (official) => {
+const getBallots = async (official, pollDate) => {
   //let users = await getUserList(pollVoter);
 
   await connectMongo();
 
-  let pollDate = new Date('6 April 2023 21:00 UTC');
+
   let today = new Date();
-  //let today = new Date('3 May 2023 15:00 UTC');
-  let week;
+  //let today = new Date('1 May 2023 16:00 UTC');
+  let week, season, date, ballots;
   if(today > pollDate){
-    week = "Post-Season";
+    // week = 2;
+    console.log('pre-season')
+    week = "Pre-Season";
+    season = 2024;
+    date = '2023-10-01';
+    console.log('date:', date);
+    console.log('week:', week);
+    ballots = await UserBallot.find({official: official, week: week, date: {$gte: date}});
   }
   else{
-    week = 19;
+    console.log('post-season');
+    // week = "Pre-Season";
+    week = "Post-Season";
+    season = 2023;
+    date=new Date('2022-01-01');
+    console.log('date:', date);
+    console.log('week:', week);
+    ballots = await UserBallot.find({official: official, week: week, season: {$gte: date}});
+
   }
 
-  const ballots = await UserBallot.find({official: official, week: week});
+  //const ballots = await UserBallot.find({official: official, week: week, season: {$gte: date}});
 
   let voters = [];
   for(let i = 0; i < ballots.length; i++){
@@ -482,7 +505,8 @@ async function getTeam(id){
 //   return userpoll;
 // }
 
-const getUserpoll = async (week) => {
+const getUserpoll = async (week, pollDate) => {
+  console.log('week:', week);
   // async function findPoll(){
   //   let poll = await Userpoll.exists({week: "Pre-Season", season: "2022-2023"});
   //   console.log('poll:', poll);
@@ -505,14 +529,34 @@ const getUserpoll = async (week) => {
 	//
     //let userArray = await getUserList(true);
 
-    await connectMongo();
+      await connectMongo();
+
+      //let pollDate = new Date('3 October 2023 14:00 UTC');
+      //let pollDate = new Date('26 October 2023 14:00 UTC');
+      let today = new Date();
+      //let today = new Date('1 May 2023 16:00 UTC');
+      let season, date, ballots;
+      if(today > pollDate){
+        console.log('pre-season')
+        season = 2024;
+        date = new Date('2023-10-01');
+        ballots = await UserBallot.find({official: true, week: week, date: {$gte:date} });
+      }
+      else{
+        season = 2023;
+        date= new Date('2022/01/01');
+        ballots = await UserBallot.find({official: true, week: week, season: {$gte:date} });
+      }
   
-    const ballots = await UserBallot.find({official: true, week: week });
+    //const ballots = await UserBallot.find({official: true, week: week, date: {$gte:date} });
+    //const ballots = await UserBallot.find({official: true, week: week, date: {$gte:date} });
+
+    console.log('ballots:', ballots);
     const ballotList = JSON.parse(JSON.stringify(ballots));
 
-	for(let i = 0; i < ballots.length; i++){
-		//console.log('user:', ballots[i].user);
-	}
+    for(let i = 0; i < ballots.length; i++){
+      //console.log('user:', ballots[i].user);
+    }
 
     let numberOne = {};
     let pointTotals = {};

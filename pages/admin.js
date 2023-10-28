@@ -101,6 +101,23 @@ export default function Admin(props){
 
         const data = await res.json();
 
+        let preSeasonDeadline =  new Date('30 October 2023 14:00 UTC');
+        let today = new Date();
+
+        if(preSeasonDeadline > today){
+          const res2 = await fetch('/api/changeBallotOfficial',{
+            method: 'Post',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+              ballotUpdate
+            )
+          });
+          const data2 = await res2.json();
+        }
+
+
         //implement a better solution later
         window.location.reload(false);
     }
@@ -118,7 +135,7 @@ export default function Admin(props){
         let date = '2023-10-1';
         let obj = {date: date}
         
-
+       
         const res2 = await fetch('/api/changeBallotStatus',{
           method: 'POST',
           headers: {
@@ -126,6 +143,7 @@ export default function Admin(props){
           },
           body: JSON.stringify(obj)
         });
+        
 
         //implement a better solution later
         window.location.reload(false);
@@ -231,8 +249,8 @@ export default function Admin(props){
 
 }
 
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = "http://cbbpoll.net/profile";
+const REDIRECT_URI = "http://localhost:3000/profile";
+//const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere";
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;

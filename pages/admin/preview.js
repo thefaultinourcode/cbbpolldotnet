@@ -15,8 +15,8 @@ import Poll from '../../components/poll';
 const DURATION = "permanent";
 const SCOPE = "identity";
 
-//const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = "http://cbbpoll.net/profile";
+const REDIRECT_URI = process.env.REDIRECT_URI;
+//const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
@@ -29,7 +29,7 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 export default function Preview (props){
     let title;
     let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
-    let week = 19;
+    let week = "Pre-Season";
 
     if(!modlist.includes(props.user.name)){
         return(<div>
@@ -298,7 +298,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
   
       await connectMongo();
     
-      const ballots = await UserBallot.find({user: {$in: userArray}, week: week });
+      let date = '2023-10-01';
+      const ballots = await UserBallot.find({user: {$in: userArray}, week: week, date:{$gte: date} });
       const ballotList = JSON.parse(JSON.stringify(ballots));
 
   
