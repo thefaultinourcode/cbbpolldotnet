@@ -551,7 +551,6 @@ const getUserpoll = async (week, pollDate) => {
     //const ballots = await UserBallot.find({official: true, week: week, date: {$gte:date} });
     //const ballots = await UserBallot.find({official: true, week: week, date: {$gte:date} });
 
-    console.log('ballots:', ballots);
     const ballotList = JSON.parse(JSON.stringify(ballots));
 
     for(let i = 0; i < ballots.length; i++){
