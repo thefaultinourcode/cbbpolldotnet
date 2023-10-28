@@ -55,7 +55,14 @@ export const getHistoricalBallots = async (official, week, season) => {
     
     await connectMongo();
   
-    const ballots = await UserBallot.find({official: official, week: week, season: {$gte: startDate, $lt: endDate}});
+    let ballots;
+    if(week === "Pre-Season" || week === 2){
+      ballots = await UserBallot.find({official: official, week: week, date: {$gte: startDate, $lt: endDate}});
+    }
+    else{
+      ballots = await UserBallot.find({official: official, week: week, season: {$gte: startDate, $lt: endDate}});
+
+    }
   
     let voters = [];
     
