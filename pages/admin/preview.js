@@ -242,7 +242,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
   
     await connectMongo();
   
-    const ballots = await UserBallot.find({user: {$in: users}, week: week});
+    let date = new Date('10-01-2023')
+    const ballots = await UserBallot.find({user: {$in: users}, week: week, date: {$gte:date}});
   
     let voters = [];
     for(let i = 0; i < ballots.length; i++){
