@@ -1886,9 +1886,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
   const refresh_token = getCookie("refresh_token", { req, res });
   const access_token = getCookie("access_token", { req, res });
 
-  if(teams !== {notFound: true}){
-    console.log('teams found');
-  }
+//   if(teams !== {notFound: true}){
+//     console.log('teams found');
+//   }
 
   
 
@@ -2003,8 +2003,9 @@ const getBallot = async (user) => {
     await connectMongo();
     console.log('CONNECTED TO MONGO');
 
+    const date = new Date('2023-10-01')
     console.log('FETCHING BALLOT');
-    const ballot = await UserBallot.findOne({'user': user.name, 'week': "Pre-Season"});
+    const ballot = await UserBallot.findOne({'user': user.name, 'week': "Pre-Season", date:{$gte:date}});
     const userBallot = JSON.parse(JSON.stringify(ballot));
     console.log('FETCHED BALLOT');
     return userBallot;

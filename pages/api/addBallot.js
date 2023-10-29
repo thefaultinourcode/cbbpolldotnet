@@ -15,7 +15,10 @@ export default async function addBallot(req, res){
     console.log('CREATING DOCUMENT');
     const {userBallot} = req.body;
     
-    let query = {week: week, user: user};
+    //dynamically change this date
+    //get season function
+    let seasonDate = new Date('2023-10-01');
+    let query = {week: week, user: user, date: {$gte:seasonDate}};
 
     const response = await UserBallot.findOneAndUpdate(query, {$set: req.body}, {upsert: true, strict: false});
     console.log('CREATED DOCUMENT');
