@@ -444,11 +444,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
   
   
     const refresh_token = getCookie("refresh_token", { req, res });
-    const access_token = getCookie("access_token", { req, res });
-  
-    if(teams !== {notFound: true}){
-      console.log('teams found');
-    }
+    const access_token = getCookie("access_token", { req, res }); 
   
     if (refresh_token) {
       if (access_token) {
