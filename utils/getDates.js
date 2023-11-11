@@ -34,7 +34,7 @@ export const getOpenDate = () => {
 }
 
 export const getCloseDate = () => {
-    let date = new Date('13 November 2023 15:00 UTC');
+    let date = new Date('10 November 2023 15:00 UTC');
 
     return date;
 }
