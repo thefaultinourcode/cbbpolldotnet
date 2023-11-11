@@ -5,7 +5,7 @@ import querystring from 'querystring';
 import { connectMongo } from '../utils/connect';
 import UserBallot from '../models/UserBallot';
 import Link from 'next/link';
-
+import { getWeek, getSeasonCheckDate } from '../utils/getDates';
 import Navbar from '../components/navbar';
 import TeamData from '../models/TeamData';
 // import Image from 'next/image';
@@ -173,7 +173,11 @@ const getBallot = async (user) => {
 	console.log('CONNECTED TO MONGO');
 
 	console.log('FETCHING BALLOT');
-	const ballot = await UserBallot.findOne({ user: user.name, week: 'Post-Season' });
+
+	let week = getWeek();
+	let seasonDate = getSeasonCheckDate();
+
+	const ballot = await UserBallot.findOne({ user: user.name, week: week, date: { $gte: seasonDate } });
 	const userBallot = JSON.parse(JSON.stringify(ballot));
 	console.log('FETCHED BALLOT');
 	return userBallot;

@@ -1,17 +1,45 @@
-import connectMongo from './connectMongo';
-import SeasonDates from '../models/SeasonDates';
+// import SeasonDates from "../models/SeasonDates";
 
-export const getHomePageDates = async (season) => {
-	await connectMongo();
+// export const getHomePageDates = async (season) => {
 
-	const dates = await SeasonDates.findOne({ season: { season } });
-	const seasonDates = JSON.parse(JSON.stringify(dates));
+//     await connectMongo();
 
-	return seasonDates;
+//     const dates = await SeasonDates.findOne({'season': {season}});
+//     const seasonDates = JSON.parse(JSON.stringify(dates));
+
+//     return seasonDates;
+// }
+
+export const getWeek = () => {
+	let week = 2;
+
+	return week;
 };
 
-const getWeek = (seasonDates) => {
-	let today = new Date();
+export const getPriorWeek = () => {
+	let week = 'Pre-Season';
+
+	return week;
+};
+
+export const getPollDate = () => {};
+
+export const getOpenDate = () => {
+	//let date = new Date('11 November 2023 15:00 UTC');
+	let date = new Date('11 November 2023 15:00 UTC');
+
+	return date;
+};
+
+export const getCloseDate = () => {
+	let date = new Date('13 November 2023 15:00 UTC');
+
+	return date;
+};
+
+export const getSeasonCheckDate = () => {
+	let date = new Date('October 1 2023');
+	return date;
 };
 
 export const getSeason = () => {

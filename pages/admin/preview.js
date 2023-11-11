@@ -11,6 +11,7 @@ import { connectMongo } from '../../utils/connect';
 // import { getHomePageDates } from "../utils/getDates";
 import Link from 'next/link';
 import Poll from '../../components/poll';
+import { getSeasonCheckDate, getWeek } from '../../utils/getDates';
 
 const DURATION = 'permanent';
 const SCOPE = 'identity';
@@ -140,7 +141,7 @@ const getToken = async (body) => {
 };
 
 export const getServerSideProps = async ({ query, req, res }) => {
-	let week = 'Pre-Season';
+	let week = getWeek();
 
 	const refresh_token = getCookie('refresh_token', { req, res });
 	const access_token = getCookie('access_token', { req, res });
@@ -242,7 +243,7 @@ const getBallots = async (pollVoter, week) => {
 
 	await connectMongo();
 
-	let date = new Date('10-01-2023');
+	let date = getSeasonCheckDate();
 	const ballots = await UserBallot.find({ user: { $in: users }, week: week, date: { $gte: date } });
 
 	let voters = [];

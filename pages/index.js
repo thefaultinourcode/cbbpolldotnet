@@ -10,8 +10,8 @@ import TeamData from '../models/TeamData';
 //import Userpoll from "../models/Userpoll";
 import TeamRow from '../components/pollrow';
 import { connectMongo } from '../utils/connect';
-// import { getSeason } from "../utils/getDates";
 import Link from 'next/link';
+import { getCloseDate, getWeek, getPriorWeek, getSeasonCheckDate } from '../utils/getDates';
 
 const DURATION = 'permanent';
 const SCOPE = 'identity';
@@ -33,20 +33,18 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 //display
 
 export default function Home(props) {
-	let pollDate = new Date('30 October 2023 14:00 UTC');
+	let pollDate = getCloseDate();
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
-	let week, season;
-	if (today > pollDate) {
-		// week = 2;
+
+	let season = 2024;
+	let week;
+	if (today >= pollDate) {
 		console.log('top pre-season');
-		week = 'Pre-Season';
-		season = 2024;
+		week = getWeek();
 	} else {
-		// week = "Pre-Season";
 		console.log('top post-season');
-		week = 'Post-Season';
-		season = 2023;
+		week = getPriorWeek();
 	}
 
 	// async function addPoll(userpollData){
@@ -68,12 +66,7 @@ export default function Home(props) {
 		console.log('name:', userpoll[i].teamName);
 	}
 
-	// let week = props.userpoll.week;
-	// let season = props.userpoll.season;
-	//console.log('userpoll:', userpoll);
-
 	if (props.userpoll.new) {
-		//console.log('userpoll');
 		let userpollData = {
 			week: 'Pre-Season',
 			season: 2023,
@@ -165,10 +158,10 @@ export default function Home(props) {
 				<div className="content">
 					<div id="ballotBox">
 						<h3>Vote!</h3>
-						<a href={'/applicationV2'}>
-							<button>APPLY NOW</button>
+						<a href={'/ballotBox'}>
+							<button>VOTE</button>
 						</a>
-						<h3>Application closes Friday October 27th at 11:59PM EDT</h3>
+						<h3>Ballot submission closes every Monday at 9:59AM EDT</h3>
 					</div>
 					<br />
 					<br />
@@ -233,10 +226,10 @@ export default function Home(props) {
 				<div className="content">
 					<div id="ballotBox">
 						<h3>Apply!</h3>
-						<a href={'/applicationV2'}>
-							<button>APPLY NOW</button>
+						<a href={'/ballotBox'}>
+							<button>VOTE</button>
 						</a>
-						<h3>Application closes Friday October 27th at 11:59PM EDT</h3>
+						<h3>Ballot submission closes every Monday at 9:59AM EDT</h3>
 					</div>
 				</div>
 				<div id="pollTable">
@@ -305,18 +298,15 @@ const getToken = async (body) => {
 };
 
 export const getServerSideProps = async ({ query, req, res }) => {
-	let pollDate = new Date('30 October 2023 14:00 UTC');
+	let pollDate = getCloseDate();
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
-	let week, season;
+	let week;
+	let season = 2024;
 	if (today > pollDate) {
-		// week = 2;
-		week = 'Pre-Season';
-		season = 2024;
+		week = getWeek();
 	} else {
-		// week = "Pre-Season";
-		week = 'Post-Season';
-		season = 2023;
+		week = getPriorWeek();
 	}
 
 	const refresh_token = getCookie('refresh_token', { req, res });
@@ -421,26 +411,15 @@ const getBallots = async (official, pollDate) => {
 
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
-	let week, season, date, ballots;
+	let week, date, ballots;
+	date = getSeasonCheckDate();
 	if (today > pollDate) {
-		// week = 2;
-		console.log('pre-season');
-		week = 'Pre-Season';
-		season = 2024;
-		date = '2023-10-01';
-		console.log('date:', date);
-		console.log('week:', week);
-		ballots = await UserBallot.find({ official: official, week: week, date: { $gte: date } });
+		week = getWeek();
 	} else {
-		console.log('post-season');
-		// week = "Pre-Season";
-		week = 'Post-Season';
-		season = 2023;
-		date = new Date('2022-01-01');
-		console.log('date:', date);
-		console.log('week:', week);
-		ballots = await UserBallot.find({ official: official, week: week, season: { $gte: date } });
+		week = getPriorWeek();
 	}
+
+	ballots = await UserBallot.find({ official: official, week: week, date: { $gte: date } });
 
 	//const ballots = await UserBallot.find({official: official, week: week, season: {$gte: date}});
 
@@ -475,7 +454,6 @@ async function getTeam(id) {
 // }
 
 const getUserpoll = async (week, pollDate) => {
-	console.log('week:', week);
 	// async function findPoll(){
 	//   let poll = await Userpoll.exists({week: "Pre-Season", season: "2022-2023"});
 	//   console.log('poll:', poll);
@@ -504,20 +482,14 @@ const getUserpoll = async (week, pollDate) => {
 	//let pollDate = new Date('26 October 2023 14:00 UTC');
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
-	let season, date, ballots;
-	if (today > pollDate) {
-		console.log('pre-season');
-		season = 2024;
-		date = new Date('2023-10-01');
+	let date = getSeasonCheckDate();
+	let ballots;
+
+	if (today >= pollDate) {
 		ballots = await UserBallot.find({ official: true, week: week, date: { $gte: date } });
 	} else {
-		season = 2023;
-		date = new Date('2022/01/01');
-		ballots = await UserBallot.find({ official: true, week: week, season: { $gte: date } });
+		ballots = await UserBallot.find({ official: true, week: week, date: { $gte: date } });
 	}
-
-	//const ballots = await UserBallot.find({official: true, week: week, date: {$gte:date} });
-	//const ballots = await UserBallot.find({official: true, week: week, date: {$gte:date} });
 
 	const ballotList = JSON.parse(JSON.stringify(ballots));
 
