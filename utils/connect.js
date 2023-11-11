@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose';
 
 console.log('Connecting');
 export const connectMongo = async () => mongoose.connect(process.env.MONGODB_URI);
