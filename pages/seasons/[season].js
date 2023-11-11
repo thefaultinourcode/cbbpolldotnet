@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { getCloseDate } from '../../utils/getDates';
 
 
 export default function Season (props){
     const router = useRouter();
     const season = router.query;
+    console.log('season:', season);
     let weeks = ['Pre-Season', 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 'Post-Season'];
     let year = 2023;
 
@@ -36,8 +38,21 @@ export default function Season (props){
         links.push(<li><Link href={`./${year}/${weeks[0]}`}>{weeks[0]}</Link></li>)
     }
 
+    let links2 = [];
+
+    //TODO: refactor
+    //placeholder
+    links2.push(<li><Link href={`./2024/Pre-Season`}>Pre-Season</Link></li>)
+
+    let currentWeek = getCloseDate();
+    if(today >= currentWeek){
+        links2.push(<li><Link href={`./2024/2`}>2</Link></li>)
+    }
+
     return(
         <div>
+            <h1>2024 Results</h1>
+            <o>{links2.map(link=>link)}</o>
             <h1>{season.season} Results</h1>
             <o>{links.map(link => link)}</o>
         </div>

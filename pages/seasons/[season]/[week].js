@@ -12,6 +12,7 @@ import { connectMongo } from "../../../utils/connect";
 import Link from 'next/link';
 import Poll from '../../../components/poll';
 import { getHistoricalBallots } from '../../../utils/getData';
+import { getCloseDate } from '../../../utils/getDates';
 
 const DURATION = "permanent";
 const SCOPE = "identity";
@@ -31,20 +32,21 @@ export default function Week (props){
     const router = useRouter();
     const week = router.query;
 
-    let pollDate = new Date('6 April 2023 21:00 UTC');
+    //let pollDate = new Date('6 April 2023 21:00 UTC');
     //let today = new Date('3 May 2023 15:00 UTC');
+    let pollDate = getCloseDate();
     let today = new Date();
     
     let weekNum;
     if(today > pollDate){
-      weekNum = "Post-Season";
+      weekNum = 2;
     }
     else{
-      weekNum = 19;
+      weekNum = "Pre-Season";
     }
   
     console.log('week.week:', week.week);
-    if(week.week === 'Post-Season' && weekNum === 19){
+    if(week.week === '2' && weekNum === "Pre-Season"){
       return(<div>
         <p>You do not have permission to view this page.</p>
       </div>)
@@ -153,9 +155,10 @@ const getToken = async (body) => {
 export const getServerSideProps = async ({ query, req, res }) => {
   
     let week = query.week;
-    console.log(week);
+    console.log('query week', week);
 
-    let season = 2023;
+    let season = query.season;
+    console.log('query season:', season);
 
     const refresh_token = getCookie("refresh_token", { req, res });
     const access_token = getCookie("access_token", { req, res });
@@ -163,7 +166,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
     if (refresh_token) {
       if (access_token) {
         const user = await getUser(access_token);
-        const userpoll = await getUserpoll(week);
+        const userpoll = await getUserpoll(week, season);
         const pollVoters = await getHistoricalBallots(true, week, season);
         const provisionalVoters = await getHistoricalBallots(false, week, season);
         return { props: { user, userpoll, pollVoters, provisionalVoters } };
@@ -183,7 +186,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
           maxAge: 60 * 60 * 24,
         });
         const user = await getUser(token.access_token);
-        const userpoll = await getUserpoll(week);
+        const userpoll = await getUserpoll(week, season);
         const pollVoters = await getHistoricalBallots(true, week, season);
         const provisionalVoters = await getHistoricalBallots(false, week, season);
         return { props: { user, userpoll, pollVoters, provisionalVoters } };
@@ -206,7 +209,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
           maxAge: 60 * 60 * 24,
         });
         const user = await getUser(token.access_token);
-        const userpoll = await getUserpoll(week);
+        const userpoll = await getUserpoll(week, season);
         const pollVoters = await getHistoricalBallots(true, week, season);
         const provisionalVoters = await getHistoricalBallots(false, week, season);
         return { props: { user, userpoll, pollVoters, provisionalVoters } };
@@ -215,7 +218,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
         return { props: { user: null } };
       }
     } else {
-      const userpoll = await getUserpoll(week);
+      const userpoll = await getUserpoll(week, season);
       const pollVoters = await getHistoricalBallots(true, week, season);
       const provisionalVoters = await getHistoricalBallots(false, week, season);
       return { props: { user: null, userpoll, pollVoters, provisionalVoters } };
@@ -243,12 +246,26 @@ export const getServerSideProps = async ({ query, req, res }) => {
   }
   
   
-  const getUserpoll = async (week) => {
+  const getUserpoll = async (week, season) => {
       await connectMongo();
     
+      console.log('season:', season);
       let date = new Date('2023-05-01');
 
-      const ballots = await UserBallot.find({official:true, week: week, season: {$lte: date} });
+      let startDate = new Date(season-1,9,1);
+      let endDate = new Date(season, 4, 1);
+
+      //refactor
+      let ballots;
+      if(week === "Pre-Season"){
+        ballots = await UserBallot.find({official:true, week: week, date: {$lte: endDate, $gte: startDate} });
+      }
+      else if(season === '2024'){
+        ballots = await UserBallot.find({official:true, week: week, date: {$lte: endDate, $gte: startDate} });
+      }
+      else{
+        ballots = await UserBallot.find({official:true, week: week, season: {$lte: endDate, $gte: startDate} });
+      }
       const ballotList = JSON.parse(JSON.stringify(ballots));
 
       let numberOne = {};

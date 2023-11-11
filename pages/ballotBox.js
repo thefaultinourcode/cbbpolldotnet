@@ -10,20 +10,24 @@ import { useRouter } from 'next/router';
 import { getUserInfo } from '../utils/getData';
 // import { getSeason } from '../utils/getDates';
 import Link from 'next/link'
+import { getOpenDate, getCloseDate, getWeek, getSeasonCheckDate } from '../utils/getDates';
 
 
 export default function BallotBox (props){
     const router = useRouter();
     let today = new Date();
     //let today = new Date(2022, 10, 13, 10, 59); 
-    let openDate = new Date(Date.UTC(2023, 3, 4, 17));
-    let closeDate = new Date(Date.UTC(2023, 3, 6, 20, 59));
+    //let openDate = new Date(Date.UTC(2023, 3, 4, 17));
+    //let closeDate = new Date(Date.UTC(2023, 3, 6, 20, 59));
+    let openDate = getOpenDate();
+    let closeDate = getCloseDate();
 
+    console.log(props.userprofile);
     const [ballot, setBallot] = useState(
         {
-            date: Date.now(),
-            week: "Post-Season",
-            user: props.user.name,
+            date: today,
+            week: getWeek(),
+            user: props.user.name
         }
     );
 
@@ -82,7 +86,8 @@ export default function BallotBox (props){
         else{
             ballotObj.user = ballot.user;
             ballotObj.week = ballot.week;
-            ballotObj.season = ballot.date;
+            ballotObj.date = ballot.date;
+            ballotObj.official = props.userprofile.pollVoter;
             for(let i=1; i<=25; i++){
                 let reasoning = 'reasoning' + i;
                 console.log('ballot[i]:', ballot[i]);
@@ -91,12 +96,8 @@ export default function BallotBox (props){
             }
 
             ballotObj.overallReasoning = event.target.overallReasoning.value;
-        }
-        
-        console.log('ballotObj:', ballotObj);
-        console.log('show ballot:', ballot);      
-
-       
+        }    
+      
         test(event);
 
         if(props.ballot){
@@ -240,7 +241,6 @@ export default function BallotBox (props){
     }
 
     const updateBallot = (e) => {
-        console.log('ballot 1:', ballot)
     //     setBallot({...ballot,
     //         1: {id: prevBallot[1].id,
     //             name: prevBallot[1].name,
@@ -376,7 +376,6 @@ export default function BallotBox (props){
             props.ballot[e.rank].points = (26 - e.rank); 
         }
 
-        console.log('ballot 2:', ballot);
         setBallot({...ballot,
             [e.rank]: {
                 id: e.value,
@@ -385,7 +384,6 @@ export default function BallotBox (props){
             }
         }); 
 
-        console.log('ballot 3:', ballot);
     }
 
     const updateReasoning = (e) => {
@@ -394,8 +392,6 @@ export default function BallotBox (props){
         
         })
     }
-
-    console.log('ballot:', ballot);
 
     let ballotComp, textarea;
     if(props.ballot){
@@ -538,8 +534,14 @@ export const getServerSideProps = async ({ query, req, res }) => {
 const getBallot = async (user) => {
     await connectMongo();
 
-    const ballot = await UserBallot.findOne({'user': user.name, 'week': "Post-Season"});
+    let seasonDate = getSeasonCheckDate();
+    console.log('seasonDate:', seasonDate);
+
+    let week = getWeek();
+
+    const ballot = await UserBallot.findOne({'user': user.name, 'week': week, 'date': {$gte:seasonDate}});
     const userBallot = JSON.parse(JSON.stringify(ballot));
+    console.log('userBallot:', userBallot);
 
     return userBallot;
 }

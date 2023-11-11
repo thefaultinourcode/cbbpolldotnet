@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { getUserInfo, getTeam, getProfileBallots } from "../../utils/getData";
 import Link from 'next/link';
 import Image from 'next/image';
+import { getCloseDate, getSeasonCheckDate, getWeek, getPriorWeek } from "../../utils/getDates";
 
 export default function UserProfile (props){
     //this gets an object with the username passed into the URL
@@ -49,38 +50,83 @@ export default function UserProfile (props){
         // user: String,
         // week: String,
     let ballots = props.profileBallots;
-    console.log('ballots:', ballots);
+
+    //rework this into something better
+    let ballots2023 = [];
+    let ballots2024 = [];
+    for(let i = 0; i < ballots.length; i++){
+      if(!ballots[i].hasOwnProperty('season')){
+        let pollDate = new Date(ballots[i].date);
+        let seasonDate = getSeasonCheckDate();
+        if(pollDate > seasonDate){
+          ballots2024.push(ballots[i])
+        }
+        else{
+          ballots2023.push(ballots[i]);
+        }
+      }
+      else{
+        ballots2023.push(ballots[i]);
+      }
+    }
+  
 
     //this iterates through the list of ballots and creates am array of link components that can be passed to the webpage
     //this can be expanded to include more tags for the styling that you want
-    let ballotArray = [];
-    let ballotLength;
+    let ballotArray2023 = [];
+    let ballotLength2023 = ballots2023.length;
     
+    for(let i = 0; i < ballotLength2023; i++ ){
+      let link = <tr key={ballots2023[i]._id} className="ballotCell"><td><Link href={`/ballots/${ballots2023[i].week}/${ballots2023[i]._id}`}><a>Week {ballots2023[i].week}</a></Link></td></tr>
+      ballotArray2023.push(link);
+    }
+
+    
+    let ballotArray2024 = [];
+    let ballotLength2024;
+
+    //display new week
+
+    //get the date when the ballot is supposed to display
+    //get the current date
+    //display latest week if current
+    //hide if poll is still open
+
+
+
     //update
     let week;
-    let openDate = new Date('6 April 2023 21:00 UTC');
+    let displayDate = getCloseDate();
     let today = new Date();
 
-    if(today >= openDate){
-      week = "Post-Season";
+    let display;
+    if(today >= displayDate){
+      week = getWeek();
+      display = true;
     }
     else{
-      week = 19;
+      week = getPriorWeek();
+      display = false;
     }
 
 
     // ballotLength = ballots.length;
-    if(week === "Post-Season"){
-      ballotLength = ballots.length;
+    //find a more efficient way to do this
+    if(!display){
+      let week = getWeek();
+      for(let i = 0; i < ballots2024.length; i++){
+        if(ballots2024[i].week == week){
+          let index = ballots2024.indexOf(ballots2024[i]);
+          if(index > -1){
+            ballots2024.splice(index,1);
+          }
+        }
+      }
     }
-    else if(week === 19){
-      ballotLength = ballots.length - 1;
-    }
-
-
-    for(let i = 0; i < ballotLength; i++ ){
-        let link = <tr key={ballots[i]._id} className="ballotCell"><td><Link href={`/ballots/${ballots[i].week}/${ballots[i]._id}`}><a>Week {ballots[i].week}</a></Link></td></tr>
-        ballotArray.push(link);
+    
+    for(let i = 0; i < ballots2024.length; i++ ){
+        let link = <tr key={ballots2024[i]._id} className="ballotCell"><td><Link href={`/ballots/${ballots2024[i].week}/${ballots2024[i]._id}`}><a>Week {ballots2024[i].week}</a></Link></td></tr>
+        ballotArray2024.push(link);
     }
 
     let navbar;
@@ -122,9 +168,13 @@ export default function UserProfile (props){
         <table id='profileTable'>
           <tbody>
             <tr>
+              <th>2024 Ballots</th>
+            </tr>
+            {ballotArray2024.map(ballot => ballot)}
+            <tr>
               <th>2023 Ballots</th>
             </tr>
-            {ballotArray.map(ballot => ballot)}
+            {ballotArray2023.map(ballot => ballot)}
           </tbody>
         </table>
     </div>)
