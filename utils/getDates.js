@@ -1,4 +1,3 @@
-import connectMongo from "./connectMongo";
 // import SeasonDates from "../models/SeasonDates";
 
 // export const getHomePageDates = async (season) => {
