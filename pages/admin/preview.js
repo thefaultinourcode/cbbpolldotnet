@@ -30,7 +30,7 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 export default function Preview (props){
     let title;
     let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
-    let week = "Pre-Season";
+    let week = getWeek();
 
     if(!modlist.includes(props.user.name)){
         return(<div>
@@ -300,7 +300,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
   
       await connectMongo();
     
-      let date = '2023-10-01';
+      let date = getSeasonCheckDate();
       const ballots = await UserBallot.find({user: {$in: userArray}, week: week, date:{$gte: date} });
       const ballotList = JSON.parse(JSON.stringify(ballots));
 
