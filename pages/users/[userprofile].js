@@ -138,7 +138,6 @@ export default function UserProfile (props){
     }
     let verified;
     if(profileData.pollVoter){
-      console.log(profileData.pollVoter);
       verified=<Image src="/static/OfficialVoterCheckmark.png" alt="Official Voter Checkmark" width={40} height={40}></Image>
     }
     else{
@@ -304,7 +303,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
     let tertiaryTeam = await getTeam(profile.tertiaryTeam);
     tertiaryTeam = JSON.parse(JSON.stringify(tertiaryTeam));
     let profileBallots = await getProfileBallots(profile.name);
-    console.log('profileBallots:', profileBallots);
     profileBallots = JSON.parse(JSON.stringify(profileBallots));
     return {user, profile, primaryTeam, secondaryTeam, tertiaryTeam, profileBallots};
   }

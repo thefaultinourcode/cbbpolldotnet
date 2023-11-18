@@ -48,7 +48,6 @@ export default function Preview (props){
     let userpoll = props.userpoll;
     let pollVoters = props.pollVoters;
     let provisionalVoters = props.provisionalVoters;
-    console.log('props.userpoll:', props.userpoll);
 
     let table = [];
     let othersReceivingVotes = '';

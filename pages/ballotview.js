@@ -39,9 +39,6 @@ export default function BallotView(props){
         )
     }
 
-    console.log('ballot:', props.ballot);
-    console.log('urls:', props.urls);
-
     let teams = [];
     for(let i = 1; i <=25; i++){
         teams.push(<TeamRow rank={i} reasoning={props.ballot[i].reasoning} name={props.ballot[i].name} url={props.urls[i]}></TeamRow>)
@@ -202,7 +199,6 @@ const getURLs = async (ballot) => {
         let url = team.url;
         urls[i] = url;
     }
-    console.log('urls:', urls);
 
     return urls;
 }
