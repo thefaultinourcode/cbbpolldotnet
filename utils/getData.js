@@ -48,18 +48,19 @@ export const getPollVoters = async () => {
 }
 
 export const getHistoricalBallots = async (official, week, season) => {
-    let startYear = season - 1;
+    let startYear = parseInt(season) - 1;
 
-    let startDate = new Date(startYear + '-10-01');
-    let endDate = new Date(season + '-05-01');
+
+    let startDate = new Date(startYear,9,1);
+    let endDate = new Date(parseInt(season),4,1);
     
     await connectMongo();
   
     let ballots;
     if(week === "Pre-Season"){
-      ballots = await UserBallot.find({official: official, week: week, date: {$gte: startDate, $lt: endDate}});
+      ballots = await UserBallot.find({official: official, week: week, date: {'$lte': endDate, '$gte': startDate}});
     }
-    if(week === "2" && season === "2024"){
+    else if(week === "2" && season === "2024"){
       ballots = await UserBallot.find({official: official, week: week, date: {$gte: startDate, $lt: endDate}});
     }
     else{
@@ -70,8 +71,6 @@ export const getHistoricalBallots = async (official, week, season) => {
     
     for(let i = 0; i < ballots.length; i++){
       let user = await getUserInfo(ballots[i].user);
-      console.log(ballots[i]);
-      console.log('user:', user);
       if(user === null){
         continue;
       }

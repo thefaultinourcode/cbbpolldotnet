@@ -29,6 +29,7 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 
 export default function Week (props){
+    console.log('pollVoters:', props.pollVoters);
     const router = useRouter();
     const week = router.query;
 
@@ -45,7 +46,6 @@ export default function Week (props){
       weekNum = "Pre-Season";
     }
   
-    console.log('week.week:', week.week);
     if(week.week === '2' && weekNum === "Pre-Season"){
       return(<div>
         <p>You do not have permission to view this page.</p>
@@ -155,10 +155,10 @@ const getToken = async (body) => {
 export const getServerSideProps = async ({ query, req, res }) => {
   
     let week = query.week;
-    console.log('query week', week);
+    console.log('week:', week);
 
     let season = query.season;
-    console.log('query season:', season);
+    console.log('season query:', season);
 
     const refresh_token = getCookie("refresh_token", { req, res });
     const access_token = getCookie("access_token", { req, res });
@@ -249,7 +249,6 @@ export const getServerSideProps = async ({ query, req, res }) => {
   const getUserpoll = async (week, season) => {
       await connectMongo();
     
-      console.log('season:', season);
       let date = new Date('2023-05-01');
 
       let startDate = new Date(season-1,9,1);
@@ -258,7 +257,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
       //refactor
       let ballots;
       if(week === "Pre-Season"){
-        ballots = await UserBallot.find({official:true, week: week, date: {$lte: endDate, $gte: startDate} });
+        ballots = await UserBallot.find({official:true, week: week, date: {$lte: endDate, $gte: startDate}});
       }
       else if(season === '2024'){
         ballots = await UserBallot.find({official:true, week: week, date: {$lte: endDate, $gte: startDate} });

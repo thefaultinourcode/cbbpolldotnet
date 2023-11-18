@@ -14,7 +14,6 @@ export default function UserRanking (props){
 
     let week = props.week;
 
-
     let rows = [];
     for(let i = 1; i <= 25; i++){
 
@@ -174,7 +173,6 @@ export const getServerSideProps = async ({ query }) => {
 
     let ballot = await getBallot(ballotId);
     ballot = JSON.parse(JSON.stringify(ballot));  
-    console.log('ballot:', ballot);
 
     let user = await getUserData(ballot.user);
     let team = await getTeam(user[0].primaryTeam);
@@ -296,11 +294,8 @@ export const getServerSideProps = async ({ query }) => {
 const getBallot = async (id) => {
     await connectMongo();
 
-    console.log('Id:', ObjectId(id));
-
     const ballot = await UserBallot.findOne({'_id':ObjectId(id)});
     const userBallot = JSON.parse(JSON.stringify(ballot));
-    console.log('userBallot:', userBallot);
     return userBallot;
   }
 

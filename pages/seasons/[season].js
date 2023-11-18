@@ -6,7 +6,6 @@ import { getCloseDate } from '../../utils/getDates';
 export default function Season (props){
     const router = useRouter();
     const season = router.query;
-    console.log('season:', season);
     let weeks = ['Pre-Season', 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 'Post-Season'];
     let year = 2023;
 
@@ -47,6 +46,7 @@ export default function Season (props){
     let currentWeek = getCloseDate();
     if(today >= currentWeek){
         links2.push(<li><Link href={`./2024/2`}>2</Link></li>)
+        links2.push(<li><Link href={`./2024/3`}>3</Link></li>)
     }
 
     return(

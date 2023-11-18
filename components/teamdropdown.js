@@ -57,9 +57,6 @@ export default function TeamDropdown(props){
 
     if(props.presetTeam){
         let obj = teamList.find(o => o.value === props.presetTeam);
-        console.log('teamList:', teamList);
-        console.log('props.presetTeam:', props.presetTeam);
-        console.log('obj:', obj);
 
         return(
             <div>

@@ -535,13 +535,11 @@ const getBallot = async (user) => {
     await connectMongo();
 
     let seasonDate = getSeasonCheckDate();
-    console.log('seasonDate:', seasonDate);
 
     let week = getWeek();
 
     const ballot = await UserBallot.findOne({'user': user.name, 'week': week, 'date': {$gte:seasonDate}});
     const userBallot = JSON.parse(JSON.stringify(ballot));
-    console.log('userBallot:', userBallot);
 
     return userBallot;
 }

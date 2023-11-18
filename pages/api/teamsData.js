@@ -11,7 +11,6 @@ export default async function handler (req, res) {
     case 'GET':
       try {
         const teamsData = await TeamData.find({})
-        console.log('teamsData:', teamsData);
         res.status(200).json({ success: true, data: teamsData })
       } catch (error) {
         res.status(400).json({ success: false })
