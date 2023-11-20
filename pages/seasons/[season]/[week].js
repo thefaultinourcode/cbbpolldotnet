@@ -12,7 +12,7 @@ import { connectMongo } from "../../../utils/connect";
 import Link from 'next/link';
 import Poll from '../../../components/poll';
 import { getHistoricalBallots } from '../../../utils/getData';
-import { getCloseDate } from '../../../utils/getDates';
+import { getCloseDate, getPriorWeek, getWeek } from '../../../utils/getDates';
 
 const DURATION = "permanent";
 const SCOPE = "identity";
@@ -29,7 +29,6 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 
 
 export default function Week (props){
-    console.log('pollVoters:', props.pollVoters);
     const router = useRouter();
     const week = router.query;
 
@@ -40,13 +39,13 @@ export default function Week (props){
     
     let weekNum;
     if(today > pollDate){
-      weekNum = 2;
+      weekNum = getWeek();
     }
     else{
-      weekNum = "Pre-Season";
+      weekNum = getPriorWeek();
     }
   
-    if(week.week === '2' && weekNum === "Pre-Season"){
+    if(week.week === '3' && weekNum === 2){
       return(<div>
         <p>You do not have permission to view this page.</p>
       </div>)
