@@ -45,7 +45,7 @@ export default function Week (props){
       weekNum = getPriorWeek();
     }
   
-    if(week.week === '3' && weekNum === 2){
+    if(week.week === '4' && weekNum === 3){
       return(<div>
         <p>You do not have permission to view this page.</p>
       </div>)
