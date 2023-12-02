@@ -11,13 +11,13 @@
 // } 
 
 export const getWeek = () => {
-    let week = 4;
+    let week = 5;
 
     return week;
 }
 
 export const getPriorWeek = () => {
-    let week = 3;
+    let week = 4;
     
     return week;
 }
@@ -27,13 +27,13 @@ export const getPollDate = () =>{
 }
 
 export const getOpenDate = () => {
-    let date = new Date('25 November 2023 15:00 UTC');
+    let date = new Date('2 December 2023 15:00 UTC');
 
     return date;
 }
 
 export const getCloseDate = () => {
-    let date = new Date('27 November 2023 15:00 UTC');
+    let date = new Date('4 December 2023 15:00 UTC');
 
     return date;
 }
