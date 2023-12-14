@@ -157,9 +157,9 @@ export default function Admin(props){
                             <th>
                               Provisional Ballots 2024
                             </th>
-                            {/* <th>
+                            <th>
                               Provisional Ballots All Time
-                            </th> */}
+                            </th>
                             <th>
                               Official Ballots 2024
                             </th>
@@ -179,9 +179,9 @@ export default function Admin(props){
                                     <td>
                                       {object.provCount}
                                     </td>
-                                    {/* <td>
+                                    <td>
                                       {object.provCountAllTime}
-                                    </td> */}
+                                    </td>
                                     <td>
                                       {object.offCount}
                                     </td>
