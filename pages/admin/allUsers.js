@@ -219,7 +219,7 @@ const getToken = async (body) => {
         let users = await getUsers();
         for(let i = 0; i < users.length; i++){
           users[i].provCount = await getProvisionals(users[i].name);
-          //users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
         }
 
         return { props: { user, apps, users } };
@@ -244,7 +244,7 @@ const getToken = async (body) => {
         let users = await getUsers();
         for(let i = 0; i < users.length; i++){
           users[i].provCount = await getProvisionals(users[i].name);
-          //users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
         }
         return { props: { user, apps, users } };
       }
@@ -271,7 +271,7 @@ const getToken = async (body) => {
         let users = await getUsers();
         for(let i = 0; i < users.length; i++){
           users[i].provCount = await getProvisionals(users[i].name);
-          //users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
         }
         return { props: { user, apps, users } };
       } 
