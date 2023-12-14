@@ -14,6 +14,8 @@ export default function Admin(props){
     
     let apps = props.apps;
     let users = props.users;
+    let ballotObj = props.ballotObj;
+    console.log('ballotObj:', ballotObj);
 
     let usersApplied = [];
     apps.map(element => usersApplied.push(element.user));
@@ -113,6 +115,20 @@ export default function Admin(props){
                 else{
                     user.pollVoterValue = "no";
                 }
+                console.log('name:', user.name);
+                console.log('obj:', ballotObj[user.name]);
+                if(ballotObj[user.name] == undefined){
+                  ballotObj[user.name] = {
+                    provisionalBallots2024: 0,
+                    provisionalBallotsAllTime: 0,
+                    officialBallots2024: 0,
+                    officialBallotsAllTime: 0
+                  }
+                }
+                user.provCount = ballotObj[user.name]['provisionalBallots2024'];
+                user.provCountAllTime = ballotObj[user.name]['provisionalBallotsAllTime'];
+                user.offCount = ballotObj[user.name]['officialBallots2024'];
+                user.offCountAllTime = ballotObj[user.name]['officialBallotsAllTime'];
             //}
         }
 
@@ -120,6 +136,10 @@ export default function Admin(props){
           return c2.provCount - c1.provCount;
         });
 
+        console.log(props.ballotObj);
+        console.log('McDichael:', props.ballotObj['SleveMcDichael4']);
+        console.log('go_uw:', props.ballotObj['go_uw']);
+        console.log('Ac:', props.ballotObj['Ac91722']);
         
 
         return(
@@ -141,6 +161,12 @@ export default function Admin(props){
                               Provisional Ballots All Time
                             </th>
                             <th>
+                              Official Ballots 2024
+                            </th>
+                            <th>
+                              Official Ballots All Time
+                            </th>
+                            <th>
                                 Approve/Deny
                             </th>
                         </tr>
@@ -155,6 +181,12 @@ export default function Admin(props){
                                     </td>
                                     <td>
                                       {object.provCountAllTime}
+                                    </td>
+                                    <td>
+                                      {object.offCount}
+                                    </td>
+                                    <td>
+                                      {object.offCountAllTime}
                                     </td>
                                     <td>
                                         <button onClick={handleClick} id='approve' data-username={object.name}>Approve</button>
@@ -212,17 +244,15 @@ const getToken = async (body) => {
       console.log('test');
     }
   
+    const ballots = await getBallots();
+    const ballotObj = countBallots(ballots);
     if (refresh_token) {
       if (access_token) {
+        
         const user = await getUser(access_token);
         let apps = await getApps();
         let users = await getUsers();
-        for(let i = 0; i < users.length; i++){
-          users[i].provCount = await getProvisionals(users[i].name);
-          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
-        }
-
-        return { props: { user, apps, users } };
+        return { props: { user, apps, users, ballotObj } };
       } 
       else {
         const token = await getToken({
@@ -242,11 +272,7 @@ const getToken = async (body) => {
         const user = await getUser(token.access_token);
         let apps = await getApps();
         let users = await getUsers();
-        for(let i = 0; i < users.length; i++){
-          users[i].provCount = await getProvisionals(users[i].name);
-          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
-        }
-        return { props: { user, apps, users } };
+        return { props: { user, apps, users, ballotObj } };
       }
     } 
     else if (query.code && query.state === RANDOM_STRING) {
@@ -269,19 +295,15 @@ const getToken = async (body) => {
         const user = await getUser(token.access_token);
         let apps = await getApps();
         let users = await getUsers();
-        for(let i = 0; i < users.length; i++){
-          users[i].provCount = await getProvisionals(users[i].name);
-          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
-        }
-        return { props: { user, apps, users } };
+        return { props: { user, apps, users, ballotObj } };
       } 
       catch (e) {
         console.log(e);
-        return { props: { user: null, apps:null, users: null } };
+        return { props: { user: null, apps:null, users: null, ballotObj:null } };
       }
     } 
     else {
-      return { props: { user: null, apps: null, users: null }};
+      return { props: { user: null, apps: null, users: null, ballotObj: null }};
     }
   };
   
@@ -320,20 +342,40 @@ const getToken = async (body) => {
     return userList;
   }
 
-  const getProvisionals = async (user) => {
+  const getBallots = async () => {
+    const ballots = await UserBallot.find();
+
+    console.log('ballots.length:', ballots.length);
+
+    return ballots;
+}
+
+const countBallots = (ballots) => {
+  let ballotObject = {}
+  for(let i = 0; i < ballots.length; i++){
+    if(!ballotObject.hasOwnProperty(ballots[i].user)){
+      ballotObject[ballots[i].user] = {
+        provisionalBallots2024: 0,
+        provisionalBallotsAllTime: 0,
+        officialBallots2024: 0,
+        officialBallotsAllTime: 0
+      };
+    }
+
     let date = getSeasonCheckDate();
-    
-    await connectMongo();    
-    const provCount = await UserBallot.countDocuments({user: user, official: false, date: {$gte: date}});
-    
-    return provCount;
+    if(ballots[i]['official'] === false){
+      if(ballots[i].date > date){
+        ballotObject[ballots[i].user]['provisionalBallots2024']++;
+      }
+      ballotObject[ballots[i].user]['provisionalBallotsAllTime']++;
+    }
+    else if(ballots[i]['official'] === true){
+      if(ballots[i].date > date){
+        ballotObject[ballots[i].user]['officialBallots2024']++;
+      }
+      ballotObject[ballots[i].user]['officialBallotsAllTime']++;
+    }
   }
 
-  const getAllTimeProvisionals = async (user) => {
-    let date = getSeasonCheckDate();
-    
-    await connectMongo();    
-    const provCount = await UserBallot.countDocuments({user: user, official: false});
-    
-    return provCount;
-  }
+  return ballotObject;
+}
