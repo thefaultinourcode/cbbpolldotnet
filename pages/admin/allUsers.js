@@ -2,11 +2,12 @@ import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 import React from "react";
 import axios, { Axios } from "axios";
 import querystring from "querystring";
-import { connectMongo } from "../utils/connect";
-import Application from "../models/ApplicationData";
-import User from "../models/User";
-import Link from 'next/link'
-
+import { connectMongo } from "../../utils/connect";
+import Application from "../../models/ApplicationData";
+import User from "../../models/User";
+import UserBallot from "../../models/UserBallot";
+import Link from 'next/link';
+import { getSeasonCheckDate } from "../../utils/getDates";
 
 export default function Admin(props){
     let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
@@ -20,39 +21,6 @@ export default function Admin(props){
     let usersInDB = [];
     users.map(element => usersInDB.push(element.name));
 
-    async function handleSubmit(e){
-      e.preventDefault();
-      let seasonDates = {
-        season: e.target.season.value,
-        preseasonDates: {
-          open: e.target.preseasonOpen.value,
-          close: e.target.preseasonClose.value
-        },
-        seasonDates: {
-          open: e.target.seasonOpen.value,
-          close: e.target.seasonClose.value
-        },
-        postseasonDates: {
-          open: e.target.postseasonOpen.value,
-          close: e.target.postseasonClose.value
-        }
-      }
-
-      console.log('seasonDates:', seasonDates);
-
-      const res = await fetch('/api/addSeasonDates',{
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-            seasonDates
-        ),
-      });
-
-      const data = await res.json();
-    }
-
     async function handleClick(e){
         
         let date = '2023-10-01';
@@ -61,24 +29,21 @@ export default function Admin(props){
 
         let approved, official;
         if(e.target.id === 'approve'){
-            console.log('approved');
             approved = true;
             official = true;
         }
         else if(e.target.id === 'deny'){
-            console.log('deny')
             approved = false;
             official = false;
         }
 
-        let foundApp = apps.find(element => element.user === username);
-        console.log(foundApp);
+        let foundUser = users.find(element => element.name === username);
 
         let user = {
             name: username,
-            primaryTeam: foundApp.favoriteTeam,
-            secondaryTeam: foundApp.favoriteTeam2,
-            tertiaryTeam: foundApp.favoriteTeam3,
+            primaryTeam: foundUser.primaryTeam,
+            secondaryTeam: foundUser.secondaryTeam,
+            tertiaryTeam: foundUser.tertiaryTeam,
             pollVoter: approved
         }
 
@@ -99,23 +64,6 @@ export default function Admin(props){
         });
 
         const data = await res.json();
-
-        let preSeasonDeadline =  new Date('30 October 2023 14:00 UTC');
-        let today = new Date();
-
-        if(preSeasonDeadline > today){
-          const res2 = await fetch('/api/changeBallotOfficial',{
-            method: 'Post',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(
-              ballotUpdate
-            )
-          });
-          const data2 = await res2.json();
-        }
-
 
         //implement a better solution later
         window.location.reload(false);
@@ -155,47 +103,27 @@ export default function Admin(props){
 
     if(modlist.includes(props.user.name)){
         
-        for(const app of apps){
-            let foundUser = users.find(element => element.name === app.user);
-            if(foundUser != null){
-                if(foundUser.pollVoter){
-                    app.pollVoter = "yes";
+        let provisionalUsers = [];
+        
+        for(const user of users){
+            //if(!user.pollVoter){
+                if(user.pollVoter){
+                    user.pollVoterValue = "yes";
                 }
                 else{
-                    app.pollVoter = "no";
+                    user.pollVoterValue = "no";
                 }
-            }
-            else{
-                app.pollVoter = "Not in DB";
-            }
-    
+            //}
         }
 
+        users.sort((c1,c2)=>{
+          return c2.provCount - c1.provCount;
+        });
+
+        
+
         return(
-            <div>
-                <h1>{props.user.name} is an admin</h1>
-                <h2><Link href='/admin/allUsers'>New Voter Approval</Link></h2>
-                <h2><Link href='/admin/preview'>Preview</Link></h2>
-                <br/>
-                <h2>Set Season Dates</h2>
-                <form id="seasonDates" onSubmit={handleSubmit}>
-                  <label>Season: <input id="season" type="text"></input></label>
-                  <br/>
-                  <br/>
-                  <label>Pre-Season Poll Opening: <input id="preseasonOpen" type="date"></input></label>
-                  <label>Pre-Season Poll Closing: <input id="preseasonClose" type="date"></input></label>
-                  <br/>
-                  <br/>
-                  <label>Season Poll Opening: <input id="seasonOpen" type="date"></input></label>
-                  <label>Season Poll Closing: <input id="seasonClose" type="date"></input></label>
-                  <br/>
-                  <br/>
-                  <label>Post-Season Poll Opening: <input id="postseasonOpen" type="date"></input></label>
-                  <label>Post-Season Poll Closing: <input id="postseasonClose" type="date"></input></label>
-                  <br/>
-                  <button type="submit">Submit</button>
-                </form>
-                
+            <div>                
                 <h2>Approve Voters</h2>
                 <table>
                     <tbody>
@@ -204,29 +132,33 @@ export default function Admin(props){
                                 Username
                             </th>
                             <th>
-                                Link
+                                Approved?
                             </th>
                             <th>
-                                Approved?
+                              Provisional Ballots 2024
+                            </th>
+                            <th>
+                              Provisional Ballots All Time
                             </th>
                             <th>
                                 Approve/Deny
                             </th>
                         </tr>
-                        {apps.map((object) =>
-                                <tr key={object.user}>
-                                    <td>{object.user}</td>
+                        {users.map((object) =>
+                                <tr key={object.name}>
+                                    <td><Link href={`/users/${object.name}`}>{object.name}</Link></td>
                                     <td>
-                                        <Link href={`/apps/${object.user}`}>
-                                            <a>{object.user}</a>
-                                        </Link>
+                                        {object.pollVoterValue}
                                     </td>
                                     <td>
-                                        {object.pollVoter}
+                                      {object.provCount}
                                     </td>
                                     <td>
-                                        <button onClick={handleClick} id='approve' data-username={object.user}>Approve</button>
-                                        <button onClick={handleClick} id='deny' data-username={object.user}>Deny</button>
+                                      {object.provCountAllTime}
+                                    </td>
+                                    <td>
+                                        <button onClick={handleClick} id='approve' data-username={object.name}>Approve</button>
+                                        <button onClick={handleClick} id='deny' data-username={object.name}>Deny</button>
                                     </td>
                                 </tr>
 
@@ -285,13 +217,18 @@ const getToken = async (body) => {
         const user = await getUser(access_token);
         let apps = await getApps();
         let users = await getUsers();
+        for(let i = 0; i < users.length; i++){
+          users[i].provCount = await getProvisionals(users[i].name);
+          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+        }
+
         return { props: { user, apps, users } };
-      } else {
+      } 
+      else {
         const token = await getToken({
           refresh_token: refresh_token,
           grant_type: "refresh_token",
         });
-        console.log('token:', token);
         setCookie("refresh_token", token.refresh_token, {
           req,
           res,
@@ -305,11 +242,15 @@ const getToken = async (body) => {
         const user = await getUser(token.access_token);
         let apps = await getApps();
         let users = await getUsers();
+        for(let i = 0; i < users.length; i++){
+          users[i].provCount = await getProvisionals(users[i].name);
+          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+        }
         return { props: { user, apps, users } };
       }
-    } else if (query.code && query.state === RANDOM_STRING) {
+    } 
+    else if (query.code && query.state === RANDOM_STRING) {
       try {
-        console.log('else if');
         const token = await getToken({
           code: query.code,
           grant_type: "authorization_code",
@@ -328,13 +269,18 @@ const getToken = async (body) => {
         const user = await getUser(token.access_token);
         let apps = await getApps();
         let users = await getUsers();
+        for(let i = 0; i < users.length; i++){
+          users[i].provCount = await getProvisionals(users[i].name);
+          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+        }
         return { props: { user, apps, users } };
-      } catch (e) {
+      } 
+      catch (e) {
         console.log(e);
         return { props: { user: null, apps:null, users: null } };
       }
-    } else {
-      console.log('else');
+    } 
+    else {
       return { props: { user: null, apps: null, users: null }};
     }
   };
@@ -358,7 +304,6 @@ const getToken = async (body) => {
     console.log('FETCHING APP');
     const app = await Application.find({season:2024});
     const userApp = JSON.parse(JSON.stringify(app));
-    console.log('userApp:', userApp);
     console.log('FETCHED APP');
     return userApp;
   }
@@ -371,7 +316,24 @@ const getToken = async (body) => {
     console.log('FETCHING APP');
     const users = await User.find({});
     const userList = JSON.parse(JSON.stringify(users));
-    console.log('userList:', userList);
     console.log('FETCHED APP');
     return userList;
+  }
+
+  const getProvisionals = async (user) => {
+    let date = getSeasonCheckDate();
+    
+    await connectMongo();    
+    const provCount = await UserBallot.countDocuments({user: user, official: false, date: {$gte: date}});
+    
+    return provCount;
+  }
+
+  const getAllTimeProvisionals = async (user) => {
+    let date = getSeasonCheckDate();
+    
+    await connectMongo();    
+    const provCount = await UserBallot.countDocuments({user: user, official: false});
+    
+    return provCount;
   }

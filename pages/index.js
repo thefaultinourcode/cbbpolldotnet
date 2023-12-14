@@ -16,8 +16,8 @@ import { getCloseDate, getWeek, getPriorWeek, getSeasonCheckDate } from "../util
 const DURATION = "permanent";
 const SCOPE = "identity";
 
-//const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = "http://cbbpoll.net/profile";
+const REDIRECT_URI = process.env.REDIRECT_URI;
+//const REDIRECT_URI = "http://cbbpoll.net/profile";
 
 const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
 const RESPONSE_TYPE = "code";
@@ -457,6 +457,7 @@ const getBallots = async (official, pollDate) => {
   let voters = [];
   for(let i = 0; i < ballots.length; i++){
     let user = await getUserInfo(ballots[i].user);
+    console.log('user:', user);
     let team = await getTeam(user[0].primaryTeam);
     let url = team.url;
     voters.push({
