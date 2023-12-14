@@ -137,9 +137,9 @@ export default function Admin(props){
                             <th>
                               Provisional Ballots 2024
                             </th>
-                            <th>
+                            {/* <th>
                               Provisional Ballots All Time
-                            </th>
+                            </th> */}
                             <th>
                                 Approve/Deny
                             </th>
@@ -153,9 +153,9 @@ export default function Admin(props){
                                     <td>
                                       {object.provCount}
                                     </td>
-                                    <td>
+                                    {/* <td>
                                       {object.provCountAllTime}
-                                    </td>
+                                    </td> */}
                                     <td>
                                         <button onClick={handleClick} id='approve' data-username={object.name}>Approve</button>
                                         <button onClick={handleClick} id='deny' data-username={object.name}>Deny</button>
@@ -219,7 +219,7 @@ const getToken = async (body) => {
         let users = await getUsers();
         for(let i = 0; i < users.length; i++){
           users[i].provCount = await getProvisionals(users[i].name);
-          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+          //users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
         }
 
         return { props: { user, apps, users } };
@@ -244,7 +244,7 @@ const getToken = async (body) => {
         let users = await getUsers();
         for(let i = 0; i < users.length; i++){
           users[i].provCount = await getProvisionals(users[i].name);
-          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+          //users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
         }
         return { props: { user, apps, users } };
       }
@@ -271,7 +271,7 @@ const getToken = async (body) => {
         let users = await getUsers();
         for(let i = 0; i < users.length; i++){
           users[i].provCount = await getProvisionals(users[i].name);
-          users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
+          //users[i].provCountAllTime = await getAllTimeProvisionals(users[i].name);
         }
         return { props: { user, apps, users } };
       } 
