@@ -8,52 +8,48 @@
 //     const seasonDates = JSON.parse(JSON.stringify(dates));
 
 //     return seasonDates;
-// } 
+// }
 
 export const getWeek = () => {
-    let week = 8;
+	let week = 8;
 
-    return week;
-}
+	return week;
+};
 
 export const getPriorWeek = () => {
-    let week = 7;
-    
-    return week;
-}
+	let week = 7;
+	return week;
+};
 
-export const getPollDate = () =>{
-
-}
+export const getPollDate = () => {};
 
 export const getOpenDate = () => {
-    let date = new Date('24 December 2023 15:00 UTC');
+	let date = new Date('24 December 2023 15:00 UTC');
 
-    return date;
-}
+	return date;
+};
 
 export const getCloseDate = () => {
-    let date = new Date('25 December 2023 15:00 UTC');
+	let date = new Date('25 December 2023 15:00 UTC');
 
-    return date;
-}
+	return date;
+};
 
 export const getSeasonCheckDate = () => {
-    let date = new Date('October 1 2023');
-    return date;
-}
+	let date = new Date('October 1 2023');
+	return date;
+};
 
 export const getSeason = () => {
-    let today = new Date();
-    let month = today.getMonth();
+	let today = new Date();
+	let month = today.getMonth();
 
-    let season;
-    if(month < 9){
-        season = today.getFullYear();
-    }
-    else{
-        season = today.getFullYear() + 1;
-    }
+	let season;
+	if (month < 9) {
+		season = today.getFullYear();
+	} else {
+		season = today.getFullYear() + 1;
+	}
 
-    return season;
-}
+	return season;
+};

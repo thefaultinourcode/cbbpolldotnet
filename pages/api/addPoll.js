@@ -1,12 +1,12 @@
-import { connectMongo } from "../../utils/connect";
-import Userpoll from "../../models/Userpoll";
+import { connectMongo } from '../../utils/connect';
+import Userpoll from '../../models/Userpoll';
 
-export default async function addPoll(req, res){
-    const {week, season, userpoll } = req.body;
+export default async function addPoll(req, res) {
+	const { week, season, userpoll } = req.body;
 
-    await connectMongo();
+	await connectMongo();
 
-    const response = await Userpoll.create(req.body);
+	const response = await Userpoll.create(req.body);
 
-    res.json({ response });
+	res.json({ response });
 }
