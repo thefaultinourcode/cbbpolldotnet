@@ -9,6 +9,8 @@ export default function Season(props) {
 	let weeks = ['Pre-Season', 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 'Post-Season'];
 	let year = 2023;
 
+	let links = [];
+	
 	let pollDate = new Date('6 April 2023 21:00 UTC');
 	let today = new Date();
 	//let today = new Date('3 May 2023 14:00 UTC');
