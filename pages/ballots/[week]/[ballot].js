@@ -164,8 +164,6 @@ export default function UserRanking(props) {
         </div>
     );
 
-	let week = props.week;
-
 	let rows = [];
 	for (let i = 1; i <= 25; i++) {}
 
