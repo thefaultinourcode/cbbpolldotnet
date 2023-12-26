@@ -46,30 +46,6 @@ export default function Season(props) {
 		);
 	}
 
-	if (week === 'Post-Season') {
-		for (let i = 0; i < weeks.length; i++) {
-			links.push(
-				<li>
-					<Link href={`./${year}/${weeks[i]}`}>{weeks[i]}</Link>
-				</li>
-			);
-		}
-	} else if (week === 19) {
-		for (let i = 0; i < weeks.length - 1; i++) {
-			links.push(
-				<li>
-					<Link href={`./${year}/${weeks[i]}`}>{weeks[i]}</Link>
-				</li>
-			);
-		}
-	} else {
-		links.push(
-			<li>
-				<Link href={`./${year}/${weeks[0]}`}>{weeks[0]}</Link>
-			</li>
-		);
-	}
-
 
     let links2 = [];
 
