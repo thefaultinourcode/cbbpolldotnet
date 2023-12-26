@@ -164,10 +164,6 @@ export default function UserRanking(props) {
         </div>
     );
 
-	let rows = [];
-	for (let i = 1; i <= 25; i++) {}
-
-	let titleName = props.ballot.user + "'s";
 	return (
 		<div>
 			<span>
