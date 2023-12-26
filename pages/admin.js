@@ -236,6 +236,7 @@ export default function Admin(props) {
 			</div>
 		);
 	}
+
 }
 
 //const REDIRECT_URI = "http://localhost:3000/profile";

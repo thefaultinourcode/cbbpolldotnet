@@ -68,23 +68,23 @@ export default function Season(props) {
 		);
 	}
 
-	let links2 = [];
 
-	//TODO: refactor
-	//placeholder
-	links2.push(
-		<li>
-			<Link href={`./2024/Pre-Season`}>Pre-Season</Link>
-		</li>
-	);
+    let links2 = [];
 
-	let currentWeek = getCloseDate();
-	if (today >= currentWeek) {
-		links2.push(
-			<li>
-				<Link href={`./2024/2`}>2</Link>
-			</li>
-		);
+    //TODO: refactor
+    //placeholder
+    links2.push(<li><Link href={`./2024/Pre-Season`}>Pre-Season</Link></li>)
+    links2.push(<li><Link href={`./2024/2`}>2</Link></li>)
+    links2.push(<li><Link href={`./2024/3`}>3</Link></li>)
+    links2.push(<li><Link href={`./2024/4`}>4</Link></li>)
+    links2.push(<li><Link href={`./2024/5`}>5</Link></li>)
+    links2.push(<li><Link href={`./2024/6`}>6</Link></li>)
+    links2.push(<li><Link href={`./2024/7`}>7</Link></li>)
+
+    let currentWeek = getCloseDate();
+    if(today >= currentWeek){
+        links2.push(<li><Link href={`./2024/8`}>8</Link></li>)
+    }
 	}
 
 	return (
@@ -96,3 +96,4 @@ export default function Season(props) {
 		</div>
 	);
 }
+

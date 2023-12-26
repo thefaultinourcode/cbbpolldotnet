@@ -317,3 +317,6 @@ const getPropData = async (access_token, userprofile) => {
 	profileBallots = JSON.parse(JSON.stringify(profileBallots));
 	return { user, profile, primaryTeam, secondaryTeam, tertiaryTeam, profileBallots };
 };
+
+  
+

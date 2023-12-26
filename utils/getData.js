@@ -45,10 +45,11 @@ export const getPollVoters = async () => {
 };
 
 export const getHistoricalBallots = async (official, week, season) => {
-	let startYear = season - 1;
 
-	let startDate = new Date(startYear + '-10-01');
-	let endDate = new Date(season + '-05-01');
+	let startYear = parseInt(season) - 1;
+  
+	let startDate = new Date(startYear,9,1);
+	let endDate = new Date(parseInt(season),4,1);
 
 	await connectMongo();
 

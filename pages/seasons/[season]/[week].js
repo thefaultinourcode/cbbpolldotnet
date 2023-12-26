@@ -12,7 +12,7 @@ import { connectMongo } from '../../../utils/connect';
 import Link from 'next/link';
 import Poll from '../../../components/poll';
 import { getHistoricalBallots } from '../../../utils/getData';
-import { getCloseDate } from '../../../utils/getDates';
+import { getCloseDate, getPriorWeek, getWeek } from '../../../utils/getDates';
 
 const DURATION = 'permanent';
 const SCOPE = 'identity';
@@ -364,3 +364,4 @@ const getUserpoll = async (week, season) => {
 	return userpoll;
 	//}
 };
+
