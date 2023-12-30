@@ -38,13 +38,13 @@ export default function Week(props) {
 
 	let weekNum;
 	if (today > pollDate) {
-		weekNum = 2;
+		weekNum = getWeek();
 	} else {
-		weekNum = 'Pre-Season';
+		weekNum = getPriorWeek();
 	}
 
 	console.log('week.week:', week.week);
-	if (week.week === '2' && weekNum === 'Pre-Season') {
+	if (week.week === '9' && weekNum === 8) {
 		return (
 			<div>
 				<p>You do not have permission to view this page.</p>
