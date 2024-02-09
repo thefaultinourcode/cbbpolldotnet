@@ -64,10 +64,11 @@ export default function Season(props) {
 	links2.push(<li><Link href={`./2024/11`}>11</Link></li>)
 	links2.push(<li><Link href={`./2024/12`}>12</Link></li>)
 	links2.push(<li><Link href={`./2024/13`}>13</Link></li>)
+	links2.push(<li><Link href={`./2024/14`}>14</Link></li>)
 
     let currentWeek = getCloseDate();
     if(today >= currentWeek){
-        links2.push(<li><Link href={`./2024/14`}>14</Link></li>)
+        links2.push(<li><Link href={`./2024/15`}>15</Link></li>)
 	}
 
 	return (
