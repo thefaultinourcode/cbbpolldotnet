@@ -20,10 +20,11 @@ export default function SetDates(props){
     let usersInDB = [];
     users.map(element => usersInDB.push(element.name));
 
+    //TODO: Add input validation for ease of use
     async function handleSubmit(e){
       e.preventDefault();
       let seasonDates = {
-        season: e.target.season.value,
+        season: props.season,
         preseasonDates: {
           open: e.target.preseasonOpen.value,
           close: e.target.preseasonClose.value
@@ -76,7 +77,7 @@ export default function SetDates(props){
                 <br/>
                 <h1>Set Season Dates</h1>
                 <form id="seasonDates" onSubmit={handleSubmit}>
-                  <label>Season: <input id="season" type="text"></input></label>
+                  <label>Season: {props.season}</label>
                   <br/>
                   <br/>
                   <label>Pre-Season Poll Opening: <input id="preseasonOpen" type="date"></input></label>
@@ -136,12 +137,14 @@ const getToken = async (body) => {
       console.log('test');
     }
   
+    const season = getSeason();
+
     if (refresh_token) {
       if (access_token) {
         const user = await getUser(access_token);
         let apps = await getApps();
         let users = await getUsers();
-        return { props: { user, apps, users } };
+        return { props: { user, apps, users, season } };
       } else {
         const token = await getToken({
           refresh_token: refresh_token,
@@ -161,7 +164,7 @@ const getToken = async (body) => {
         const user = await getUser(token.access_token);
         let apps = await getApps();
         let users = await getUsers();
-        return { props: { user, apps, users } };
+        return { props: { user, apps, users, season } };
       }
     } else if (query.code && query.state === RANDOM_STRING) {
       try {
@@ -184,14 +187,14 @@ const getToken = async (body) => {
         const user = await getUser(token.access_token);
         let apps = await getApps();
         let users = await getUsers();
-        return { props: { user, apps, users } };
+        return { props: { user, apps, users, season } };
       } catch (e) {
         console.log(e);
-        return { props: { user: null, apps:null, users: null } };
+        return { props: { user: null, apps:null, users: null, season } };
       }
     } else {
       console.log('else');
-      return { props: { user: null, apps: null, users: null }};
+      return { props: { user: null, apps: null, users: null, season }};
     }
   };
   
@@ -230,4 +233,19 @@ const getToken = async (body) => {
     console.log('userList:', userList);
     console.log('FETCHED APP');
     return userList;
+  }
+
+  const getSeason = () => {
+    const today = new Date();
+
+    let season;
+
+    if(today.getMonth() >= 9){
+      season = today.getFullYear() + 1;
+    }
+    else{
+      season = today.getFullYear();
+    }
+
+    return season;
   }
