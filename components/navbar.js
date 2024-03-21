@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { inDevEnvironment } from '../lib/isDevEnv';
 export default function Navbar(props) {
 
     //figure out a better way
     const DURATION = "permanent";
     const SCOPE = "identity edit flair history read vote wikiread wikiedit";
-    const REDIRECT_URI = "http://localhost:3000/profile";
+    const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/profile" : 'http://cbbpoll.net/profile';
     const RANDOM_STRING = "randomstringhere"; //randomstring.generate();
     const RESPONSE_TYPE = "code";
     const CLIENT_ID = process.env.REDDIT_CLIENT_ID;

@@ -9,7 +9,7 @@ import Navbar from '../components/navbar';
 import ApplicationData from '../models/ApplicationData';
 import UserBallot from '../models/UserBallot';
 import { useRouter } from 'next/router';
-
+import { inDevEnvironment } from '../lib/isDevEnv';
 export default function Application({ user, teams, app, ballot }) {
 	const form = useRef(null);
 	const partOne = useRef(null);
@@ -1814,8 +1814,8 @@ export default function Application({ user, teams, app, ballot }) {
 	}
 }
 
-const REDIRECT_URI = 'http://cbbpoll.net/application';
-//const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/application" : 'http://cbbpoll.net/application';
+
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;

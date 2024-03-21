@@ -2,6 +2,7 @@ import { connectMongo } from './connect';
 import User from '../models/User';
 import TeamData from '../models/TeamData';
 import UserBallot from '../models/UserBallot';
+import { getOpenDate, getCloseDate, getWeek, getSeasonCheckDate } from './getDates';
 
 export const getUserInfo = async (username) => {
 	await connectMongo();
@@ -81,4 +82,19 @@ export const getHistoricalBallots = async (official, week, season) => {
 		});
 	}
 	return voters;
+};
+
+export const getBallots = async (user) => {
+	await connectMongo();
+
+	let seasonDate = getSeasonCheckDate();
+	console.log('seasonDate:', seasonDate);
+
+	let week = getWeek();
+
+	const ballot = await UserBallot.find({ user: user.name, week: week, date: { $gte: seasonDate } });
+	const userBallot = JSON.parse(JSON.stringify(ballot));
+	console.log('userBallots:', userBallot);
+
+	return userBallot;
 };

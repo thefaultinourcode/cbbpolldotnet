@@ -2,7 +2,7 @@ import Navbar from '../components/navbar';
 import React from 'react';
 import axios, { Axios } from 'axios';
 import querystring from 'querystring';
-
+import {inDevEnvironment} from '../lib/isDevEnv'
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 
 export default function About(props) {
@@ -193,8 +193,7 @@ export default function About(props) {
 	);
 }
 
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
+const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/profile" :'http://cbbpoll.net/profile';
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;

@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Home from './index';
+import { inDevEnvironment } from '../lib/isDevEnv';
 //import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
@@ -20,7 +21,7 @@ const SCOPE = 'identity';
 const RESPONSE_TYPE = 'code';
 
 //const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
+const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/profile" : 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;

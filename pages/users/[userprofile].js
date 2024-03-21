@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { getUserInfo, getTeam, getProfileBallots } from '../../utils/getData';
 import Link from 'next/link';
 import Image from 'next/image';
+import { inDevEnvironment } from '../../lib/isDevEnv';
 import { getCloseDate, getSeasonCheckDate, getWeek, getPriorWeek } from '../../utils/getDates';
 
 export default function UserProfile(props) {
@@ -200,8 +201,7 @@ export default function UserProfile(props) {
 //BACKEND CODE BEGINS HERE
 
 //Reddit login code
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
+const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/profile" : 'http://cbbpoll.net/profile' ;
 
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;

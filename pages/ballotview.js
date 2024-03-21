@@ -2,6 +2,7 @@ import TeamRow from '../components/teamrow';
 import React from 'react';
 import axios, { Axios } from 'axios';
 import querystring from 'querystring';
+import { inDevEnvironment } from '../lib/isDevEnv';
 import { connectMongo } from '../utils/connect';
 import UserBallot from '../models/UserBallot';
 import Link from 'next/link';
@@ -16,8 +17,7 @@ const DURATION = 'permanent';
 const SCOPE = 'identity';
 const RESPONSE_TYPE = 'code';
 
-//const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
+const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/profile" : 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
