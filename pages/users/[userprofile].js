@@ -201,7 +201,7 @@ export default function UserProfile(props) {
 //BACKEND CODE BEGINS HERE
 
 //Reddit login code
-const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/profile" : 'http://cbbpoll.net/profile' ;
+const REDIRECT_URI = inDevEnvironment ? 'http://localhost:3000/profile' : 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
@@ -317,6 +317,3 @@ const getPropData = async (access_token, userprofile) => {
 	profileBallots = JSON.parse(JSON.stringify(profileBallots));
 	return { user, profile, primaryTeam, secondaryTeam, tertiaryTeam, profileBallots };
 };
-
-  
-

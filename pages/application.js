@@ -1814,7 +1814,7 @@ export default function Application({ user, teams, app, ballot }) {
 	}
 }
 
-const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/application" : 'http://cbbpoll.net/application';
+const REDIRECT_URI = inDevEnvironment ? 'http://localhost:3000/application' : 'http://cbbpoll.net/application';
 
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.REDDIT_CLIENT_ID;

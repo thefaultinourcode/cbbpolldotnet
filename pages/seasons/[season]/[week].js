@@ -18,7 +18,7 @@ const DURATION = 'permanent';
 const SCOPE = 'identity';
 
 //const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = inDevEnvironment ? "http://localhost:3000/profile" : 'http://cbbpoll.net/profile';
+const REDIRECT_URI = inDevEnvironment ? 'http://localhost:3000/profile' : 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere'; //randomstring.generate();
 const RESPONSE_TYPE = 'code';
@@ -89,7 +89,7 @@ export default function Week(props) {
 							<Image src={pollVoters[i].url} width={25} height={25}></Image> {pollVoters[i].username},{' '}
 						</a>
 					</span>
-				</Link>
+				</Link>,
 			);
 		} else {
 			pollVoterArray.push(
@@ -99,7 +99,7 @@ export default function Week(props) {
 							<Image src={pollVoters[i].url} width={25} height={25}></Image> {pollVoters[i].username}
 						</a>
 					</span>
-				</Link>
+				</Link>,
 			);
 		}
 	}
@@ -114,7 +114,7 @@ export default function Week(props) {
 							<Image src={provisionalVoters[i].url} width={25} height={25}></Image> {provisionalVoters[i].username},{' '}
 						</a>
 					</span>
-				</Link>
+				</Link>,
 			);
 		} else {
 			provisionalVoterArray.push(
@@ -124,7 +124,7 @@ export default function Week(props) {
 							<Image src={provisionalVoters[i].url} width={25} height={25}></Image> {provisionalVoters[i].username}{' '}
 						</a>
 					</span>
-				</Link>
+				</Link>,
 			);
 		}
 	}
@@ -364,4 +364,3 @@ const getUserpoll = async (week, season) => {
 	return userpoll;
 	//}
 };
-

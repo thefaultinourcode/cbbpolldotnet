@@ -9,8 +9,7 @@ import { inDevEnvironment } from '../lib/isDevEnv';
 // import User from "../models/User";
 import Link from 'next/link';
 import TeamDropdown from '../components/teamdropdown';
-import { getTeams, getUserInfo, getBallots} from '../utils/getData';
-
+import { getTeams, getUserInfo, getBallots } from '../utils/getData';
 
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 
@@ -72,48 +71,29 @@ export default function Profile({ user, teams, userprofile, userBallots }) {
 		);
 	}
 	let notVoterMessage;
-	if(user) {
-		if(!user.pollVoter){
-			notVoterMessage = (
-				<div>
-					You are not yet a voter, please submit a ballot to be considered provisional
-				</div>
-			);
-
-		}
-		else {
-			notVoterMessage = (
-				<div>
-					{' '}
-				</div>
-			);
-		
+	if (user) {
+		if (!user.pollVoter) {
+			notVoterMessage = <div>You are not yet a voter, please submit a ballot to be considered provisional</div>;
+		} else {
+			notVoterMessage = <div> </div>;
 		}
 	} else {
-		notVoterMessage = (
-			<div>
-				You are not an official cbbpoll user yet, please select your favorite teams
-			</div>
-		)
+		notVoterMessage = <div>You are not an official cbbpoll user yet, please select your favorite teams</div>;
 	}
 	let ballotsForUser = [];
-	if(userBallots) {
-	for (let i = 0; i <  userBallots.length; i++) {
-		ballotsForUser.push(
-			<div>
-			<Link href={`/ballots/${userBallots[i].week}/${userBallots[i]._id.toString()}`}>
-				<span>
-					<a>
-						{' '}
-					 Ballot for week {userBallots[i].week}
-					</a>
-				</span>
-			</Link>
-			</div>
-		);
-		
+	if (userBallots) {
+		for (let i = 0; i < userBallots.length; i++) {
+			ballotsForUser.push(
+				<div>
+					<Link href={`/ballots/${userBallots[i].week}/${userBallots[i]._id.toString()}`}>
+						<span>
+							<a> Ballot for week {userBallots[i].week}</a>
+						</span>
+					</Link>
+				</div>,
+			);
+		}
 	}
-}
 
 	const validTeams = (primaryTeam, secondaryTeam, tertiaryTeam) => {
 		let valid = true;
@@ -199,9 +179,7 @@ export default function Profile({ user, teams, userprofile, userBallots }) {
 							);
 					})()}
 				</div>
-				<div>
-				{ballotsForUser.map((ballot) => ballot)}
-				</div>
+				<div>{ballotsForUser.map((ballot) => ballot)}</div>
 				{/* <a href='./voterForm'>Poll</a>
         <a href='./application'>Poll Vote Application</a>
         <Link href={{
@@ -220,7 +198,7 @@ export default function Profile({ user, teams, userprofile, userBallots }) {
 	);
 }
 
-const REDIRECT_URI = inDevEnvironment ?  "http://localhost:3000/profile" : 'http://cbbpoll.net/profile';
+const REDIRECT_URI = inDevEnvironment ? 'http://localhost:3000/profile' : 'http://cbbpoll.net/profile';
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
@@ -250,9 +228,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
 		if (access_token) {
 			const user = await getUser(access_token);
 			let userprofile = await getUserInfo(user.name);
-			let userBallots = await getBallots(user)
+			let userBallots = await getBallots(user);
 			userprofile = JSON.parse(JSON.stringify(userprofile));
-			return { props: { user, teams, userprofile, userBallots  } };
+			return { props: { user, teams, userprofile, userBallots } };
 		} else {
 			const token = await getToken({
 				refresh_token: refresh_token,
@@ -317,8 +295,6 @@ const getUser = async (access_token) => {
 
 	return data.data;
 };
-
-
 
 // const insertUser = async (user) => {
 //   console.log('CONNECTING TO MONGO')
