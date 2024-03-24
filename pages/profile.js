@@ -3,17 +3,19 @@ import axios, { Axios } from 'axios';
 import querystring from 'querystring';
 //import Link from "next/link";
 import Navbar from '../components/navbar';
+
+import { inDevEnvironment } from '../lib/isDevEnv';
 // import { connectMongo } from "../utils/connect";
 // import User from "../models/User";
 import Link from 'next/link';
 import TeamDropdown from '../components/teamdropdown';
-import { getTeams, getUserInfo } from '../utils/getData';
+import { getTeams, getUserInfo,  getProfileBallotsThisSeason } from '../utils/getData';
 
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 
 //import mongoose from "mongoose";
 
-export default function Profile({ user, teams, userprofile }) {
+export default function Profile({ user, teams, userprofile, userBallots }) {
 	let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 
 	console.log('userprofile:', userprofile);
@@ -28,7 +30,6 @@ export default function Profile({ user, teams, userprofile }) {
 		favoriteTeam2 = null;
 		favoriteTeam3 = null;
 	}
-
 	const [primaryTeamValue, setPrimaryTeamValue] = useState(favoriteTeam);
 
 	const [secondaryTeamValue, setSecondaryTeamValue] = useState(favoriteTeam2);
@@ -68,6 +69,32 @@ export default function Profile({ user, teams, userprofile }) {
 				<TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3} presetTeam={favoriteTeam3}></TeamDropdown>
 			</div>
 		);
+	}
+	let notVoterMessage;
+	if (user) {
+		if (!user.pollVoter) {
+			notVoterMessage = <div>You are not yet a voter, please submit a ballot to be considered provisional</div>;
+		} else {
+			notVoterMessage = <div> </div>;
+		}
+	} else {
+		notVoterMessage = <div>You are not an official cbbpoll user yet, please select your favorite teams</div>;
+	}
+	let ballotsForUser = [];
+	if (userBallots) {
+		for (let i = 0; i < userBallots.length; i++) {
+			ballotsForUser.push(
+				<tr key={userBallots[i]._id} className="ballotCell">
+					<td>
+					<Link href={`/ballots/${userBallots[i].week}/${userBallots[i]._id.toString()}`}>
+						<span>
+							<a> Ballot for week {userBallots[i].week}</a>
+						</span>
+					</Link>
+					</td>
+				</tr>
+			);
+		}
 	}
 
 	const validTeams = (primaryTeam, secondaryTeam, tertiaryTeam) => {
@@ -142,7 +169,17 @@ export default function Profile({ user, teams, userprofile }) {
 					<h2>Official voter profiles coming soon!</h2>
 					{/* <h2>Official voter profiles coming soon! Apply <a href='./application'>here</a> to be an official voter.</h2> */}
 				</div>
-
+				{notVoterMessage}
+				<div>
+				<table id="profileTable">
+					<tbody>
+						<tr>
+							<th>Your Ballots for This Season</th>
+						</tr>
+						{ballotsForUser.map((ballot) => ballot)}
+					</tbody>
+				</table>
+				</div>
 				<div>
 					{(() => {
 						if (modlist.includes(user.name))
@@ -171,9 +208,7 @@ export default function Profile({ user, teams, userprofile }) {
 	);
 }
 
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
-
+const REDIRECT_URI = inDevEnvironment ? 'http://localhost:3000/profile' : 'http://cbbpoll.net/profile';
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
@@ -203,8 +238,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
 		if (access_token) {
 			const user = await getUser(access_token);
 			let userprofile = await getUserInfo(user.name);
+			let userBallots = await getProfileBallotsThisSeason(user);
 			userprofile = JSON.parse(JSON.stringify(userprofile));
-			return { props: { user, teams, userprofile } };
+			return { props: { user, teams, userprofile, userBallots } };
 		} else {
 			const token = await getToken({
 				refresh_token: refresh_token,
@@ -224,7 +260,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			const user = await getUser(token.access_token);
 			let userprofile = await getUserInfo(user.name);
 			userprofile = JSON.parse(JSON.stringify(userprofile));
-			return { props: { user, teams, userprofile } };
+			let userBallots = await getProfileBallotsThisSeason(user);
+			return { props: { user, teams, userprofile, userBallots } };
 		}
 	} else if (query.code && query.state === RANDOM_STRING) {
 		try {
@@ -246,7 +283,8 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			const user = await getUser(token.access_token);
 			let userprofile = await getUserInfo(user.name);
 			userprofile = JSON.parse(JSON.stringify(userprofile));
-			return { props: { user, teams, userprofile } };
+			let userBallots = await getProfileBallotsThisSeason(user);
+			return { props: { user, teams, userprofile, userBallots } };
 		} catch (e) {
 			console.log(e);
 			return { props: { user: null } };

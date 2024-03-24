@@ -3,6 +3,7 @@ import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 import axios, { Axios } from 'axios';
 import querystring from 'querystring';
 const randomstring = require('randomstring');
+import { inDevEnvironment } from '../lib/isDevEnv';
 import Image from 'next/image';
 import User from '../models/User';
 import UserBallot from '../models/UserBallot';
@@ -17,7 +18,7 @@ const DURATION = 'permanent';
 const SCOPE = 'identity';
 
 //const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
+const REDIRECT_URI = inDevEnvironment ? 'http://localhost:3000/profile' : 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere'; //randomstring.generate();
 const RESPONSE_TYPE = 'code';
@@ -65,7 +66,6 @@ export default function Home(props) {
 	for (let i = 0; i < userpoll.length; i++) {
 		console.log('name:', userpoll[i].teamName);
 	}
-
 	if (props.userpoll.new) {
 		let userpollData = {
 			week: 'Pre-Season',
@@ -74,7 +74,7 @@ export default function Home(props) {
 		};
 		addPoll(userpollData);
 	} else {
-		console.log('no userplol');
+		console.log('no userpoll');
 	}
 
 	let pollVoters = props.pollVoters;
@@ -112,14 +112,14 @@ export default function Home(props) {
 				<span>
 					<Image src={pollVoters[i].url} width={25} height={25}></Image>
 					<Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>,
-				</span>
+				</span>,
 			);
 		} else {
 			pollVoterArray.push(
 				<span>
 					<Image src={pollVoters[i].url} width={25} height={25}></Image>
 					<Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>
-				</span>
+				</span>,
 			);
 		}
 	}
@@ -131,14 +131,14 @@ export default function Home(props) {
 				<span>
 					<Image src={provisionalVoters[i].url} width={25} height={25}></Image>
 					<Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>,
-				</span>
+				</span>,
 			);
 		} else {
 			provisionalVoterArray.push(
 				<span>
 					<Image src={provisionalVoters[i].url} width={25} height={25}></Image>
 					<Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>
-				</span>
+				</span>,
 			);
 		}
 	}
