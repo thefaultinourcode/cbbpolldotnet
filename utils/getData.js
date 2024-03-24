@@ -84,15 +84,15 @@ export const getHistoricalBallots = async (official, week, season) => {
 	return voters;
 };
 
-export const getBallots = async (user) => {
+export const getProfileBallotsThisSeason = async (user) => {
 	await connectMongo();
 
 	let seasonDate = getSeasonCheckDate();
 	console.log('seasonDate:', seasonDate);
 
-	const ballot = await UserBallot.find({ user: user, date: { $gte: seasonDate } });
-	const userBallot = JSON.parse(JSON.stringify(ballot));
-	console.log('userBallots:', userBallot);
+	const ballots = await UserBallot.find({ user: user, date: { $gte: seasonDate } });
+	const userBallots = JSON.parse(JSON.stringify(ballots));
+	console.log('userBallots:', userBallots);
 
-	return userBallot;
+	return userBallots;
 };

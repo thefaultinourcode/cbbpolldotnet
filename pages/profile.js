@@ -9,7 +9,7 @@ import { inDevEnvironment } from '../lib/isDevEnv';
 // import User from "../models/User";
 import Link from 'next/link';
 import TeamDropdown from '../components/teamdropdown';
-import { getTeams, getUserInfo, getBallots } from '../utils/getData';
+import { getTeams, getUserInfo,  getProfileBallotsThisSeason } from '../utils/getData';
 
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 
@@ -84,13 +84,15 @@ export default function Profile({ user, teams, userprofile, userBallots }) {
 	if (userBallots) {
 		for (let i = 0; i < userBallots.length; i++) {
 			ballotsForUser.push(
-				<div>
+				<tr key={userBallots[i]._id} className="ballotCell">
+					<td>
 					<Link href={`/ballots/${userBallots[i].week}/${userBallots[i]._id.toString()}`}>
 						<span>
 							<a> Ballot for week {userBallots[i].week}</a>
 						</span>
 					</Link>
-				</div>,
+					</td>
+				</tr>
 			);
 		}
 	}
@@ -168,7 +170,16 @@ export default function Profile({ user, teams, userprofile, userBallots }) {
 					{/* <h2>Official voter profiles coming soon! Apply <a href='./application'>here</a> to be an official voter.</h2> */}
 				</div>
 				{notVoterMessage}
-
+				<div>
+				<table id="profileTable">
+					<tbody>
+						<tr>
+							<th>Your Ballots for This Season</th>
+						</tr>
+						{ballotsForUser.map((ballot) => ballot)}
+					</tbody>
+				</table>
+				</div>
 				<div>
 					{(() => {
 						if (modlist.includes(user.name))
@@ -179,7 +190,6 @@ export default function Profile({ user, teams, userprofile, userBallots }) {
 							);
 					})()}
 				</div>
-				<div>{ballotsForUser.map((ballot) => ballot)}</div>
 				{/* <a href='./voterForm'>Poll</a>
         <a href='./application'>Poll Vote Application</a>
         <Link href={{
@@ -228,7 +238,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
 		if (access_token) {
 			const user = await getUser(access_token);
 			let userprofile = await getUserInfo(user.name);
-			let userBallots = await getBallots(user);
+			let userBallots = await getProfileBallotsThisSeason(user);
 			userprofile = JSON.parse(JSON.stringify(userprofile));
 			return { props: { user, teams, userprofile, userBallots } };
 		} else {
@@ -250,7 +260,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			const user = await getUser(token.access_token);
 			let userprofile = await getUserInfo(user.name);
 			userprofile = JSON.parse(JSON.stringify(userprofile));
-			let userBallots = await getBallots(user);
+			let userBallots = await getProfileBallotsThisSeason(user);
 			return { props: { user, teams, userprofile, userBallots } };
 		}
 	} else if (query.code && query.state === RANDOM_STRING) {
@@ -273,7 +283,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
 			const user = await getUser(token.access_token);
 			let userprofile = await getUserInfo(user.name);
 			userprofile = JSON.parse(JSON.stringify(userprofile));
-			let userBallots = await getBallots(user);
+			let userBallots = await getProfileBallotsThisSeason(user);
 			return { props: { user, teams, userprofile, userBallots } };
 		} catch (e) {
 			console.log(e);
