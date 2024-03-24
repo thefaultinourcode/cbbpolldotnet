@@ -90,9 +90,7 @@ export const getBallots = async (user) => {
 	let seasonDate = getSeasonCheckDate();
 	console.log('seasonDate:', seasonDate);
 
-	let week = getWeek();
-
-	const ballot = await UserBallot.find({ user: user.name, week: week, date: { $gte: seasonDate } });
+	const ballot = await UserBallot.find({ user: user, date: { $gte: seasonDate } });
 	const userBallot = JSON.parse(JSON.stringify(ballot));
 	console.log('userBallots:', userBallot);
 
