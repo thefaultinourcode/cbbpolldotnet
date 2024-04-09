@@ -11,25 +11,25 @@
 // }
 
 export const getWeek = () => {
-	let week = 20;
+	let week = "Post-Season";
 	return week;
 };
 
 export const getPriorWeek = () => {
-	let week = 19;
+	let week = 20;
 	return week;
 };
 
 export const getPollDate = () => {};
 
 export const getOpenDate = () => {
-	let date = new Date('16 March 2024 14:00 UTC');
+	let date = new Date('9 April 2024 14:00 UTC');
 
 	return date;
 };
 
 export const getCloseDate = () => {
-	let date = new Date('18 March 2024 14:00 UTC');
+	let date = new Date('11 April 2024 14:00 UTC');
 
 	return date;
 };
