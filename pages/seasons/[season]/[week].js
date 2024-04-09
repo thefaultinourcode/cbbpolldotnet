@@ -44,7 +44,7 @@ export default function Week(props) {
 	}
 
 	console.log('week.week:', week.week);
-	if (week.week === '9' && weekNum === 8) {
+	if (week.week === 'Post-Season' && weekNum === 20) {
 		return (
 			<div>
 				<p>You do not have permission to view this page.</p>
