@@ -52,6 +52,9 @@ export default function Home(props) {
     week = getPriorWeek();
   }
 
+  //fix this
+  week = 'Post-Season'
+
   // async function addPoll(userpollData){
   //   const res = await fetch('/api/addPoll',{
   //     method: 'POST',
