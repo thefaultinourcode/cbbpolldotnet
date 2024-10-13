@@ -10,6 +10,7 @@ import ApplicationData from "../models/ApplicationData";
 import UserBallot from "../models/UserBallot";
 import User from "../models/User";
 import { useRouter } from 'next/router';
+import {DateTime} from 'luxon';
 
 export default function Application({user, teams, app, ballot, userTeams}){
 
@@ -24,7 +25,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
     
     //allow input of close date 
     //make call to db to get this date
-    let closeDate = new Date(Date.UTC(2023, 9, 28, 3, 59));
+    let closeDate = new Date(Date.UTC(2024, 9, 25, 3, 59));
 
     const handleSubmit = async(event) => {
         console.log('target:', event.target);
@@ -857,8 +858,8 @@ export default function Application({user, teams, app, ballot, userTeams}){
                         <button type="button" onClick={ballotApp}>Next</button>
                     </div>
                     <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
-                        <h1>Submit your preseason ballot for 2023-24</h1>
-                        <h4>Application and preseason poll ballots close Friday, October 27, at 11:59pm EDT</h4>
+                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
                         
 
                         <table className="ballotTable">
@@ -1129,8 +1130,8 @@ export default function Application({user, teams, app, ballot, userTeams}){
                         <button type="button" onClick={ballotApp}>Next</button>
                     </div>
                     <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
-                        <h1>Submit your preseason ballot for 2023-24</h1>
-                        <h4>Application and preseason poll ballots close Friday, October 27, at 11:59pm EDT</h4>
+                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
                         
 
                         <table className="ballotTable">
@@ -1412,8 +1413,8 @@ export default function Application({user, teams, app, ballot, userTeams}){
                             <button type="button" onClick={ballotApp}>Next</button>
                         </div>
                         <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
-                        <h1>Submit your preseason ballot for 2023-24</h1>
-                        <h4>Application and preseason poll ballots close Friday, October 27, at 11:59pm EDT</h4>
+                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
                         
 
                         <table className="ballotTable">
@@ -1694,8 +1695,8 @@ export default function Application({user, teams, app, ballot, userTeams}){
                             <button type="button" onClick={ballotApp}>Next</button>
                         </div>
                         <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
-                            <h1>Submit your preseason ballot for 2023-24</h1>
-                            <h4>Application and preseason poll ballots close Friday, October 27, at 11:59pm EDT</h4>
+                            <h1>Submit your preseason ballot for 2024-25</h1>
+                            <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
                             
         
                             <table className="ballotTable">
@@ -1849,7 +1850,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
     }
     else{
         return(<div>
-            <p>Applications for the 2023-24 r/CollegeBasketball Userpoll have closed. If you&apos;ve applied, you should know whether you&apos;ve been accepted shortly. If you haven&apos;t applied and you&apos;d like to join the poll, start submitting provisional ballots every week and you&apos;ll likely be added once enough official voters drop out due to inactivity.</p>
+            <p>Applications for the 2024-25 r/CollegeBasketball Userpoll have closed. If you&apos;ve applied, you should know whether you&apos;ve been accepted shortly. If you haven&apos;t applied and you&apos;d like to join the poll, start submitting provisional ballots every week and you&apos;ll likely be added once enough official voters drop out due to inactivity.</p>
         </div>)
     }
 
@@ -1895,6 +1896,7 @@ export const getServerSideProps = async ({ query, req, res }) => {
   if (refresh_token) {
     const today = new Date()
     const season = today.getFullYear() + 1;
+    console.log('year:', season);
     if (access_token) {
       const user = await getUser(access_token);
       let userTeams = await getUserTeams(user.name);
