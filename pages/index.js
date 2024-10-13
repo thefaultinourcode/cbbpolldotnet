@@ -463,28 +463,6 @@ async function getTeam(id) {
 // }
 
 const getUserpoll = async (week, pollDate) => {
-	// async function findPoll(){
-	//   let poll = await Userpoll.exists({week: "Pre-Season", season: "2022-2023"});
-	//   console.log('poll:', poll);
-	//   return poll;
-	// }
-
-	// let poll = await findPoll();
-	// console.log(poll);
-
-	// if(poll){
-	//   console.log('if poll then...');
-	//   let week = "Pre-Season";
-	//   let season = "2022-2023";
-	//   let userpoll = await getPoll(week, season);
-	//   return userpoll;
-	// }
-	//else{
-	// console.log('else poll then...');
-
-	//
-	//let userArray = await getUserList(true);
-
 	await connectMongo();
 
 	//let pollDate = new Date('3 October 2023 14:00 UTC');
@@ -492,6 +470,9 @@ const getUserpoll = async (week, pollDate) => {
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
 	let date = getSeasonCheckDate();
+  //FIX
+  //TEMP
+  date = new Date('October 1 2023');
 	let ballots;
 
 	if (today >= pollDate) {
