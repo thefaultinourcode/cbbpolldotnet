@@ -26,12 +26,12 @@ export const getPollDate = () =>{
 }
 
 export const getOpenDate = () => {
-    let date = new Date('2 November 2024 15:00 UTC');
+    let date = new Date('1 April 2024 15:00 UTC');
     return date;
 }
 
 export const getCloseDate = () => {
-    let date = new Date('4 November 2024 15:00 UTC');
+    let date = new Date('19 April 2024 15:00 UTC');
 	return date;
 };
 
