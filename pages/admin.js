@@ -94,8 +94,8 @@ export default function Admin(props) {
 
 		const data = await res.json();
 
-		let preSeasonDeadline = new Date('30 October 2023 14:00 UTC');
-		let today = new Date();
+        let preSeasonDeadline =  new Date('25 October 2024 14:00 UTC');
+        let today = new Date();
 
 		if (preSeasonDeadline > today) {
 			const res2 = await fetch('/api/changeBallotOfficial', {
@@ -112,26 +112,29 @@ export default function Admin(props) {
 		window.location.reload(false);
 	}
 
-	async function handleReset(e) {
-		if (confirm("Selecting this button will reset every user's poll voter status. THIS CANNOT BE UNDONE. Do you want to proceed?")) {
-			console.log('users will be reset');
-			const res = await fetch('/api/changeUserStatus', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+    //
+    async function handleReset(e){
+      if(confirm("Selecting this button will reset every user's poll voter status. THIS CANNOT BE UNDONE. Do you want to proceed?")){
+        console.log('users will be reset');
+        const res = await fetch('/api/changeUserStatus',{
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          },
+        });
 
-			let date = '2023-10-1';
-			let obj = { date: date };
-
-			const res2 = await fetch('/api/changeBallotStatus', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(obj),
-			});
+        let date = '2024-10-1';
+        let obj = {date: date}
+        
+       
+        const res2 = await fetch('/api/changeBallotStatus',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(obj)
+        });
+        
 
 			//implement a better solution later
 			window.location.reload(false);
@@ -339,13 +342,13 @@ const getApps = async () => {
 	await connectMongo();
 	console.log('CONNECTED TO MONGO');
 
-	console.log('FETCHING APP');
-	const app = await Application.find({ season: 2024 });
-	const userApp = JSON.parse(JSON.stringify(app));
-	console.log('userApp:', userApp);
-	console.log('FETCHED APP');
-	return userApp;
-};
+    console.log('FETCHING APP');
+    const app = await Application.find({season:2025});
+    const userApp = JSON.parse(JSON.stringify(app));
+    console.log('userApp:', userApp);
+    console.log('FETCHED APP');
+    return userApp;
+  }
 
 const getUsers = async () => {
 	console.log('CONNECTING TO MONGO');

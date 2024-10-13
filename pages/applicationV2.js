@@ -10,20 +10,22 @@ import ApplicationData from '../models/ApplicationData';
 import UserBallot from '../models/UserBallot';
 import User from '../models/User';
 import { useRouter } from 'next/router';
+import {DateTime} from 'luxon';
 
-export default function Application({ user, teams, app, ballot, userTeams }) {
-	const form = useRef(null);
-	const partOne = useRef(null);
-	const partTwo = useRef(null);
-	const approach = useRef(null);
-	const participation = useRef(null);
-	const bias = useRef(null);
-	const meme = useRef(null);
-	const router = useRouter();
+export default function Application({user, teams, app, ballot, userTeams}){
 
-	//allow input of close date
-	//make call to db to get this date
-	let closeDate = new Date(Date.UTC(2023, 9, 28, 3, 59));
+    const form = useRef(null);  
+    const partOne = useRef(null);
+    const partTwo = useRef(null);
+    const approach = useRef(null);
+    const participation = useRef(null);
+    const bias = useRef(null);
+    const meme = useRef(null);
+    const router = useRouter();
+    
+    //allow input of close date 
+    //make call to db to get this date
+    let closeDate = new Date(Date.UTC(2024, 9, 25, 3, 59));
 
 	const handleSubmit = async (event) => {
 		console.log('target:', event.target);
@@ -754,107 +756,116 @@ export default function Application({ user, teams, app, ballot, userTeams }) {
 							<div className="errorMsg">{errorPrimaryTeam}</div>
 							<br />
 
-							<label>Which other teams, if any, do you support? (Optional)</label>
-							<TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2} onLoad={handleLoad2} presetTeam={userTeams.secondary}></TeamDropdown>
-							<br />
-							<TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3} presetTeam={userTeams.tertiary}></TeamDropdown>
-							<br />
-							<div className="errorMsg">{errorTeams}</div>
-							<br />
-							<input type="hidden" id="userExists" value="true"></input>
-							<div>
-								<label>In which of the following ways do you inform your opinion of basketball teams? (select all that apply)</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox1" value="I rarely go to games, and instead focus on TV broadcasts and streams."></input>I rarely go to games, and instead focus on TV broadcasts and streams.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox2" value="I try to go to a few games each year."></input>I try to go to a few games each year.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks."></input>I go to either my team&apos;s game or some other game most or all weeks.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox4" value="I pick a few games each week to watch intently."></input>I pick a few games each week to watch intently.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox5" value="I try to follow everything going on using multiple TVs and/or monitors."></input>I try to follow everything going on using multiple TVs and/or monitors.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox6" value="I tend to focus on watching my team and/or games that could effect their standing."></input>I tend to focus on watching my team and/or games that could effect their standing.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox7" value="I tend to focus on watching match-ups between highly ranked teams."></input>I tend to focus on watching match-ups between highly ranked teams.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference."></input>I tend to focus on watching match-ups in my team&apos;s conference.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox9" value="I tend to focus on watching match-ups between closely matched teams regardless of ranking."></input>I tend to focus on watching match-ups between closely matched teams
-									regardless of ranking.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox10" value="I watch the weeknight games regardless of the teams playing."></input>I watch the weeknight games regardless of the teams playing.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox11" value="I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on."></input>I gamble or participate in contests trying to
-									predict the outcome of games and follow my progress as games go on.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox12" value="My experience as a basketball player, coach, or referee tends to guide my focus."></input>
-									My experience as a basketball player, coach, or referee tends to guide my focus.
-								</label>
-								<br />
-							</div>
-							<br />
-							<br />
-							<label>
-								If selected, how would you approach filling out your ballot? What would lead you to decide to vote for one team over another?
-								<br />
-								<textarea id="approach" ref={approach} rows="5" cols="150"></textarea>
-							</label>
-							<div className="errorMsg">{errorApproach}</div>
-							<br />
-							<label>
-								Anything else to say? (Optional)
-								<br />
-								<textarea id="extra" rows="5" cols="150"></textarea>
-							</label>
-							<br />
-							<br />
-							<label>
-								<input type="checkbox" id="participationRequirement" ref={participation}></input>I understand that there is a participation requirement to this poll. If I fail to submit a ballot three times, I understand that I may lose
-								voting privilege
-							</label>
-							<div className="errorMsg">{errorParticipation}</div>
-							<label>
-								<input type="checkbox" id="biasRequirement" ref={bias}></input>I understand that being transparently biased toward or against any team or conference may lead to my removal from the official poll roster.
-							</label>
-							<div className="errorMsg">{errorBias}</div>
-							<label>
-								<input type="checkbox" id="memeRequirement" ref={meme}></input>I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per
-								the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.
-							</label>
-							<div className="errorMsg">{errorMeme}</div>
-							<br />
-							<button type="button" onClick={ballotApp}>
-								Next
-							</button>
-						</div>
-						<div id="partTwo" ref={partTwo} style={{ display: show ? 'block' : 'none' }}>
-							<h1>Submit your preseason ballot for 2023-24</h1>
-							<h4>Application and preseason poll ballots close Friday, October 27, at 11:59pm EDT</h4>
+                        <label>Which other teams, if any, do you support? (Optional)</label>
+                        <TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2} onLoad={handleLoad2} presetTeam={userTeams.secondary}></TeamDropdown>
+                        <br/>
+                        <TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3} presetTeam={userTeams.tertiary}></TeamDropdown>
+                        <br/>
+                        <div className="errorMsg">{errorTeams}</div>
+                        <br/>
+                        <input type='hidden' id='userExists' value='true'></input>
+                        <div>
+                            <label>In which of the following ways do you inform your opinion of basketball teams? (select all that apply)</label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox1" value="I rarely go to games, and instead focus on TV broadcasts and streams."></input>
+                                I rarely go to games, and instead focus on TV broadcasts and streams.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox2" value="I try to go to a few games each year."></input>
+                                I try to go to a few games each year.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks."></input>
+                                I go to either my team&apos;s game or some other game most or all weeks.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox4" value="I pick a few games each week to watch intently."></input>
+                                I pick a few games each week to watch intently.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox5" value="I try to follow everything going on using multiple TVs and/or monitors."></input>
+                                I try to follow everything going on using multiple TVs and/or monitors.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox6" value="I tend to focus on watching my team and/or games that could effect their standing."></input>
+                                I tend to focus on watching my team and/or games that could effect their standing.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox7" value="I tend to focus on watching match-ups between highly ranked teams."></input>
+                                I tend to focus on watching match-ups between highly ranked teams.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference."></input>
+                                I tend to focus on watching match-ups in my team&apos;s conference.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox9" value="I tend to focus on watching match-ups between closely matched teams regardless of ranking."></input>
+                                I tend to focus on watching match-ups between closely matched teams regardless of ranking.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox10" value="I watch the weeknight games regardless of the teams playing."></input>
+                                I watch the weeknight games regardless of the teams playing.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox11" value="I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on."></input>
+                                I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox12" value="My experience as a basketball player, coach, or referee tends to guide my focus."></input>
+                                My experience as a basketball player, coach, or referee tends to guide my focus.
+                            </label>
+                            <br/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <label>
+                        If selected, how would you approach filling out your ballot? What would lead you to decide to vote for one team over another?        
+                        <br/>
+                        <textarea id="approach" ref={approach} rows="5" cols="150"></textarea>
+                        </label> 
+                        <div className="errorMsg">{errorApproach}</div>
+                        <br/>
+                        <label>
+                            Anything else to say? (Optional)
+                            <br/>
+                            <textarea id="extra" rows="5" cols="150"></textarea>
+                        </label>
+                        <br/>
+                        <br/>
+                        <label>
+                            <input type='checkbox' id="participationRequirement" ref={participation}></input>
+                        I understand that there is a participation requirement to this poll. If I fail to submit a ballot three times, I understand that I may lose voting privilege                    
+                        </label>
+                        <div className="errorMsg">{errorParticipation}</div>
+                        <label>
+                            <input type='checkbox' id="biasRequirement" ref={bias}></input>
+                        I understand that being transparently biased toward or against any team or conference may lead to my removal from the official poll roster.                    
+                        </label>
+                        <div className="errorMsg">{errorBias}</div>
+                        <label>
+                            <input type='checkbox' id="memeRequirement" ref={meme}></input>
+                        I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
+                        </label>
+                        <div className="errorMsg">{errorMeme}</div>
+                        <br/>
+                        <button type="button" onClick={ballotApp}>Next</button>
+                    </div>
+                    <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
+                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
+                        
 
 							<table className="ballotTable">
 								<tbody>
@@ -1118,107 +1129,116 @@ export default function Application({ user, teams, app, ballot, userTeams }) {
 							<div className="errorMsg">{errorPrimaryTeam}</div>
 							<br />
 
-							<label>Which other teams, if any, do you support? (Optional)</label>
-							<TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2}></TeamDropdown>
-							<br />
-							<TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3}></TeamDropdown>
-							<br />
-							<div className="errorMsg">{errorTeams}</div>
-							<br />
-							<input type="hidden" id="userExists" value="false"></input>
-							<div>
-								<label>In which of the following ways do you inform your opinion of basketball teams? (select all that apply)</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox1" value="I rarely go to games, and instead focus on TV broadcasts and streams."></input>I rarely go to games, and instead focus on TV broadcasts and streams.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox2" value="I try to go to a few games each year."></input>I try to go to a few games each year.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks."></input>I go to either my team&apos;s game or some other game most or all weeks.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox4" value="I pick a few games each week to watch intently."></input>I pick a few games each week to watch intently.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox5" value="I try to follow everything going on using multiple TVs and/or monitors."></input>I try to follow everything going on using multiple TVs and/or monitors.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox6" value="I tend to focus on watching my team and/or games that could effect their standing."></input>I tend to focus on watching my team and/or games that could effect their standing.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox7" value="I tend to focus on watching match-ups between highly ranked teams."></input>I tend to focus on watching match-ups between highly ranked teams.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference."></input>I tend to focus on watching match-ups in my team&apos;s conference.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox9" value="I tend to focus on watching match-ups between closely matched teams regardless of ranking."></input>I tend to focus on watching match-ups between closely matched teams
-									regardless of ranking.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox10" value="I watch the weeknight games regardless of the teams playing."></input>I watch the weeknight games regardless of the teams playing.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox11" value="I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on."></input>I gamble or participate in contests trying to
-									predict the outcome of games and follow my progress as games go on.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox12" value="My experience as a basketball player, coach, or referee tends to guide my focus."></input>
-									My experience as a basketball player, coach, or referee tends to guide my focus.
-								</label>
-								<br />
-							</div>
-							<br />
-							<br />
-							<label>
-								If selected, how would you approach filling out your ballot? What would lead you to decide to vote for one team over another?
-								<br />
-								<textarea id="approach" ref={approach} rows="5" cols="150"></textarea>
-							</label>
-							<div className="errorMsg">{errorApproach}</div>
-							<br />
-							<label>
-								Anything else to say? (Optional)
-								<br />
-								<textarea id="extra" rows="5" cols="150"></textarea>
-							</label>
-							<br />
-							<br />
-							<label>
-								<input type="checkbox" id="participationRequirement" ref={participation}></input>I understand that there is a participation requirement to this poll. If I fail to submit a ballot three times, I understand that I may lose
-								voting privilege
-							</label>
-							<div className="errorMsg">{errorParticipation}</div>
-							<label>
-								<input type="checkbox" id="biasRequirement" ref={bias}></input>I understand that being transparently biased toward or against any team or conference may lead to my removal from the official poll roster.
-							</label>
-							<div className="errorMsg">{errorBias}</div>
-							<label>
-								<input type="checkbox" id="memeRequirement" ref={meme}></input>I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per
-								the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.
-							</label>
-							<div className="errorMsg">{errorMeme}</div>
-							<br />
-							<button type="button" onClick={ballotApp}>
-								Next
-							</button>
-						</div>
-						<div id="partTwo" ref={partTwo} style={{ display: show ? 'block' : 'none' }}>
-							<h1>Submit your preseason ballot for 2023-24</h1>
-							<h4>Application and preseason poll ballots close Friday, October 27, at 11:59pm EDT</h4>
+                        <label>Which other teams, if any, do you support? (Optional)</label>
+                        <TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2}></TeamDropdown>
+                        <br/>
+                        <TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3}></TeamDropdown>
+                        <br/>
+                        <div className="errorMsg">{errorTeams}</div>
+                        <br/>
+                        <input type='hidden' id='userExists' value='false'></input>
+                        <div>
+                            <label>In which of the following ways do you inform your opinion of basketball teams? (select all that apply)</label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox1" value="I rarely go to games, and instead focus on TV broadcasts and streams."></input>
+                                I rarely go to games, and instead focus on TV broadcasts and streams.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox2" value="I try to go to a few games each year."></input>
+                                I try to go to a few games each year.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks."></input>
+                                I go to either my team&apos;s game or some other game most or all weeks.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox4" value="I pick a few games each week to watch intently."></input>
+                                I pick a few games each week to watch intently.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox5" value="I try to follow everything going on using multiple TVs and/or monitors."></input>
+                                I try to follow everything going on using multiple TVs and/or monitors.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox6" value="I tend to focus on watching my team and/or games that could effect their standing."></input>
+                                I tend to focus on watching my team and/or games that could effect their standing.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox7" value="I tend to focus on watching match-ups between highly ranked teams."></input>
+                                I tend to focus on watching match-ups between highly ranked teams.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference."></input>
+                                I tend to focus on watching match-ups in my team&apos;s conference.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox9" value="I tend to focus on watching match-ups between closely matched teams regardless of ranking."></input>
+                                I tend to focus on watching match-ups between closely matched teams regardless of ranking.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox10" value="I watch the weeknight games regardless of the teams playing."></input>
+                                I watch the weeknight games regardless of the teams playing.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox11" value="I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on."></input>
+                                I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on.
+                            </label>
+                            <br/>
+                            <label> 
+                                <input type="checkbox" id="checkbox12" value="My experience as a basketball player, coach, or referee tends to guide my focus."></input>
+                                My experience as a basketball player, coach, or referee tends to guide my focus.
+                            </label>
+                            <br/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <label>
+                        If selected, how would you approach filling out your ballot? What would lead you to decide to vote for one team over another?        
+                        <br/>
+                        <textarea id="approach" ref={approach} rows="5" cols="150"></textarea>
+                        </label> 
+                        <div className="errorMsg">{errorApproach}</div>
+                        <br/>
+                        <label>
+                            Anything else to say? (Optional)
+                            <br/>
+                            <textarea id="extra" rows="5" cols="150"></textarea>
+                        </label>
+                        <br/>
+                        <br/>
+                        <label>
+                            <input type='checkbox' id="participationRequirement" ref={participation}></input>
+                        I understand that there is a participation requirement to this poll. If I fail to submit a ballot three times, I understand that I may lose voting privilege                    
+                        </label>
+                        <div className="errorMsg">{errorParticipation}</div>
+                        <label>
+                            <input type='checkbox' id="biasRequirement" ref={bias}></input>
+                        I understand that being transparently biased toward or against any team or conference may lead to my removal from the official poll roster.                    
+                        </label>
+                        <div className="errorMsg">{errorBias}</div>
+                        <label>
+                            <input type='checkbox' id="memeRequirement" ref={meme}></input>
+                        I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
+                        </label>
+                        <div className="errorMsg">{errorMeme}</div>
+                        <br/>
+                        <button type="button" onClick={ballotApp}>Next</button>
+                    </div>
+                    <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
+                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
+                        
 
 							<table className="ballotTable">
 								<tbody>
@@ -1471,134 +1491,137 @@ export default function Application({ user, teams, app, ballot, userTeams }) {
 			console.log('user && app && !ballot');
 			console.log('app.primaryTeamValue:', app.favoriteTeam);
 
-			const handleLoad = (e) => {
-				setPrimaryTeamValue(e.value);
-				setPrimaryTeamLabel(e.label);
-			};
-			const handleLoad2 = (e) => {
-				setSecondaryTeamValue(e.value);
-				setSecondaryTeamLabel(e.label);
-			};
-
-			return (
-				<div>
-					<Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
-					<h1>Apply to be an official voter: {user.name}</h1>
-					<form id="appForm" onSubmit={handleSubmit} ref={form}>
-						<div id="partOne" ref={partOne} style={{ display: show ? 'none' : 'block' }}>
-							<input type="textbox" id="user" value={user.name} hidden readOnly></input>
-							<label>Which team do you primarily support?</label>
-							<TeamDropdown teams={teams} id="favoriteTeam" change={handleChange} onLoad={handleLoad} presetTeam={app.favoriteTeam}></TeamDropdown>
-							<div className="errorMsg">{errorPrimaryTeam}</div>
-							<br />
-
-							<label>Which other teams, if any, do you support? (Optional)</label>
-							<TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2} onLoad={handleLoad2} presetTeam={app.favoriteTeam2}></TeamDropdown>
-							<br />
-							<TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3} presetTeam={app.favoriteTeam3}></TeamDropdown>
-							<br />
-							<div className="errorMsg">{errorTeams}</div>
-							<br />
-							<input type="hidden" id="userExists" value="true"></input>
-							<div>
-								<label>In which of the following ways do you inform your opinion of basketball teams? (select all that apply)</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox1" value="I rarely go to games, and instead focus on TV broadcasts and streams." defaultChecked={app.checkbox1}></input>I rarely go to games, and instead focus on TV broadcasts and
-									streams.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox2" value="I try to go to a few games each year." defaultChecked={app.checkbox2}></input>I try to go to a few games each year.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks." defaultChecked={app.checkbox3}></input>I go to either my team&apos;s game or some other game most or all
-									weeks.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox4" value="I pick a few games each week to watch intently." defaultChecked={app.checkbox4}></input>I pick a few games each week to watch intently.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox5" value="I try to follow everything going on using multiple TVs and/or monitors." defaultChecked={app.checkbox5}></input>I try to follow everything going on using multiple TVs and/or
-									monitors.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox6" value="I tend to focus on watching my team and/or games that could effect their standing." defaultChecked={app.checkbox6}></input>I tend to focus on watching my team and/or games
-									that could effect their standing.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox7" value="I tend to focus on watching match-ups between highly ranked teams." defaultChecked={app.checkbox7}></input>I tend to focus on watching match-ups between highly ranked teams.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference." defaultChecked={app.checkbox8}></input>I tend to focus on watching match-ups in my team&apos;s conference.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox9" value="I tend to focus on watching match-ups between closely matched teams regardless of ranking." defaultChecked={app.checkbox9}></input>I tend to focus on watching match-ups
-									between closely matched teams regardless of ranking.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox10" value="I watch the weeknight games regardless of the teams playing." defaultChecked={app.checkbox10}></input>I watch the weeknight games regardless of the teams playing.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox11" value="I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on." defaultChecked={app.checkbox11}></input>I gamble or
-									participate in contests trying to predict the outcome of games and follow my progress as games go on.
-								</label>
-								<br />
-								<label>
-									<input type="checkbox" id="checkbox12" value="My experience as a basketball player, coach, or referee tends to guide my focus." defaultChecked={app.checkbox12}></input>
-									My experience as a basketball player, coach, or referee tends to guide my focus.
-								</label>
-								<br />
-							</div>
-							<br />
-							<br />
-							<label>
-								If selected, how would you approach filling out your ballot? What would lead you to decide to vote for one team over another?
-								<br />
-								<textarea id="approach" ref={approach} rows="5" cols="150" defaultValue={app.approach}></textarea>
-							</label>
-							<div className="errorMsg">{errorApproach}</div>
-							<br />
-							<label>
-								Anything else to say? (Optional)
-								<br />
-								<textarea id="extra" rows="5" cols="150" defaultValue={app.extra}></textarea>
-							</label>
-							<br />
-							<br />
-							<label>
-								<input type="checkbox" id="participationRequirement" ref={participation} defaultChecked={app.participationRequirement}></input>I understand that there is a participation requirement to this poll. If I fail to submit a ballot
-								three times, I understand that I may lose voting privilege
-							</label>
-							<div className="errorMsg">{errorParticipation}</div>
-							<label>
-								<input type="checkbox" id="biasRequirement" ref={bias} defaultChecked={app.biasRequirement}></input>I understand that being transparently biased toward or against any team or conference may lead to my removal from the
-								official poll roster.
-							</label>
-							<div className="errorMsg">{errorBias}</div>
-							<label>
-								<input type="checkbox" id="memeRequirement" ref={meme} defaultChecked={app.memeRequirement}></input>I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in
-								Division I. I also understand that, per the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the
-								official voting panel.
-							</label>
-							<div className="errorMsg">{errorMeme}</div>
-							<br />
-							<button type="button" onClick={ballotApp}>
-								Next
-							</button>
-						</div>
-						<div id="partTwo" ref={partTwo} style={{ display: show ? 'block' : 'none' }}>
-							<h1>Submit your preseason ballot for 2023-24</h1>
-							<h4>Application and preseason poll ballots close Friday, October 27, at 11:59pm EDT</h4>
+            const handleLoad = e => {
+                setPrimaryTeamValue(e.value);
+                setPrimaryTeamLabel(e.label);
+            }
+            const handleLoad2 = e => {
+                setSecondaryTeamValue(e.value);
+                setSecondaryTeamLabel(e.label);
+            }
+            
+            return(
+                <div>
+                    <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user.name}></Navbar>
+                    <h1>Apply to be an official voter: {user.name}</h1>
+                    <form id="appForm" onSubmit={handleSubmit} ref={form}>
+                        <div id="partOne" ref={partOne} style={{display: show?"none":"block"}}>
+                            <input type='textbox' id='user' value={user.name} hidden readOnly></input>
+                            <label>Which team do you primarily support?</label>
+                            <TeamDropdown teams={teams} id="favoriteTeam" change={handleChange} onLoad={handleLoad} presetTeam={app.favoriteTeam}></TeamDropdown>
+                            <div className="errorMsg">{errorPrimaryTeam}</div>
+                            <br/>
+        
+                            <label>Which other teams, if any, do you support? (Optional)</label>
+                            <TeamDropdown teams={teams} id="favoriteTeam2" change={handleChange2} onLoad={handleLoad2} presetTeam={app.favoriteTeam2}></TeamDropdown>
+                            <br/>
+                            <TeamDropdown teams={teams} id="favoriteTeam3" change={handleChange3} presetTeam={app.favoriteTeam3}></TeamDropdown>
+                            <br/>
+                            <div className="errorMsg">{errorTeams}</div>
+                            <br/>
+                            <input type='hidden' id='userExists' value='true'></input>
+                            <div>
+                                <label>In which of the following ways do you inform your opinion of basketball teams? (select all that apply)</label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox1" value="I rarely go to games, and instead focus on TV broadcasts and streams." defaultChecked={app.checkbox1}></input>
+                                    I rarely go to games, and instead focus on TV broadcasts and streams.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox2" value="I try to go to a few games each year."defaultChecked={app.checkbox2}></input>
+                                    I try to go to a few games each year.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox3" value="I go to either my team's game or some other game most or all weeks." defaultChecked={app.checkbox3}></input>
+                                    I go to either my team&apos;s game or some other game most or all weeks.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox4" value="I pick a few games each week to watch intently." defaultChecked={app.checkbox4}></input>
+                                    I pick a few games each week to watch intently.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox5" value="I try to follow everything going on using multiple TVs and/or monitors." defaultChecked={app.checkbox5}></input>
+                                    I try to follow everything going on using multiple TVs and/or monitors.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox6" value="I tend to focus on watching my team and/or games that could effect their standing." defaultChecked={app.checkbox6}></input>
+                                    I tend to focus on watching my team and/or games that could effect their standing.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox7" value="I tend to focus on watching match-ups between highly ranked teams." defaultChecked={app.checkbox7}></input>
+                                    I tend to focus on watching match-ups between highly ranked teams.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox8" value="I tend to focus on watching match-ups in my team's conference." defaultChecked={app.checkbox8}></input>
+                                    I tend to focus on watching match-ups in my team&apos;s conference.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox9" value="I tend to focus on watching match-ups between closely matched teams regardless of ranking." defaultChecked={app.checkbox9}></input>
+                                    I tend to focus on watching match-ups between closely matched teams regardless of ranking.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox10" value="I watch the weeknight games regardless of the teams playing." defaultChecked={app.checkbox10}></input>
+                                    I watch the weeknight games regardless of the teams playing.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox11" value="I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on." defaultChecked={app.checkbox11}></input>
+                                    I gamble or participate in contests trying to predict the outcome of games and follow my progress as games go on.
+                                </label>
+                                <br/>
+                                <label> 
+                                    <input type="checkbox" id="checkbox12" value="My experience as a basketball player, coach, or referee tends to guide my focus." defaultChecked={app.checkbox12}></input>
+                                    My experience as a basketball player, coach, or referee tends to guide my focus.
+                                </label>
+                                <br/>
+                            </div>
+                            <br/>
+                            <br/>
+                            <label>
+                            If selected, how would you approach filling out your ballot? What would lead you to decide to vote for one team over another?        
+                            <br/>
+                            <textarea id="approach" ref={approach} rows="5" cols="150" defaultValue={app.approach}></textarea>
+                            </label> 
+                            <div className="errorMsg">{errorApproach}</div>
+                            <br/>
+                            <label>
+                                Anything else to say? (Optional)
+                                <br/>
+                                <textarea id="extra" rows="5" cols="150" defaultValue={app.extra}></textarea>
+                            </label>
+                            <br/>
+                            <br/>
+                            <label>
+                                <input type='checkbox' id="participationRequirement" ref={participation} defaultChecked={app.participationRequirement}></input>
+                            I understand that there is a participation requirement to this poll. If I fail to submit a ballot three times, I understand that I may lose voting privilege                    
+                            </label>
+                            <div className="errorMsg">{errorParticipation}</div>
+                            <label>
+                                <input type='checkbox' id="biasRequirement" ref={bias} defaultChecked={app.biasRequirement}></input>
+                            I understand that being transparently biased toward or against any team or conference may lead to my removal from the official poll roster.                    
+                            </label>
+                            <div className="errorMsg">{errorBias}</div>
+                            <label>
+                                <input type='checkbox' id="memeRequirement" ref={meme} defaultChecked={app.memeRequirement}></input>
+                            I understand that my ballots shall represent my honest perception of the top 25 men&apos;s college basketball teams in Division I. I also understand that, per the new voter guidelines on the &quot;About&quot; page of this website, meme votes of any kind are now explicitly prohibited for official voters and shall lead to removal from the official voting panel.                        
+                            </label>
+                        <div className="errorMsg">{errorMeme}</div>
+                            <br/>
+                            <button type="button" onClick={ballotApp}>Next</button>
+                        </div>
+                        <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
+                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
+                        
 
 							<table className="ballotTable">
 								<tbody>
