@@ -54,7 +54,9 @@ export default function UserProfile(props) {
 	for (let i = 0; i < ballots.length; i++) {
 		if (!ballots[i].hasOwnProperty('season')) {
 			let pollDate = new Date(ballots[i].date);
-			let seasonDate = getSeasonCheckDate();
+			//TEMP fix
+      //let seasonDate = getSeasonCheckDate();
+      let seasonDate = new Date('October 1 2023');
 			if (pollDate > seasonDate) {
 				ballots2024.push(ballots[i]);
 			} else {
