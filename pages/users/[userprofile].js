@@ -107,12 +107,12 @@ export default function UserProfile(props) {
 		display = false;
 	}
 
-	// ballotLength = ballots.length;
-	if (week === 'Post-Season') {
-		ballotLength = ballots.length;
-	} else if (week === 19) {
-		ballotLength = ballots.length - 1;
-	}
+	// // ballotLength = ballots.length;
+	// if (week === 'Post-Season') {
+	// 	ballotLength = ballots.length;
+	// } else if (week === 19) {
+	// 	ballotLength = ballots.length - 1;
+	// }
 
 	// ballotLength = ballots.length;
 	//find a more efficient way to do this
