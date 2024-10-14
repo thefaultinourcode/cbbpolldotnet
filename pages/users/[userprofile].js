@@ -157,9 +157,9 @@ export default function UserProfile (props){
      alsoSupports = ''; 
     }
 
-    //here's where you put html and React components
+    //list of seasons supported by the website
+
     return(
-    //everything goes between these div tags
     <div>
         {navbar}
         <h1>{verified} <Image src={primaryTeam.url} width={40} height={40}></Image> {profile.userprofile}</h1>
