@@ -34,257 +34,278 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 //display
 
 export default function Home(props) {
-	let pollDate = getCloseDate();
-	let today = new Date();
-	//let today = new Date('1 May 2023 16:00 UTC');
+  let pollDate = getCloseDate();
+  let today = new Date();
+  //let today = new Date('1 May 2023 16:00 UTC');
 
-	let season = 2024;
-	let week;
-	if (today >= pollDate) {
-		console.log('top pre-season');
-		week = getWeek();
-	} else {
-		console.log('top post-season');
-		week = getPriorWeek();
-	}
+  let season = 2024;
+  let week;
+  if(today >= pollDate){
+    console.log('top pre-season');
+    week = getWeek();
+  }
+  else{
+    console.log('top post-season');
+    week = getPriorWeek();
+  }
 
-	// async function addPoll(userpollData){
-	//   const res = await fetch('/api/addPoll',{
-	//     method: 'POST',
-	//     headers: {
-	//     'Content-Type': 'application/json',
-	//     },
-	//     body: JSON.stringify(
-	//         userpollData
-	//     ),
-	//   });
+  //fix this
+  week = 'Post-Season'
 
-	// const data = await res.json();
-	// }
+  // async function addPoll(userpollData){
+  //   const res = await fetch('/api/addPoll',{
+  //     method: 'POST',
+  //     headers: {
+  //     'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(
+  //         userpollData
+  //     ),
+  //   });
 
-	let userpoll = props.userpoll;
-	for (let i = 0; i < userpoll.length; i++) {
-		console.log('name:', userpoll[i].teamName);
-	}
-	if (props.userpoll.new) {
-		let userpollData = {
-			week: 'Pre-Season',
-			season: 2023,
-			poll: userpoll,
-		};
-		addPoll(userpollData);
-	} else {
-		console.log('no userpoll');
-	}
+  // const data = await res.json();
+  // }
 
-	let pollVoters = props.pollVoters;
-	let provisionalVoters = props.provisionalVoters;
-	let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
+  let userpoll = props.userpoll;
+  for(let i=0; i < userpoll.length; i++){
+	console.log('name:', userpoll[i].teamName);
+  }
 
-	let tableData = (
-		<tr>
-			<th>Rank</th>
-			<th>Team (#1 Votes)</th>
-			<th>Points</th>
-		</tr>
-	);
 
-	let othersReceivingVotes = '';
+  if(props.userpoll.new){
+    let userpollData = {
+      week: "Pre-Season",
+      season: 2023,
+      poll: userpoll 
+    }
+    addPoll(userpollData); 
+  }
+  else{
+    console.log('no userplol');
+  }
 
-	let rowArray = [];
+  let pollVoters = props.pollVoters;
+  let provisionalVoters = props.provisionalVoters;
+  let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 
-	for (let i = 0; i < userpoll.length; i++) {
-		if (userpoll[i].rank <= 25) {
-			rowArray.push(<TeamRow rank={userpoll[i].rank} url={userpoll[i].url} teamName={userpoll[i].teamName} firstPlaceVotes={userpoll[i].firstPlaceVotes} points={userpoll[i].points}></TeamRow>);
-		} else {
-			if (i < userpoll.length - 1) {
-				othersReceivingVotes = othersReceivingVotes + userpoll[i].shortName + ' ' + userpoll[i].points + ', ';
-			} else {
-				othersReceivingVotes = othersReceivingVotes + userpoll[i].shortName + ' ' + userpoll[i].points;
-			}
-		}
-	}
+  let tableData = <tr>
+                    <th>Rank</th>
+                    <th>Team (#1 Votes)</th>
+                    <th>Points</th>
+                  </tr>;
 
-	let pollVoterArray = [];
-	for (let i = 0; i < pollVoters.length; i++) {
-		if (i !== pollVoters.length - 1) {
-			pollVoterArray.push(
-				<span>
-					<Image src={pollVoters[i].url} width={25} height={25}></Image>
-					<Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>,
-				</span>,
-			);
-		} else {
-			pollVoterArray.push(
-				<span>
-					<Image src={pollVoters[i].url} width={25} height={25}></Image>
-					<Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>
-				</span>,
-			);
-		}
-	}
+  let othersReceivingVotes = '';
 
-	let provisionalVoterArray = [];
-	for (let i = 0; i < provisionalVoters.length; i++) {
-		if (i !== pollVoters.length - 1) {
-			provisionalVoterArray.push(
-				<span>
-					<Image src={provisionalVoters[i].url} width={25} height={25}></Image>
-					<Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>,
-				</span>,
-			);
-		} else {
-			provisionalVoterArray.push(
-				<span>
-					<Image src={provisionalVoters[i].url} width={25} height={25}></Image>
-					<Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>
-				</span>,
-			);
-		}
-	}
+  let rowArray = [];      
+       
+  for(let i = 0; i < userpoll.length; i++){
+    if(userpoll[i].rank <= 25){      
+      rowArray.push(<TeamRow rank={userpoll[i].rank} url={userpoll[i].url} teamName={userpoll[i].teamName} firstPlaceVotes={userpoll[i].firstPlaceVotes} points={userpoll[i].points}></TeamRow>)
+    }
+    else{
+      if(i < userpoll.length - 1 ){
+        othersReceivingVotes = othersReceivingVotes + userpoll[i].shortName + " " + userpoll[i].points + ", "
+      }
+      else{
+        othersReceivingVotes = othersReceivingVotes + userpoll[i].shortName + " " + userpoll[i].points
+      }
+    }
+  }
 
-	let userCheck;
-	if (props.user) {
-		userCheck = props.user.name;
-	} else {
-		userCheck = false;
-	}
+  let pollVoterArray = [];
+  for(let i = 0; i < pollVoters.length; i++){
+    if(i !== pollVoters.length - 1){
+      pollVoterArray.push(                       
+                            <span>  
+                              <Image src={pollVoters[i].url} width={25} height={25}></Image>                            
+                              <Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>,                              
+                            </span>
+      );
+    }
+    else{
+      pollVoterArray.push(      
+          <span>
+            <Image src={pollVoters[i].url} width={25} height={25}></Image>
+            <Link href={`/ballots/${week}/${pollVoters[i].ballotId}`}>{pollVoters[i].username}</Link>          
+          </span>
+        );
+    }
+  }
 
-	if (today >= pollDate || modlist.includes(userCheck)) {
-		return props.user ? (
-			<div className="homepage">
-				<Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+  let provisionalVoterArray = [];
+  for(let i = 0; i < provisionalVoters.length; i++){
+    if(i !== pollVoters.length - 1){
+      provisionalVoterArray.push(                            
+                                  <span>
+                                    <Image src={provisionalVoters[i].url} width={25} height={25}></Image>
+                                    <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>,
+                                  </span>
+                                
 
-				<div className="content">
-					<div id="ballotBox">
-						<h3>Vote!</h3>
-						<a href={'/ballotBox'}>
-							<button>VOTE</button>
-						</a>
-						<h3>Ballot submission closes every Monday at 9:59AM EDT</h3>
-					</div>
-					<br />
-					<br />
-					<div id="pollTable">
-						<h1>Week {week} Poll</h1>
-						<table>
-							<tbody>
-								<tr>
-									<th>Rank</th>
-									<th>Team (#1 Votes)</th>
-									<th>Points</th>
-								</tr>
-								{rowArray.map((row) => row)}
-							</tbody>
-						</table>
-						<span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
-						<h2>Official Ballots</h2>
-						{pollVoterArray.map((voter) => voter)}
-						<h2>Provisional Ballots</h2>
-						{provisionalVoterArray.map((voter) => voter)}
-					</div>
-				</div>
-			</div>
-		) : (
-			<div className="homepage">
-				<Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-				<div className="content">
-					<div id="ballotBox">
-						<h3>Vote in the poll!</h3>
-						<h3>Sign in!</h3>
-						<a href={URL}>
-							<button>Sign in with Reddit</button>
-						</a>
-						<h3>Voting opens at 10AM EST every Saturday</h3>
-					</div>
-					<div id="pollTable">
-						<h1>Week {week} Poll</h1>
-						<table>
-							<tbody>
-								<tr>
-									<th>Rank</th>
-									<th>Team (#1 Votes)</th>
-									<th>Points</th>
-								</tr>
-								{rowArray.map((row) => row)}
-							</tbody>
-						</table>
-						<span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
-						<h2>Official Ballots</h2>
-						{pollVoterArray.map((voter) => voter)}
-						<h2>Provisional Ballots</h2>
-						{provisionalVoterArray.map((voter) => voter)}
-					</div>
-				</div>
-			</div>
-		);
-	} else if (today < pollDate) {
-		return props.user ? (
-			<div className="homepage">
-				<Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+      );
+    }
+    else{
+      provisionalVoterArray.push(   
+          <span>
+            <Image src={provisionalVoters[i].url} width={25} height={25}></Image>  
+            <Link href={`/ballots/${week}/${provisionalVoters[i].ballotId}`}>{provisionalVoters[i].username}</Link>
+          </span>
+       );
+    }
+  }
 
-				<div className="content">
-					<div id="ballotBox">
-						<h3>Apply!</h3>
-						<a href={'/ballotBox'}>
-							<button>VOTE</button>
-						</a>
-						<h3>Ballot submission closes every Monday at 9:59AM EDT</h3>
-					</div>
-				</div>
-				<div id="pollTable">
-					<h1>Week {week} Poll</h1>
-					<table>
-						<tbody>
-							<tr>
-								<th>Rank</th>
-								<th>Team (#1 Votes)</th>
-								<th>Points</th>
-							</tr>
-							{rowArray.map((row) => row)}
-						</tbody>
-					</table>
-					<span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
-					<h2>Official Ballots</h2>
-					{pollVoterArray.map((voter) => voter)}
-					<h2>Provisional Ballots</h2>
-					{provisionalVoterArray.map((voter) => voter)}
-				</div>
-			</div>
-		) : (
-			<div className="homepage">
-				<Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-				<div className="content">
-					<div id="ballotBox">
-						<h3>Vote in the poll!</h3>
-						<h3>Sign in!</h3>
-						<a href={URL}>
-							<button>Sign in with Reddit</button>
-						</a>
-						<h3>Voting opens at 10AM EST every Saturday</h3>
-					</div>
-					<div id="pollTable">
-						<h1>Week {week} Poll</h1>
-						<table>
-							<tbody>
-								<tr>
-									<th>Rank</th>
-									<th>Team (#1 Votes)</th>
-									<th>Points</th>
-								</tr>
-								{rowArray.map((row) => row)}
-							</tbody>
-						</table>
-						<span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
-						<h2>Official Ballots</h2>
-						{pollVoterArray.map((voter) => voter)}
-						<h2>Provisional Ballots</h2>
-						{provisionalVoterArray.map((voter) => voter)}
-					</div>
-				</div>
-			</div>
-		);
-	}
+  let userCheck;
+  if(props.user){
+    userCheck = props.user.name;
+  }
+  else{
+    userCheck = false;
+  }
+
+
+
+  if(today >= pollDate || modlist.includes(userCheck)){
+    return props.user ? (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+  
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Apply!</h3>
+              <a href={'/applicationV2'}>
+                <button>APPLY</button>          
+              </a>
+              <h3>Applications close October 25th at 11:59pm Eastern</h3>
+          </div>
+          <br/>
+          <br/>
+          <div id="pollTable">
+            <h1>Week {week} Poll</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team (#1 Votes)</th>
+                  <th>Points</th>
+                </tr>
+                {rowArray.map(row => row)}
+              </tbody>
+            </table>
+            <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+            <h2>Official Ballots</h2>
+            {pollVoterArray.map(voter => voter)}
+            <h2>Provisional Ballots</h2>
+            {provisionalVoterArray.map(voter => voter)}
+          </div>
+        </div>  
+  
+      </div>
+    ) :  (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Vote in the poll!</h3>
+                <h3>Sign in!</h3>
+              <a href={URL}>
+                <button>Sign in with Reddit</button>          
+              </a>
+              <h3>Voting opens at 10AM EST every Saturday</h3>
+          </div>
+          <div id="pollTable">
+            <h1>Week {week} Poll</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team (#1 Votes)</th>
+                  <th>Points</th>
+                </tr>
+                {rowArray.map(row => row)}              
+              </tbody>
+            </table>    
+            <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+            <h2>Official Ballots</h2>
+            {pollVoterArray.map(voter => voter)}
+            <h2>Provisional Ballots</h2>
+            {provisionalVoterArray.map(voter => voter)}    
+          </div>
+        </div>  
+      </div>
+    );
+  }
+  else if(today < pollDate){
+    return props.user ? (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={props.user.name}></Navbar>
+  
+        <div className="content">  
+        <div id="ballotBox">
+                <h3>Apply!</h3>
+              <a href={'/applicationV2'}>
+                <button>APPLY</button>          
+              </a>
+              <h3>Applications close October 25th at 11:59pm Eastern</h3>
+          </div>
+        </div>  
+        <div id="pollTable">
+            <h1>Week {week} Poll</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team (#1 Votes)</th>
+                  <th>Points</th>
+                </tr>
+                {rowArray.map(row => row)}
+              </tbody>
+            </table>
+            <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+            <h2>Official Ballots</h2>
+            {pollVoterArray.map(voter => voter)}
+            <h2>Provisional Ballots</h2>
+            {provisionalVoterArray.map(voter => voter)}
+          </div>
+      </div>
+    ) :  (    
+      <div className="homepage">
+        
+        <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
+        <div className="content">  
+          <div id="ballotBox">
+                <h3>Vote in the poll!</h3>
+                <h3>Sign in!</h3>
+              <a href={URL}>
+                <button>Sign in with Reddit</button>          
+              </a>
+              <h3>Voting opens at 10AM EST every Saturday</h3>
+          </div>
+          <div id="pollTable">
+            <h1>Week {week} Poll</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team (#1 Votes)</th>
+                  <th>Points</th>
+                </tr>
+                {rowArray.map(row => row)}
+              </tbody>
+            </table>
+            <span className="boldText">Others Receiving Votes:</span> {othersReceivingVotes}
+            <h2>Official Ballots</h2>
+            {pollVoterArray.map(voter => voter)}
+            <h2>Provisional Ballots</h2>
+            {provisionalVoterArray.map(voter => voter)}
+          </div>
+        </div>  
+      </div>
+    );
+  }
+
 }
 
 const getToken = async (body) => {
