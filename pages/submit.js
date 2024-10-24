@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Home from './index';
+import { getSeasonCheckDate, getSeason } from '../utils/getDates';
 //import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
@@ -404,7 +405,8 @@ const getApp = async (user) => {
 	console.log('CONNECTED TO MONGO');
 
 	console.log('FETCHING APP');
-	const app = await Application.findOne({ user: user.name });
+	const season = getSeason();
+	const app = await Application.findOne({ user: user.name, season: season });
 	const userApp = JSON.parse(JSON.stringify(app));
 	console.log('FETCHED APP');
 	return userApp;
@@ -416,7 +418,8 @@ const getBallot = async (user) => {
 	console.log('CONNECTED TO MONGO');
 
 	console.log('FETCHING BALLOT');
-	const ballot = await UserBallot.findOne({ user: user.name, week: 'Pre-Season' });
+	const date = getSeasonCheckDate();
+	const ballot = await UserBallot.findOne({ user: user.name, week: 'Pre-Season', date: { $gte: date } });
 	const userBallot = JSON.parse(JSON.stringify(ballot));
 	console.log('FETCHED BALLOT');
 	return userBallot;
