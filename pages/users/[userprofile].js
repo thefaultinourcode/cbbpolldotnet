@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { getUserInfo, getTeam, getProfileBallots } from '../../utils/getData';
 import Link from 'next/link';
 import Image from 'next/image';
-import { inDevEnvironment } from '../../lib/isDevEnv';
 import { getCloseDate, getSeasonCheckDate, getWeek, getPriorWeek } from '../../utils/getDates';
 
 export default function UserProfile(props) {
@@ -55,7 +54,9 @@ export default function UserProfile(props) {
 	for (let i = 0; i < ballots.length; i++) {
 		if (!ballots[i].hasOwnProperty('season')) {
 			let pollDate = new Date(ballots[i].date);
-			let seasonDate = getSeasonCheckDate();
+			//TEMP fix
+      //let seasonDate = getSeasonCheckDate();
+      let seasonDate = new Date('October 1 2023');
 			if (pollDate > seasonDate) {
 				ballots2024.push(ballots[i]);
 			} else {
@@ -108,12 +109,12 @@ export default function UserProfile(props) {
 		display = false;
 	}
 
-	// ballotLength = ballots.length;
-	if (week === 'Post-Season') {
-		ballotLength = ballots.length;
-	} else if (week === 19) {
-		ballotLength = ballots.length - 1;
-	}
+	// // ballotLength = ballots.length;
+	// if (week === 'Post-Season') {
+	// 	ballotLength = ballots.length;
+	// } else if (week === 19) {
+	// 	ballotLength = ballots.length - 1;
+	// }
 
 	// ballotLength = ballots.length;
 	//find a more efficient way to do this
@@ -173,56 +174,6 @@ export default function UserProfile(props) {
 		alsoSupports = '';
 	}
 
-<<<<<<< HEAD
-    let navbar;
-    if(user){
-        navbar = <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png" user={user}></Navbar> 
-    }
-    else{
-        navbar = <Navbar cbbLogo="/static/CBBlogo2.png" homefieldLogo="/static/SponsoredByHomefield.png"></Navbar>
-    }
-    let verified;
-    if(profileData.pollVoter){
-      verified=<Image src="/static/OfficialVoterCheckmark.png" alt="Official Voter Checkmark" width={40} height={40}></Image>
-    }
-    else{
-      verified='';
-    }
-
-    let alsoSupports;
-    if(secondaryTeam && tertiaryTeam){
-      alsoSupports = <h2>Also supports: <Image src={secondaryTeam.url} width={30} height={30}></Image> <Image src={tertiaryTeam.url} width={30} height={30}></Image></h2>
-
-    }
-    else if(secondaryTeam){
-      alsoSupports = <h2>Also supports: <Image src={secondaryTeam.url} width={30} height={30}></Image> </h2>
-
-    }
-    else{
-     alsoSupports = ''; 
-    }
-
-    //list of seasons supported by the website
-
-    return(
-    <div>
-        {navbar}
-        <h1>{verified} <Image src={primaryTeam.url} width={40} height={40}></Image> {profile.userprofile}</h1>
-        {alsoSupports}
-        <table id='profileTable'>
-          <tbody>
-            <tr>
-              <th>2024 Ballots</th>
-            </tr>
-            {ballotArray2024.map(ballot => ballot)}
-            <tr>
-              <th>2023 Ballots</th>
-            </tr>
-            {ballotArray2023.map(ballot => ballot)}
-          </tbody>
-        </table>
-    </div>)
-=======
 	//here's where you put html and React components
 	return (
 		//everything goes between these div tags
@@ -246,13 +197,13 @@ export default function UserProfile(props) {
 			</table>
 		</div>
 	);
->>>>>>> 008b37e155be073f359e85ec9dbd7bec0cb8a0a5
 }
 
 //BACKEND CODE BEGINS HERE
 
 //Reddit login code
-const REDIRECT_URI = inDevEnvironment ? 'http://localhost:3000/profile' : 'http://cbbpoll.net/profile';
+//const REDIRECT_URI = "http://localhost:3000/profile";
+const REDIRECT_URI = 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
@@ -368,3 +319,6 @@ const getPropData = async (access_token, userprofile) => {
 	profileBallots = JSON.parse(JSON.stringify(profileBallots));
 	return { user, profile, primaryTeam, secondaryTeam, tertiaryTeam, profileBallots };
 };
+
+  
+
