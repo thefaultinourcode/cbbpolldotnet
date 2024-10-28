@@ -37,7 +37,6 @@ export default function Home(props) {
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
 
-	let season = 2024;
 	let week;
 	if (today >= pollDate) {
 		console.log('top pre-season');
@@ -45,6 +44,15 @@ export default function Home(props) {
 	} else {
 		console.log('top post-season');
 		week = getPriorWeek();
+	}
+
+	//TEMP FIX
+	let tmpDate = new Date('28 October 2024 14:00 UTC');
+	if(today >= tmpDate){
+		week = 'Pre-Season';
+	}
+	else{
+		week = 'Post-Season';
 	}
 
 	// async function addPoll(userpollData){
@@ -318,6 +326,14 @@ export const getServerSideProps = async ({ query, req, res }) => {
 		week = getPriorWeek();
 	}
 
+	let tmpDate = new Date('28 October 2024 14:00 UTC');
+	if(today >= tmpDate){
+		week = 'Pre-Season';
+	}
+	else{
+		week = 'Post-Season';
+	}
+
 	const refresh_token = getCookie('refresh_token', { req, res });
 	const access_token = getCookie('access_token', { req, res });
 
@@ -428,6 +444,15 @@ const getBallots = async (official, pollDate) => {
 		week = getPriorWeek();
 	}
 
+	let tmpDate = new Date('28 October 2024 14:00 UTC');
+	if(today >= tmpDate){
+		week = 'Pre-Season';
+	}
+	else{
+		week = 'Post-Season';
+		date = new Date('1 October 2023');
+	}
+
 	ballots = await UserBallot.find({ official: official, week: week, date: { $gte: date } });
 
 	//const ballots = await UserBallot.find({official: official, week: week, season: {$gte: date}});
@@ -470,9 +495,16 @@ const getUserpoll = async (week, pollDate) => {
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
 	let date = getSeasonCheckDate();
-  //FIX
-  //TEMP
-  date = new Date('October 1 2023');
+  
+	//FIX
+  	//TEMP
+  	date = new Date('October 1 2023');
+
+	let tmpDate = new Date('28 October 2024 14:00 UTC');
+	if(today >= tmpDate){
+		date = new Date('October 1 2024');
+	}
+  
 	let ballots;
 
 	if (today >= pollDate) {
