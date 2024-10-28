@@ -315,7 +315,8 @@ const getToken = async (body) => {
 };
 
 export const getServerSideProps = async ({ query, req, res }) => {
-	let pollDate = getCloseDate();
+	//let pollDate = getCloseDate();
+	let pollDate = new Date('28 October 2024 14:00 UTC');
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
 	let week;
