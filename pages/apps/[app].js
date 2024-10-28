@@ -290,7 +290,7 @@ export const getServerSideProps = async ({ query }) => {
 
 async function getApp(user) {
 	await connectMongo();
-	const application = await ApplicationData.find({ user: user });
+	const application = await ApplicationData.find({ user: user, season: 2025 });
 
 	return application;
 }
@@ -298,7 +298,7 @@ async function getApp(user) {
 const getBallot = async (user) => {
 	await connectMongo();
 
-	const ballot = await UserBallot.findOne({ user: user, week: 'Pre-Season', season: 2024 });
+	const ballot = await UserBallot.findOne({ user: user, week: 'Pre-Season', season: 2025 });
 	const userBallot = JSON.parse(JSON.stringify(ballot));
 	return userBallot;
 };

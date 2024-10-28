@@ -52,7 +52,7 @@ export default function Admin(props) {
 	}
 
 	async function handleClick(e) {
-		let date = '2023-10-01';
+		let date = '2024-10-01';
 		console.log(e.target.getAttribute('data-username'));
 		let username = e.target.getAttribute('data-username');
 
