@@ -15,9 +15,6 @@ import { getOpenDate, getCloseDate, getWeek, getSeasonCheckDate } from '../utils
 export default function BallotBox(props) {
 	const router = useRouter();
 	let today = new Date();
-	//let today = new Date(2022, 10, 13, 10, 59);
-	//let openDate = new Date(Date.UTC(2023, 3, 4, 17));
-	//let closeDate = new Date(Date.UTC(2023, 3, 6, 20, 59));
 	let openDate = getOpenDate();
 	let closeDate = getCloseDate();
 
@@ -58,7 +55,6 @@ export default function BallotBox(props) {
 			</div>
 		);
 	}
-	console.log('validatedUser:', validatedUser);
 
 	if (props.user == null) {
 		return <h1>Please login</h1>;
@@ -470,7 +466,6 @@ const getBallot = async (user) => {
 	await connectMongo();
 
 	let seasonDate = getSeasonCheckDate();
-	console.log('seasonDate:', seasonDate);
 
 	let week = getWeek();
 
