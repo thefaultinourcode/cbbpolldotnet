@@ -5,7 +5,9 @@ import querystring from "querystring";
 import { connectMongo } from "../utils/connect";
 import Application from "../models/ApplicationData";
 import User from "../models/User";
-import Link from 'next/link'
+import Link from 'next/link';
+import { inDevEnvironment } from '../lib/isDevEnv';
+import {DateTime} from 'luxon';
 
 
 export default function Admin(props){
@@ -38,7 +40,49 @@ export default function Admin(props){
         }
       }
 
+	  let schedule = {};
+
+	  //split into arrays of [year, month, day]
+	  let preSeasonOpenDate = e.target.preseasonOpen.value.split('-');
+	  console.log('preSeasonOpenDate:', preSeasonOpenDate);
+	  let preSeasonCloseDate = e.target.preseasonClose.value.split('-');
+
+	  schedule['Pre-Season'] = {
+		week: 'Pre-Season',
+		open: DateTime.fromObject({year:preSeasonOpenDate[0], month: preSeasonOpenDate[1], day: preSeasonOpenDate[2], hour: 10, minute: 0}, { zone: 'America/New_York' }),
+		close: DateTime.fromObject({year: preSeasonCloseDate[0], month: preSeasonCloseDate[1], day: preSeasonCloseDate[2], hour: 10, minute: 10}, { zone: 'America/New_York' })
+	  };
+
+	  let seasonOpenDate = e.target.seasonOpen.value.split('-');
+	  let week2Start = DateTime.fromObject({year:seasonOpenDate[0], month: seasonOpenDate[1], day: seasonOpenDate[2], hour: 10, minute: 0}, { zone: 'America/New_York' });
+
+	  let seasonCloseDate = e.target.seasonClose.value.split('-');
+	  let weekXend = DateTime.fromObject({year:seasonCloseDate[0], month: seasonCloseDate[1], day: seasonCloseDate[0], hour: 10, minute: 0}, { zone: 'America/New_York' });
+
+	  
+
+	  //check that the numbers add up
+
+
+	  for(let i = 2; i <= 20; i++){
+		//get start date of week
+		//set range of week
+		//set poll open and poll close
+
+	  }
+
+	  const postSeasonOpenDate = e.target.postseasonOpen.value.split('-');
+	  const postSeasonCloseDate = e.target.postseasonClose.value.split('-');
+
+	  schedule['Post-Season'] = {
+		week: 'Post-Season',
+		open: DateTime.fromObject({year:postSeasonOpenDate[0],month: postSeasonOpenDate[1], day:postSeasonOpenDate[2], hour: 10, minute: 0}, { zone: 'America/New_York'}),
+		close: DateTime.fromObject({year:postSeasonCloseDate[0], month: postSeasonCloseDate[1], day:postSeasonCloseDatep[2], hour: 9, minute: 59}, { zone: 'America/New_York' })
+	  }
+
       console.log('seasonDates:', seasonDates);
+	  console.log(DateTime.fromISO(seasonDates['preseasonDates']['open']));
+	  console.log(schedule);
 
       const res = await fetch('/api/addSeasonDates',{
         method: 'POST',

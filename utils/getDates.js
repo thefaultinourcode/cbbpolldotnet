@@ -10,16 +10,17 @@
 //     return seasonDates;
 // }
 
+import {DateTime} from 'luxon';
+
 export const getWeek = () => {
-
+	let today = DateTime.now();
+	console.log('today:', today);
     let week = 'Post-Season';
-
     return week;
 }
 
 export const getPriorWeek = () => {
-    let week = 20;
-    
+    let week = 20;    
     return week;
 }
 
@@ -27,14 +28,14 @@ export const getPriorWeek = () => {
 export const getPollDate = () => {};
 
 export const getOpenDate = () => {
-    let date = new Date('2 November 2024 15:00 UTC');
+    let date = new Date('9 November 2024 15:00 UTC');
 
 	return date;
 };
 
 export const getCloseDate = () => {
 
-    let date = new Date('4 November 2024 15:00 UTC');
+    let date = new Date('11 November 2024 15:00 UTC');
 
 	return date;
 };
