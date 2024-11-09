@@ -39,10 +39,8 @@ export default function Home(props) {
 
 	let week;
 	if (today >= pollDate) {
-		console.log('top pre-season');
 		week = getWeek();
 	} else {
-		console.log('top post-season');
 		week = getPriorWeek();
 	}
 
@@ -132,6 +130,7 @@ export default function Home(props) {
 		}
 	}
 
+	console.log('pollVoterArray:', pollVoterArray);
 	let provisionalVoterArray = [];
 	for (let i = 0; i < provisionalVoters.length; i++) {
 		if (i !== pollVoters.length - 1) {
