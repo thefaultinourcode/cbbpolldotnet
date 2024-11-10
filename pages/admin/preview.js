@@ -144,7 +144,7 @@ const getToken = async (body) => {
 export const getServerSideProps = async ({ query, req, res }) => {
 	//let week = getWeek();
 
-	let week = 'Pre-Season';
+	let week = 2;
 
 	const refresh_token = getCookie('refresh_token', { req, res });
 	const access_token = getCookie('access_token', { req, res });
