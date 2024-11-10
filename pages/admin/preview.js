@@ -30,7 +30,7 @@ export default function Preview(props) {
 	let title;
 	let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 	//let week = getWeek();
-	let week = 'Pre-Season';
+	let week = 2;
 
 	if (!modlist.includes(props.user.name)) {
 		return (
