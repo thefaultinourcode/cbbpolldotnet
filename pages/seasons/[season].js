@@ -74,11 +74,16 @@ export default function Season(props) {
 
     let currentWeek = getCloseDate();
     if(today >= currentWeek){
-        links2.push(<li><Link href={`./2024/Post-Season`}>20</Link></li>)
+        links2.push(<li><Link href={`./2024/Post-Season`}>20</Link></li>);
 	}
+
+	let links3 = [];
+	links3.push(<li><Link href={`./2025/Pre-Season`}>Pre-Season</Link></li>);
 
 	return (
 		<div>
+			<h1>2025 Results</h1>
+			<o>{links3.map((link) => link)}</o>
 			<h1>2024 Results</h1>
 			<o>{links2.map((link) => link)}</o>
 			<h1>{season.season} Results</h1>
