@@ -92,7 +92,6 @@ export default function Home(props) {
 			<th>Rank</th>
 			<th>Team (#1 Votes)</th>
 			<th>Points</th>
-			<th>Change from Last Week</th>
 		</tr>
 	);
 
@@ -102,7 +101,7 @@ export default function Home(props) {
 
 	for (let i = 0; i < userpoll.length; i++) {
 		if (userpoll[i].rank <= 25) {
-			rowArray.push(<TeamRow rank={userpoll[i].rank} url={userpoll[i].url} teamName={userpoll[i].teamName} firstPlaceVotes={userpoll[i].firstPlaceVotes} points={userpoll[i].points} delta={userpoll[i].delta}></TeamRow>);
+			rowArray.push(<TeamRow rank={userpoll[i].rank} url={userpoll[i].url} teamName={userpoll[i].teamName} firstPlaceVotes={userpoll[i].firstPlaceVotes} points={userpoll[i].points}></TeamRow>);
 		} else {
 			if (i < userpoll.length - 1) {
 				othersReceivingVotes = othersReceivingVotes + userpoll[i].shortName + ' ' + userpoll[i].points + ', ';
@@ -470,6 +469,49 @@ async function getTeam(id) {
 // }
 
 const getUserpoll = async (week, pollDate) => {
+	await connectMongo();
+
+	//let pollDate = new Date('3 October 2023 14:00 UTC');
+	//let pollDate = new Date('26 October 2023 14:00 UTC');
+	let today = new Date();
+	//let today = new Date('1 May 2023 16:00 UTC');
+	let date = getSeasonCheckDate();
+  
+	//FIX
+  	//TEMP
+  	// date = new Date('October 1 2023');
+
+	// let tmpDate = new Date('28 October 2024 14:00 UTC');
+	// if(today >= tmpDate){
+	// 	date = new Date('October 1 2024');
+	// }
+  
+	let ballots;
+
+	if (today >= pollDate) {
+		ballots = await UserBallot.find({ official: true, week: week, date: { $gte: date } });
+	} else {
+		ballots = await UserBallot.find({ official: true, week: week, date: { $gte: date } });
+	}
+
+	const ballotList = JSON.parse(JSON.stringify(ballots));
+
+	for (let i = 0; i < ballots.length; i++) {
+		//console.log('user:', ballots[i].user);
+	}
+
+	let numberOne = {};
+	let pointTotals = {};
+	for (let i = 0; i < ballotList.length; i++) {
+		if (numberOne[ballotList[i][1].id] == null) {
+			numberOne[ballotList[i][1].id] = 0;
+		}
+		numberOne[ballotList[i][1].id]++;
+
+		for (let j = 1; j <= 25; j++) {
+			pointTotals[ballotList[i][j].id] = getPoints(pointTotals, ballotList[i][j].id, ballotList[i][j].points);
+		}
+	}
 
 	function getPoints(obj, id, points) {
 		if (obj[id] == null) {
@@ -479,6 +521,40 @@ const getUserpoll = async (week, pollDate) => {
 		return obj[id];
 	}
 
+	let pointTotalSort = Object.entries(pointTotals).sort((a, b) => b[1] - a[1]);
+
+	let rank;
+	for (let i = 0; i < pointTotalSort.length; i++) {
+		if (i === 0) {
+			rank = 1;
+			pointTotalSort[i].push(rank);
+		} else {
+			if (pointTotalSort[i][1] === pointTotalSort[i - 1][1]) {
+				pointTotalSort[i].push(rank);
+				rank++;
+			} else {
+				rank++;
+				pointTotalSort[i].push(rank);
+			}
+		}
+	}
+
+	let userpoll = [];
+
+	for (let i = 0; i < pointTotalSort.length; i++) {
+		let team = await getTeam(pointTotalSort[i][0]);
+		let fullName = concatName(team.shortName, team.nickname);
+
+		userpoll.push({
+			rank: pointTotalSort[i][2],
+			teamId: pointTotalSort[i][0],
+			teamName: fullName,
+			shortName: team.shortName,
+			points: pointTotalSort[i][1],
+			firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
+			url: team.url,
+		});
+	}
 
 	function concatName(shortName, nickname) {
 		return shortName + ' ' + nickname;
@@ -492,127 +568,13 @@ const getUserpoll = async (week, pollDate) => {
 		}
 	}
 
-	function computeTeamDeltas(currentPoll, previousPoll) {
+	let userpollData = {
+		week: 'Pre-Season',
+		season: '2023',
+		poll: userpoll,
+		new: true,
+	};
 
-		for (let i = 0; i < currentPoll.length; i++) {
-			let rankDifference = 0;
-			//TODO- find a more efficient search here
-			for (let j = 0; j < previousPoll.length; j++) {
-				if (previousPoll[j].teamId == currentPoll[i].teamId) {
-					rankDifference = previousPoll[j].rank - currentPoll[i].rank
-					break;
-				}
-			}
-			currentPoll[i].delta = rankDifference;
-		}
-	}
-
-	await connectMongo();
-
-	//let pollDate = new Date('3 October 2023 14:00 UTC');
-	//let pollDate = new Date('26 October 2023 14:00 UTC');
-	let today = new Date();
-	//let today = new Date('1 May 2023 16:00 UTC');
-	let date = getSeasonCheckDate();
-	let lastWeek = getPriorWeek();
-  
-	//FIX
-  	//TEMP
-  	// date = new Date('October 1 2023');
-
-	// let tmpDate = new Date('28 October 2024 14:00 UTC');
-	// if(today >= tmpDate){
-	// 	date = new Date('October 1 2024');
-	// }
-	
-	let ballots;
-	let lastWeekBallots;
-
-	if (today >= pollDate) {
-		ballots = await UserBallot.find({ official: true, week: week, date: { $gte: date } });
-	} else {
-		ballots = await UserBallot.find({ official: true, week: week, date: { $gte: date } });
-	}
-
-	lastWeekBallots = await UserBallot.find({ official: true, week: lastWeek, date: { $lte: today } });
-	const ballotListCurrent = JSON.parse(JSON.stringify(ballots));
-	const lastWeekBallotsList =  JSON.parse(JSON.stringify(lastWeekBallots));
-
-
-	async function getUserPollFromBallots(ballotList) {
-
-		let numberOne = {};
-		let pointTotals = {};
-		for (let i = 0; i < ballotList.length; i++) {
-			if (numberOne[ballotList[i][1].id] == null) {
-				numberOne[ballotList[i][1].id] = 0;
-			}
-			numberOne[ballotList[i][1].id]++;
-	
-			for (let j = 1; j <= 25; j++) {
-				pointTotals[ballotList[i][j].id] = getPoints(pointTotals, ballotList[i][j].id, ballotList[i][j].points);
-			}
-		}
-	
-		let pointTotalSort = Object.entries(pointTotals).sort((a, b) => b[1] - a[1]);
-	
-		let rank;
-		for (let i = 0; i < pointTotalSort.length; i++) {
-			if (i === 0) {
-				rank = 1;
-				pointTotalSort[i].push(rank);
-			} else {
-				if (pointTotalSort[i][1] === pointTotalSort[i - 1][1]) {
-					pointTotalSort[i].push(rank);
-					rank++;
-				} else {
-					rank++;
-					pointTotalSort[i].push(rank);
-				}
-			}
-		}
-	
-		let userpoll = [];
-	
-		for (let i = 0; i < pointTotalSort.length; i++) {
-			let team = await getTeam(pointTotalSort[i][0]);
-			let fullName = concatName(team.shortName, team.nickname);
-	
-			userpoll.push({
-				rank: pointTotalSort[i][2],
-				teamId: pointTotalSort[i][0],
-				teamName: fullName,
-				shortName: team.shortName,
-				points: pointTotalSort[i][1],
-				firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
-				url: team.url,
-			});
-		}
-		return userpoll;
-
-	}
-
-	//Here, we want to just match the current week's rankings against the last week
-	currentUserPoll = getUserPollFromBallots(ballotListCurrent);
-	lastWeekUserPoll = getUserPollFromBallots(lastWeekBallotsList);
-	computeTeamDeltas(currentPoll,lastWeekUserPoll);
-
-	return currentUserPoll
-
-
-	// for (let i = 0; i < ballots.length; i++) {
-	// 	//console.log('user:', ballots[i].user);
-	// }
-
-
-
-
-	// let userpollData = {
-	// 	week: 'Pre-Season',
-	// 	season: '2023',
-	// 	poll: userpoll,
-	// 	new: true,
-	// };
-
+	return userpoll;
 	//}
 };
