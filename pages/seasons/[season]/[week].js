@@ -247,9 +247,6 @@ async function getTeam(id) {
 const getUserpoll = async (week, season) => {
 	await connectMongo();
 
-	console.log('season:', season);
-	let date = new Date('2023-05-01');
-
 	let startDate = new Date(season - 1, 9, 1);
 	let endDate = new Date(season, 4, 1);
 
@@ -257,7 +254,7 @@ const getUserpoll = async (week, season) => {
 	let ballots;
 	if (week === 'Pre-Season') {
 		ballots = await UserBallot.find({ official: true, week: week, date: { $lte: endDate, $gte: startDate } });
-	} else if (season === '2024') {
+	} else if (season === '2024' || season ==='2025') {
 		ballots = await UserBallot.find({ official: true, week: week, date: { $lte: endDate, $gte: startDate } });
 	} else {
 		ballots = await UserBallot.find({ official: true, week: week, season: { $lte: endDate, $gte: startDate } });

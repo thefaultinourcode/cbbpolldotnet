@@ -79,14 +79,15 @@ export default function Season(props) {
 
 	let links3 = [];
 	links3.push(<li><Link href={`./2025/Pre-Season`}>Pre-Season</Link></li>);
+	links3.push(<li><Link href={`./2025/2`}>2</Link></li>);
 
 	return (
 		<div>
-			<h1>2025 Results</h1>
+			<h1>{season.season} Results</h1>
 			<o>{links3.map((link) => link)}</o>
 			<h1>2024 Results</h1>
 			<o>{links2.map((link) => link)}</o>
-			<h1>{season.season} Results</h1>
+			<h1>2023 Results</h1>
 			<o>{links.map((link) => link)}</o>
 		</div>
 	);
