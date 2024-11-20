@@ -22,6 +22,27 @@ export default function Admin(props){
     let usersInDB = [];
     users.map(element => usersInDB.push(element.name));
 
+    //validation functions
+    function checkValidOpenDay(date){
+      return date.weekdayShort === 'Sat' ? true : false;
+    }
+
+    function checkValidWeek1Start(date){
+      return date.weekdayShort === 'Mon' ? true : false;
+    }    
+
+    function checkValidCloseDay(date){
+      return date.weekdayShort === 'Mon' ? true : false;
+    }
+
+    function checkValidCloseDayPreSeason(date){
+      return date.weekdayShort === 'Fri' ? true : false;
+    }
+
+    function checkValidOpenDayPostSeason(date){
+      return date.weekdayShort === 'Tue' ? true : false;
+    }
+
     async function handleSubmit(e){
       e.preventDefault();
       let seasonDates = {
@@ -50,25 +71,62 @@ export default function Admin(props){
 	  schedule['Pre-Season'] = {
 		week: 'Pre-Season',
 		open: DateTime.fromObject({year:preSeasonOpenDate[0], month: preSeasonOpenDate[1], day: preSeasonOpenDate[2], hour: 10, minute: 0}, { zone: 'America/New_York' }),
-		close: DateTime.fromObject({year: preSeasonCloseDate[0], month: preSeasonCloseDate[1], day: preSeasonCloseDate[2], hour: 10, minute: 10}, { zone: 'America/New_York' })
+		close: DateTime.fromObject({year: preSeasonCloseDate[0], month: preSeasonCloseDate[1], day: preSeasonCloseDate[2], hour: 23, minute: 59}, { zone: 'America/New_York' })
 	  };
 
+    if(!checkValidOpenDay(schedule['Pre-Season']['open'])){
+      alert('Pre-Season poll must open on a Saturday');
+      return;
+    }
+    if(!checkValidCloseDayPreSeason(schedule['Pre-Season']['close'])){
+      alert('Pre-Season poll must close on a Friday');
+      return;
+    }
+    
 	  let seasonOpenDate = e.target.seasonOpen.value.split('-');
-	  let week2Start = DateTime.fromObject({year:seasonOpenDate[0], month: seasonOpenDate[1], day: seasonOpenDate[2], hour: 10, minute: 0}, { zone: 'America/New_York' });
+	  let week1Start = DateTime.fromObject({year:seasonOpenDate[0], month: seasonOpenDate[1], day: seasonOpenDate[2], hour: 10, minute: 0}, { zone: 'America/New_York' });
+    console.log(`Weekday short: ${week1Start.weekdayShort}`)
+    console.log(`Weekday long: ${week1Start.weekdayLong}`)
+
+    if(!checkValidWeek1Start(week1Start)){
+      alert('Week 1 must start on a Monday');
+      return;
+    }
 
 	  let seasonCloseDate = e.target.seasonClose.value.split('-');
-	  let weekXend = DateTime.fromObject({year:seasonCloseDate[0], month: seasonCloseDate[1], day: seasonCloseDate[0], hour: 10, minute: 0}, { zone: 'America/New_York' });
+	  let seasonEnd = DateTime.fromObject({year:seasonCloseDate[0], month: seasonCloseDate[1], day: seasonCloseDate[2], hour: 9, minute: 59}, { zone: 'America/New_York' });
 
-	  
+    console.log('seasonCloseDate:', seasonCloseDate);
+    console.log('seasonEnd:',seasonEnd);
+    if(!checkValidCloseDay(seasonEnd)){
+      alert('The final regular season poll must close on a Monday');
+      return;
+    }
+
+    //get admin input
+	  let weeksInSeason = 20;
 
 	  //check that the numbers add up
 
-
-	  for(let i = 2; i <= 20; i++){
-		//get start date of week
-		//set range of week
-		//set poll open and poll close
-
+    schedule['Regular-Season'] = {}
+	  let start, end;
+    const calcEnd = {days: 6, hours: 23, minutes: 59};
+    const calcNewStart = {days: 7};
+    for(let i = 1; i <= weeksInSeason; i++){
+      let week = i;
+      if (week === 1){
+        start = week1Start;
+      }
+      else{
+        start = start.plus(calcNewStart);
+      }
+      end = start.plus(calcEnd);
+      schedule['Regular-Season'][week] = {
+        start: start,
+        end: end
+      }
+      console.log(start.toJSDate());
+      console.log(end.toJSDate());
 	  }
 
 	  const postSeasonOpenDate = e.target.postseasonOpen.value.split('-');
@@ -77,10 +135,19 @@ export default function Admin(props){
 	  schedule['Post-Season'] = {
 		week: 'Post-Season',
 		open: DateTime.fromObject({year:postSeasonOpenDate[0],month: postSeasonOpenDate[1], day:postSeasonOpenDate[2], hour: 10, minute: 0}, { zone: 'America/New_York'}),
-		close: DateTime.fromObject({year:postSeasonCloseDate[0], month: postSeasonCloseDate[1], day:postSeasonCloseDatep[2], hour: 9, minute: 59}, { zone: 'America/New_York' })
+		close: DateTime.fromObject({year:postSeasonCloseDate[0], month: postSeasonCloseDate[1], day:postSeasonCloseDate[2], hour: 9, minute: 59}, { zone: 'America/New_York' })
 	  }
 
-      console.log('seasonDates:', seasonDates);
+    if(!checkValidOpenDayPostSeason(schedule['Post-Season']['open'])){
+      alert('Post-Season poll must open on a Tuesday');
+      return;
+    }
+    if(!checkValidCloseDay(schedule['Post-Season']['close'])){
+      alert('Post-Season poll must close on a Monday');
+      return;
+    }
+
+    console.log('seasonDates:', seasonDates);
 	  console.log(DateTime.fromISO(seasonDates['preseasonDates']['open']));
 	  console.log(schedule);
 

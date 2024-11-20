@@ -14,7 +14,6 @@ import {DateTime} from 'luxon';
 
 export const getWeek = () => {
 	let today = DateTime.now();
-	console.log('today:', today);
     let week = 'Post-Season';
     return week;
 }
@@ -34,9 +33,7 @@ export const getOpenDate = () => {
 };
 
 export const getCloseDate = () => {
-
     let date = new Date('11 November 2024 15:00 UTC');
-
 	return date;
 };
 
