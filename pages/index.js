@@ -593,11 +593,11 @@ const getUserpoll = async (week, pollDate) => {
 	}
 
 	//Here, we want to just match the current week's rankings against the last week
-	currentUserPoll = getUserPollFromBallots(ballotListCurrent);
-	lastWeekUserPoll = getUserPollFromBallots(lastWeekBallotsList);
+	currentUserPoll = await getUserPollFromBallots(ballotListCurrent);
+	lastWeekUserPoll =  await getUserPollFromBallots(lastWeekBallotsList);
 	computeTeamDeltas(currentPoll,lastWeekUserPoll);
 
-	return currentUserPoll
+	return currentUserPoll;
 
 
 	// for (let i = 0; i < ballots.length; i++) {
