@@ -32,7 +32,7 @@ export const getOpenDate = () => {
 };
 
 export const getCloseDate = () => {
-    let date = new Date('6 January 2024 15:00 UTC');
+    let date = new Date('6 January 2025 15:00 UTC');
 
 	return date;
 };
