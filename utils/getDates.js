@@ -12,12 +12,12 @@
 
 export const getWeek = () => {
 
-    let week = 14;
+    let week = 15;
     return week;
 }
 
 export const getPriorWeek = () => {
-    let week = 13;
+    let week = 14;
     return week;
 }
 
@@ -25,13 +25,13 @@ export const getPriorWeek = () => {
 export const getPollDate = () => {};
 
 export const getOpenDate = () => {
-    let date = new Date('1 February 2025 15:00 UTC');
+    let date = new Date('8 February 2025 15:00 UTC');
 
 	return date;
 };
 
 export const getCloseDate = () => {
-    let date = new Date('3 February 2025 15:00 UTC');
+    let date = new Date('10 February 2025 15:00 UTC');
 
 	return date;
 };
