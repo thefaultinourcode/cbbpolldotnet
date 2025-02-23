@@ -93,6 +93,7 @@ export default function Season(props) {
 	links3.push(<li><Link href={`./2025/13`}>13</Link></li>);
 	links3.push(<li><Link href={`./2025/14`}>14</Link></li>);
 	links3.push(<li><Link href={`./2025/15`}>15</Link></li>);
+	links3.push(<li><Link href={`./2025/16`}>16</Link></li>);
 
 	return (
 		<div>
