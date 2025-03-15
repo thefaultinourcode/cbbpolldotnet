@@ -30,7 +30,7 @@ export default function Preview(props) {
 	let title;
 	let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 	//let week = getWeek();
-	let week = 19;
+	let week = 20;
 
 	if (!modlist.includes(props.user.name)) {
 		return (
@@ -144,7 +144,7 @@ const getToken = async (body) => {
 export const getServerSideProps = async ({ query, req, res }) => {
 	//let week = getWeek();
 
-	let week = 19;
+	let week = 20;
 
 	const refresh_token = getCookie('refresh_token', { req, res });
 	const access_token = getCookie('access_token', { req, res });
