@@ -11,7 +11,7 @@
 // }
 
 export const getWeek = () => {
-
+	console.log('post-season');
     let week = 'Post-Season';
     return week;
 }
