@@ -12,12 +12,12 @@
 
 export const getWeek = () => {
 
-    let week = 20;
+    let week = 'Post-Season';
     return week;
 }
 
 export const getPriorWeek = () => {
-    let week = 19;
+    let week = 20;
     return week;
 }
 
