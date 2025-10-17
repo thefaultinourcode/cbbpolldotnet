@@ -25,7 +25,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
     
     //allow input of close date 
     //make call to db to get this date
-    let closeDate = new Date(Date.UTC(2024, 9, 26, 3, 59));
+    let closeDate = new Date(Date.UTC(2025, 9, 24, 3, 59));
 
 	const handleSubmit = async (event) => {
 		console.log('target:', event.target);
@@ -863,7 +863,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                         <button type="button" onClick={ballotApp}>Next</button>
                     </div>
                     <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
-                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h1>Submit your preseason ballot for 2025-26</h1>
                         <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
                         
 
@@ -1236,7 +1236,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                         <button type="button" onClick={ballotApp}>Next</button>
                     </div>
                     <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
-                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h1>Submit your preseason ballot for 2025-26</h1>
                         <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
                         
 
@@ -1619,7 +1619,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                             <button type="button" onClick={ballotApp}>Next</button>
                         </div>
                         <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
-                        <h1>Submit your preseason ballot for 2024-25</h1>
+                        <h1>Submit your preseason ballot for 2025-26</h1>
                         <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
                         
 
@@ -1999,7 +1999,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
 							</button>
 						</div>
 						<div id="partTwo" ref={partTwo} style={{ display: show ? 'block' : 'none' }}>
-							<h1>Submit your preseason ballot for 2024-25</h1>
+							<h1>Submit your preseason ballot for 2025-26</h1>
 							<h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
 
 							<table className="ballotTable">
@@ -2254,7 +2254,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
 		return (
 			<div>
 				<p>
-					Applications for the 2024-25 r/CollegeBasketball Userpoll have closed. If you&apos;ve applied, you should know whether you&apos;ve been accepted shortly. If you haven&apos;t applied and you&apos;d like to join the poll, start submitting
+					Applications for the 2025-26 r/CollegeBasketball Userpoll have closed. If you&apos;ve applied, you should know whether you&apos;ve been accepted shortly. If you haven&apos;t applied and you&apos;d like to join the poll, start submitting
 					provisional ballots every week and you&apos;ll likely be added once enough official voters drop out due to inactivity.
 				</p>
 			</div>
@@ -2397,7 +2397,7 @@ const getBallot = async (user) => {
 	await connectMongo();
 	console.log('CONNECTED TO MONGO');
 
-	const date = new Date('2024-10-01');
+	const date = new Date('2025-10-01');
 	console.log('FETCHING BALLOT');
 	const ballot = await UserBallot.findOne({ user: user.name, week: 'Pre-Season', date: { $gte: date } });
 	const userBallot = JSON.parse(JSON.stringify(ballot));

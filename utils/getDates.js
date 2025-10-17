@@ -11,12 +11,12 @@
 // }
 
 export const getWeek = () => {
-    let week = 'Post-Season';
+    let week = 'Pre-Season';
     return week;
 }
 
 export const getPriorWeek = () => {
-    let week = 20;
+    let week = 'Post-Season';
     return week;
 }
 
@@ -36,7 +36,7 @@ export const getCloseDate = () => {
 };
 
 export const getSeasonCheckDate = () => {
-    let date = new Date('October 1 2024');
+    let date = new Date('October 1 2025');
     return date;
 }
 
