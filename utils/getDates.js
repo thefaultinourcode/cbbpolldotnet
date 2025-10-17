@@ -11,12 +11,12 @@
 // }
 
 export const getWeek = () => {
-    let week = 'Pre-Season';
+    let week = 'Post-Season';
     return week;
 }
 
 export const getPriorWeek = () => {
-    let week = 'Post-Season';
+    let week = 20;
     return week;
 }
 
