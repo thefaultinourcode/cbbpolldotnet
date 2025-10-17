@@ -58,7 +58,7 @@ export default function UserProfile(props) {
       //let seasonDate = getSeasonCheckDate();
       let seasonDate = new Date('October 1 2023');
 	  let seasonDate2 = new Date('October 1 2025');
-			if (pollDate > seasonDate || pollDate < seasonDate2 ) {
+			if (pollDate > seasonDate && pollDate < seasonDate2 ) {
 				ballots2024.push(ballots[i]);
 			} else {
 				ballots2023.push(ballots[i]);
