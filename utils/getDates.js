@@ -36,7 +36,7 @@ export const getCloseDate = () => {
 };
 
 export const getSeasonCheckDate = () => {
-    let date = new Date('October 1 2025');
+    let date = new Date('October 1 2024');
     return date;
 }
 
