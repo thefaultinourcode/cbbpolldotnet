@@ -290,14 +290,14 @@ export const getServerSideProps = async ({ query }) => {
 
 async function getApp(user) {
 	await connectMongo();
-	const application = await ApplicationData.find({ user: user, season: 2025 });
+	const application = await ApplicationData.find({ user: user, season: 2026 });
 
 	return application;
 }
 
 const getBallot = async (user) => {
 	await connectMongo();
-	const date = new Date('2024-10-01');
+	const date = new Date('2025-10-01');
 	const ballot = await UserBallot.findOne({ user: user, week: 'Pre-Season', date: { $gte: date } });
 	const userBallot = JSON.parse(JSON.stringify(ballot));
 	return userBallot;
