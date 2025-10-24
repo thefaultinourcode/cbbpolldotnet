@@ -25,7 +25,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
     
     //allow input of close date 
     //make call to db to get this date
-    let closeDate = new Date(Date.UTC(2025, 9, 24, 3, 59));
+    let closeDate = new Date(Date.UTC(2025, 9, 25, 3, 59));
 
 	const handleSubmit = async (event) => {
 		console.log('target:', event.target);
