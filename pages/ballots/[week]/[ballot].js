@@ -24,7 +24,8 @@ export default function UserRanking(props) {
 	let gateDate = new Date('October 1 2025');
 	console.log('props.ballot.date:', props.ballot.date);
 	console.log(typeof props.ballot.date);
-	if(props.ballot.date > gateDate){
+	const ballotDate = new Date(props.ballot.date);
+	if(ballotDate > gateDate){
 		return (
 			<div>
 				<h1>Unavailable</h1>
