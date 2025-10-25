@@ -22,6 +22,8 @@ export default function UserRanking(props) {
 
     let titleName = props.ballot.user + "'s";
 	let gateDate = new Date('October 1 2025');
+	console.log('props.ballot.date:', props.ballot.date);
+	console.log(typeof props.ballot.date);
 	if(props.ballot.date > gateDate){
 		return (
 			<div>
