@@ -16,8 +16,8 @@ import { getSeasonCheckDate, getWeek } from '../../utils/getDates';
 const DURATION = 'permanent';
 const SCOPE = 'identity';
 
-const REDIRECT_URI = process.env.REDIRECT_URI;
-//const REDIRECT_URI = 'http://cbbpoll.net/profile';
+//const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URI = 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere'; //randomstring.generate();
 const RESPONSE_TYPE = 'code';
@@ -30,7 +30,7 @@ export default function Preview(props) {
 	let title;
 	let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
 	//let week = getWeek();
-	let week = 'Post-Season';
+	let week = 'Pre-Season';
 
 	if (!modlist.includes(props.user.name)) {
 		return (
@@ -144,7 +144,7 @@ const getToken = async (body) => {
 export const getServerSideProps = async ({ query, req, res }) => {
 	//let week = getWeek();
 
-	let week = 'Post-Season';
+	let week = 'Pre-Season';
 
 	const refresh_token = getCookie('refresh_token', { req, res });
 	const access_token = getCookie('access_token', { req, res });
@@ -246,7 +246,8 @@ const getBallots = async (pollVoter, week) => {
 
 	await connectMongo();
 
-	let date = getSeasonCheckDate();
+	//let date = getSeasonCheckDate();
+	let date = new Date('1 October 2025');
 	const ballots = await UserBallot.find({ user: { $in: users }, week: week, date: { $gte: date } });
 
 	let voters = [];
@@ -303,7 +304,8 @@ const getUserpoll = async (week) => {
 
 	await connectMongo();
 
-	let date = getSeasonCheckDate();
+	//let date = getSeasonCheckDate();
+	let date = new Date('1 October 2025');
 	const ballots = await UserBallot.find({ user: { $in: userArray }, week: week, date: { $gte: date } });
 	const ballotList = JSON.parse(JSON.stringify(ballots));
 
