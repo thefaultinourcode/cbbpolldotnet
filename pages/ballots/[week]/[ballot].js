@@ -20,13 +20,12 @@ export default function UserRanking(props) {
     }
 
     let titleName = props.ballot.user + "'s";
-	let gateDate = new Date('October 1 2026');
+	let gateDate = new Date('October 1 2025');
 	const ballotDate = new Date(props.ballot.date);
+	let today = new Date();
+	let pollPosted = new Date('27 October 2025 14:00 UTC');
 
-
-	
-
-	if(ballotDate > gateDate){
+	if(ballotDate > gateDate && today < pollPosted){
 		return (
 			<div>
 				<h1>Unavailable</h1>
