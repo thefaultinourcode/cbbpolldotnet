@@ -16,8 +16,8 @@ import { getCloseDate, getWeek, getPriorWeek, getSeasonCheckDate } from '../util
 const DURATION = 'permanent';
 const SCOPE = 'identity';
 
-//const REDIRECT_URI = process.env.REDIRECT_URI;
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
+const REDIRECT_URI = process.env.REDIRECT_URI;
+//const REDIRECT_URI = 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere'; //randomstring.generate();
 const RESPONSE_TYPE = 'code';
@@ -33,6 +33,7 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 //display
 
 export default function Home(props) {
+	console.log('props:', props);
 	let pollDate = getCloseDate();
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
@@ -167,11 +168,11 @@ export default function Home(props) {
   
         <div className="content">  
           <div id="ballotBox">
-                <h3>Apply!</h3>
+                <h3>Vote!</h3>
               <a href={'/applicationV2'}>
-                <button>APPLY</button>          
+                <button>VOTE</button>          
               </a>
-              <h3>Applications close October 25th at 11:59pm Eastern</h3>
+              <h3>Voting opens on Saturdays at 10am Eastern</h3>
           </div>
           <br/>
           <br/>
@@ -397,6 +398,8 @@ const getUser = async (access_token) => {
 		},
 	});
 
+	console.log('data.data:', data.data);
+
 	return data.data;
 };
 
@@ -427,14 +430,15 @@ const getBallots = async (official, pollDate) => {
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
 	let week, date, ballots;
-	date = getSeasonCheckDate();
 	if (today > pollDate) {
 		week = getWeek();
 	} else {
 		week = getPriorWeek();
 	}
 
+	date = getSeasonCheckDate();
 	ballots = await UserBallot.find({ official: official, week: week, date: { $gte: date } });
+
 
 	//const ballots = await UserBallot.find({official: official, week: week, season: {$gte: date}});
 
@@ -497,7 +501,7 @@ const getUserpoll = async (week, pollDate) => {
 	const ballotList = JSON.parse(JSON.stringify(ballots));
 
 	for (let i = 0; i < ballots.length; i++) {
-		//console.log('user:', ballots[i].user);
+		console.log('user:', ballots[i].user);
 	}
 
 	let numberOne = {};

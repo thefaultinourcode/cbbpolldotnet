@@ -11,12 +11,12 @@
 // }
 
 export const getWeek = () => {
-    let week = 'Post-Season';
+    let week = 'Pre-Season';
     return week;
 }
 
 export const getPriorWeek = () => {
-    let week = 20;
+    let week = 'Post-Season';
     return week;
 }
 
@@ -24,19 +24,29 @@ export const getPriorWeek = () => {
 export const getPollDate = () => {};
 
 export const getOpenDate = () => {
-    let date = new Date('12 April 2025 14:00 UTC');
+    let date = new Date('26 October 2025 15:00 UTC');
 
 	return date;
 };
 
 export const getCloseDate = () => {
-    let date = new Date('14 April 2025 14:00 UTC');
+    let date = new Date('26 October 2025 15:00 UTC');
 
 	return date;
 };
 
 export const getSeasonCheckDate = () => {
-    let date = new Date('October 1 2024');
+	let today = new Date();
+	const close = getCloseDate();
+	let date;
+	if(today < close){
+		console.log('last season');
+		date = new Date('October 1 2024');
+	}
+	else{
+		console.log('this season');
+		date = new Date('October 1 2025');
+	}
     return date;
 }
 

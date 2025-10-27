@@ -6,8 +6,7 @@ import User from '../../../models/User';
 import { connectMongo } from '../../../utils/connect';
 import Image from 'next/image';
 import Link from 'next/link';
-
-let ObjectId = require('mongodb').ObjectID;
+import { ObjectId } from 'mongodb';
 
 export default function UserRanking(props) {
 	const router = useRouter();
@@ -21,8 +20,12 @@ export default function UserRanking(props) {
     }
 
     let titleName = props.ballot.user + "'s";
-	let gateDate = new Date('October 1 2025');
+	let gateDate = new Date('October 1 2026');
 	const ballotDate = new Date(props.ballot.date);
+
+
+	
+
 	if(ballotDate > gateDate){
 		return (
 			<div>
@@ -579,9 +582,9 @@ export const getServerSideProps = async ({ query }) => {
 const getBallot = async (id) => {
 	await connectMongo();
 
-	console.log('Id:', ObjectId(id));
+	console.log('Id:', new ObjectId(id));
 
-	const ballot = await UserBallot.findOne({ _id: ObjectId(id) });
+	const ballot = await UserBallot.findOne({ _id: new ObjectId(id) });
 	const userBallot = JSON.parse(JSON.stringify(ballot));
 	console.log('userBallot:', userBallot);
 	return userBallot;

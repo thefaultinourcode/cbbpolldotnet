@@ -22,6 +22,7 @@ export default function UserProfile(props) {
 	}
 	console.log(props);
 
+	const seasons = [2023, 2024, 2025, 2026];
 	//profileData - Object
 	// name: String,
 	// primaryTeam: String,
@@ -49,6 +50,44 @@ export default function UserProfile(props) {
 	let ballots = props.profileBallots;
 
 	//rework this into something better
+
+
+	//dynamic number of arrays based on the seasons
+	//store in object based on the year?
+
+	let ballotsBySeason = {};
+
+	for(let i = 0; i < seasons.length; i++){
+		ballotsBySeason[seasons[i]] = [];
+	}
+
+	console.log('ballotsBySeason:', ballotsBySeason);
+
+	for(let i = 0; i < ballots.length; i++){
+		let pollDate = new Date(ballots[i].date);
+		let date2023 = new Date('1 October 2023');
+		let date2024 = new Date('1 October 2024');
+		let date2025 = new Date('1 October 2025');
+		let date2026 = new Date('1 October 2026');
+
+		if(pollDate < date2023){
+			ballotsBySeason[2023].push(ballots[i]);
+		}
+		else if(pollDate < date2024){
+			ballotsBySeason[2024].push(ballots[i]);
+		}
+		else if(pollDate < date2025){
+			ballotsBySeason[2025].push(ballots[i]);
+		}
+		else if(pollDate < date2026){
+			ballotsBySeason[2026].push(ballots[i]);
+		}
+	}
+	
+	for(let i = 0; i < seasons.length; i++){
+
+	}
+
 	let ballots2023 = [];
 	let ballots2024 = [];
 	for (let i = 0; i < ballots.length; i++) {
@@ -56,8 +95,8 @@ export default function UserProfile(props) {
 			let pollDate = new Date(ballots[i].date);
 			//TEMP fix
       //let seasonDate = getSeasonCheckDate();
-      let seasonDate = new Date('October 1 2023');
-	  let seasonDate2 = new Date('October 1 2025');
+			let seasonDate = new Date('October 1 2023');
+			let seasonDate2 = new Date('October 1 2025');
 			if (pollDate > seasonDate && pollDate < seasonDate2 ) {
 				ballots2024.push(ballots[i]);
 			} else {
@@ -72,6 +111,25 @@ export default function UserProfile(props) {
 	//this can be expanded to include more tags for the styling that you want
 	let ballotArray2023 = [];
 	let ballotLength2023 = ballots2023.length;
+
+	let arraysOfLinks = [];
+	for(let i = 0; i < seasons.length; i++){
+		let seasonArray = [];
+		for(let j = 0; j < ballotsBySeason[seasons[i]].length; j++){
+			let link = (
+				<tr key={ballotsBySeason[seasons[i]][j]._id} className="ballotCell">
+					<td>
+						<Link href={`/ballots/${ballotsBySeason[seasons[i]][j].week}/${ballotsBySeason[seasons[i]][j]._id}`}>
+							<a>Week {ballotsBySeason[seasons[i]][j].week}</a>
+						</Link>
+					</td>
+				</tr>
+			);
+			seasonArray.push(link);
+		}
+		arraysOfLinks.push(seasonArray);
+	}
+	console.log(arraysOfLinks);
 
 	for (let i = 0; i < ballotLength2023; i++) {
 		let link = (
@@ -152,7 +210,6 @@ export default function UserProfile(props) {
 	}
 	let verified;
 	if (profileData.pollVoter) {
-		console.log(profileData.pollVoter);
 		verified = <Image src="/static/OfficialVoterCheckmark.png" alt="Official Voter Checkmark" width={40} height={40}></Image>;
 	} else {
 		verified = '';
@@ -175,9 +232,13 @@ export default function UserProfile(props) {
 		alsoSupports = '';
 	}
 
-	//here's where you put html and React components
+	for(let i = 0; i < seasons.length; i++){
+		<tr>
+			<th> Ballots</th>
+		</tr>
+	}
+
 	return (
-		//everything goes between these div tags
 		<div>
 			{navbar}
 			<h1>
@@ -187,13 +248,21 @@ export default function UserProfile(props) {
 			<table id="profileTable">
 				<tbody>
 					<tr>
+						<th>2026 Ballots</th>
+					</tr>
+					{arraysOfLinks[3].map((ballot) => ballot)}
+					<tr>
+						<th>2025 Ballots</th>
+					</tr>
+					{arraysOfLinks[2].map((ballot) => ballot)}
+					<tr>
 						<th>2024 Ballots</th>
 					</tr>
-					{ballotArray2024.map((ballot) => ballot)}
+					{arraysOfLinks[1].map((ballot) => ballot)}
 					<tr>
 						<th>2023 Ballots</th>
 					</tr>
-					{ballotArray2023.map((ballot) => ballot)}
+					{arraysOfLinks[0].map((ballot) => ballot)}
 				</tbody>
 			</table>
 		</div>
@@ -203,8 +272,8 @@ export default function UserProfile(props) {
 //BACKEND CODE BEGINS HERE
 
 //Reddit login code
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
+const REDIRECT_URI = "http://localhost:3000/profile";
+//const REDIRECT_URI = 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
