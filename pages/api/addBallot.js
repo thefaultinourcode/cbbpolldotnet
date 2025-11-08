@@ -1,4 +1,5 @@
 import { connectMongo } from '../../utils/connect';
+import { getSeasonCheckDate } from '../../utils/getDates';
 import UserBallot from '../../models/UserBallot';
 
 export default async function addBallot(req, res) {
@@ -16,7 +17,7 @@ export default async function addBallot(req, res) {
 
 	//dynamically change this date
 	//get season function
-	let seasonDate = new Date('2023-10-01');
+	let seasonDate = getSeasonCheckDate();
 	let query = { week: week, user: user, date: { $gte: seasonDate } };
 
 	const response = await UserBallot.findOneAndUpdate(query, { $set: req.body }, { upsert: true, strict: false });
