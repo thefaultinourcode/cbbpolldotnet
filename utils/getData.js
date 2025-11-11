@@ -62,6 +62,8 @@ export const getHistoricalBallots = async (official, week, season) => {
 		ballots = await UserBallot.find({ official: official, week: week, date: { $gte: startDate, $lt: endDate } });
 	} else if(season === '2025'){
 		ballots = await UserBallot.find({ official: official, week: week, date: { $gte: startDate, $lt: endDate } });
+	} else if(season === '2026'){
+		ballots = await UserBallot.find({ official: official, week: week, date: { $gte: startDate, $lt: endDate } });
 	} else {
 		ballots = await UserBallot.find({ official: official, week: week, season: { $gte: startDate, $lt: endDate } });
 	}
