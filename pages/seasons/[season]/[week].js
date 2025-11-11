@@ -254,7 +254,7 @@ const getUserpoll = async (week, season) => {
 	let ballots;
 	if (week === 'Pre-Season') {
 		ballots = await UserBallot.find({ official: true, week: week, date: { $lte: endDate, $gte: startDate } });
-	} else if (season === '2024' || season ==='2025') {
+	} else if (season === '2024' || season ==='2025' || season === '2026') {
 		ballots = await UserBallot.find({ official: true, week: week, date: { $lte: endDate, $gte: startDate } });
 	} else {
 		ballots = await UserBallot.find({ official: true, week: week, season: { $lte: endDate, $gte: startDate } });
