@@ -275,8 +275,8 @@ export default function UserProfile(props) {
 //BACKEND CODE BEGINS HERE
 
 //Reddit login code
-//const REDIRECT_URI = "http://localhost:3000/profile";
-const REDIRECT_URI = 'http://cbbpoll.net/profile';
+const REDIRECT_URI = "http://localhost:3000/profile";
+//const REDIRECT_URI = 'http://cbbpoll.net/profile';
 
 const RANDOM_STRING = 'randomstringhere';
 const CLIENT_ID = process.env.NEXT_PUBLIC_REDDIT_CLIENT_ID;
