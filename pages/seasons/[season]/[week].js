@@ -44,7 +44,7 @@ export default function Week(props) {
 	}
 
 	console.log('week.week:', week.week);
-	if (week.week === 8 && weekNum === 7) {
+	if (week.week === 10 && weekNum === 9) {
 		return (
 			<div>
 				<p>You do not have permission to view this page.</p>
