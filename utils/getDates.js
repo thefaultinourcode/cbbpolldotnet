@@ -15,11 +15,29 @@ export const getWeek = () => {
     return week;
 }
 
+export const getWeekReplacement = () => {
+	const now = new Date();
+	// get current date (either UTC or luxon)
+	
+
+}
+
 export const getPriorWeek = () => {
     let week = 'Post-Season';
     return week;
 }
 
+export const getPriorWeekReplacement = () => {
+    let currentWeek = getWeek();
+	
+	//if week 2 return post-season
+	//if post season return final week of season
+	//if pre-season then return previous year's post season
+	
+    return week;
+}
+
+//function to flag how to hand preseason
 
 export const getPollDate = () => {};
 

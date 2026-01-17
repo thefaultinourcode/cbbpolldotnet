@@ -22,6 +22,14 @@ export default function Admin(props) {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		console.log('e:', e);
+		
+		let preseasonOpenDate = new Date(Date.UTC(e.target.preseasonOpen.value));
+		console.log('preseasonOpenDate:', preseasonOpenDate);
+		if(preseasonOpenDate.getDay() !== 1){
+			alert('pre-season must open on a monday');
+		}
+		
+		
 		let seasonDates = {
 			season: e.target.season.value,
 			preseasonDates: {

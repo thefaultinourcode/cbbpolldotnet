@@ -23,6 +23,16 @@ export default function SetDates(props){
     //TODO: Add input validation for ease of use
     async function handleSubmit(e){
       e.preventDefault();
+      let validInput = false;
+      
+      
+      
+      
+      
+      if(validInput){
+
+      }
+      
       let seasonDates = {
         season: props.season,
         preseasonDates: {
@@ -40,6 +50,9 @@ export default function SetDates(props){
       }
 
       console.log('seasonDates:', seasonDates);
+
+      //data structure that has open date, close date, and week
+      //go from start to end
 
       const res = await fetch('/api/addSeasonDates',{
         method: 'POST',

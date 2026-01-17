@@ -21,6 +21,7 @@ export default function BallotBox(props) {
 	console.log(props.userprofile);
 	const [ballot, setBallot] = useState({
 		date: today,
+		//have function to set the next week, not current week
 		week: getWeek(),
 		user: props.user.name,
 	});
