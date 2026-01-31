@@ -1,3 +1,4 @@
+import { DateTime, Interval } from "luxon";
 // import SeasonDates from "../models/SeasonDates";
 
 // export const getHomePageDates = async (season) => {
@@ -10,21 +11,51 @@
 //     return seasonDates;
 // }
 
-export const getWeek = () => {
-    let week = 'Pre-Season';
-    return week;
-}
-
 export const getWeekReplacement = () => {
-	const now = new Date();
-	// get current date (either UTC or luxon)
+	//get season
+	//fetch season
+
+
+	//put the season dates
+	const seasonObj={
+		preSeason:{
+			start:DateTime.fromObject({year: 2025, month: 10, day: 17, hour: 11, minute:59}, { zone: 'America/New_York'}),
+			end:DateTime.fromObject({year: 2025, month: 10, day: 24, hour: 11, minute:59}, { zone: 'America/New_York'})
+		},
+		regularSeason:{
+			start:DateTime.fromObject({year: 2025, month: 11, day: 3, hour: 10, minute:0}, { zone: 'America/New_York'}),
+			end:DateTime.fromObject({year: 2026, month: 3, day: 15, hour: 23, minute:59}, { zone: 'America/New_York'})
+		},
+		postSeason:{
+			start:DateTime.fromObject({year: 2026, month: 4, day: 7, hour: 10, minute:0}, { zone: 'America/New_York'}),
+			end:DateTime.fromObject({year: 2026, month: 4, day: 13, hour: 9, minute:59}, { zone: 'America/New_York'})
+		}
+	}
 	
+	// const now = DateTime.fromObject({year: 2025, month:11, day:3, hour:9, minute:0}, { zone: 'America/New_York'});
+	const now = DateTime.now();
 
-}
+	//check if date is before season start date
+	let week;
+	if(now < seasonObj['regularSeason']['start']){
+		//pre-season logic
 
-export const getPriorWeek = () => {
-    let week = 'Post-Season';
-    return week;
+	}
+	//check if date is after season end date'
+	else if(now > seasonObj['regularSeason']['end']){
+		//post-season logic
+	}
+	// get current date (either UTC or luxon)
+	else{
+		//regular season logic
+		console.log('regular season');
+		let interval = Interval.fromDateTimes(seasonObj['regularSeason']['start'], now);
+		interval = interval.length('weeks');
+		week = 1 + Math.trunc(interval);
+		console.log('week:', week);
+	}
+
+	return now;
 }
 
 export const getPriorWeekReplacement = () => {
@@ -36,6 +67,20 @@ export const getPriorWeekReplacement = () => {
 	
     return week;
 }
+
+export const getWeek = () => {
+    let week = 'Pre-Season';
+    return week;
+}
+
+
+
+export const getPriorWeek = () => {
+    let week = 'Post-Season';
+    return week;
+}
+
+
 
 //function to flag how to hand preseason
 

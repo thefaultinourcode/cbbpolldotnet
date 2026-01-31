@@ -724,6 +724,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
 	};
 
 	let today = new Date();
+	//get close/open dates
 	if (today < closeDate) {
 		if (!user) {
 			return (

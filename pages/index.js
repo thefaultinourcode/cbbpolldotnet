@@ -11,7 +11,8 @@ import TeamData from '../models/TeamData';
 import TeamRow from '../components/pollrow';
 import { connectMongo } from '../utils/connect';
 import Link from 'next/link';
-import { getCloseDate, getWeek, getPriorWeek, getSeasonCheckDate } from '../utils/getDates';
+import { getCloseDate, getWeek, getWeekReplacement, getPriorWeek, getSeasonCheckDate } from '../utils/getDates';
+import { DateTime } from 'luxon';
 
 const DURATION = 'permanent';
 const SCOPE = 'identity';
@@ -33,7 +34,7 @@ const URL = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&resp
 //display
 
 export default function Home(props) {
-	console.log('props:', props);
+	// console.log('props:', props);
 	let pollDate = getCloseDate();
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
@@ -70,7 +71,7 @@ export default function Home(props) {
 
 	let userpoll = props.userpoll;
 	for (let i = 0; i < userpoll.length; i++) {
-		console.log('name:', userpoll[i].teamName);
+		// console.log('name:', userpoll[i].teamName);
 	}
 
 	if (props.userpoll.new) {
@@ -131,7 +132,7 @@ export default function Home(props) {
 		}
 	}
 
-	console.log('pollVoterArray:', pollVoterArray);
+	// console.log('pollVoterArray:', pollVoterArray);
 	let provisionalVoterArray = [];
 	for (let i = 0; i < provisionalVoters.length; i++) {
 		if (i !== pollVoters.length - 1) {
@@ -325,6 +326,9 @@ export const getServerSideProps = async ({ query, req, res }) => {
 		week = getPriorWeek();
 	}
 
+	const test = getWeekReplacement();
+	console.log('test:', test);
+
 	const refresh_token = getCookie('refresh_token', { req, res });
 	const access_token = getCookie('access_token', { req, res });
 
@@ -397,8 +401,6 @@ const getUser = async (access_token) => {
 			content_type: 'application/json',
 		},
 	});
-
-	console.log('data.data:', data.data);
 
 	return data.data;
 };
@@ -500,9 +502,9 @@ const getUserpoll = async (week, pollDate) => {
 
 	const ballotList = JSON.parse(JSON.stringify(ballots));
 
-	for (let i = 0; i < ballots.length; i++) {
-		console.log('user:', ballots[i].user);
-	}
+	// for (let i = 0; i < ballots.length; i++) {
+	// 	console.log('user:', ballots[i].user);
+	// }
 
 	let numberOne = {};
 	let pointTotals = {};
