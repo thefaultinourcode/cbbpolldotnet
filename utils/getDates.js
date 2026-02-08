@@ -29,7 +29,8 @@ export const getWeekReplacement = () => {
 		postSeason:{
 			start:DateTime.fromObject({year: 2026, month: 4, day: 7, hour: 10, minute:0}, { zone: 'America/New_York'}),
 			end:DateTime.fromObject({year: 2026, month: 4, day: 13, hour: 9, minute:59}, { zone: 'America/New_York'})
-		}
+		},
+		weekCount:19
 	}
 	
 	// const now = DateTime.fromObject({year: 2025, month:11, day:3, hour:9, minute:0}, { zone: 'America/New_York'});
@@ -39,11 +40,24 @@ export const getWeekReplacement = () => {
 	let week;
 	if(now < seasonObj['regularSeason']['start']){
 		//pre-season logic
-
+		if(now < seasonObj['preSeason']['start']){
+			//note this is last years post-season
+			//logic will need to account for that
+			week='Post-Season';
+		}
+		else{
+			week = 'Pre-Season';
+		}
 	}
 	//check if date is after season end date'
 	else if(now > seasonObj['regularSeason']['end']){
 		//post-season logic
+		if(now < seasonObj['postSeason']['start']){
+			week = seasonObj['weekCount'];
+		}
+		else{
+			week = 'Post-Season';
+		}
 	}
 	// get current date (either UTC or luxon)
 	else{
