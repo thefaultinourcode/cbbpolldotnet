@@ -15,7 +15,6 @@ export const getWeekReplacement = () => {
 	//get season
 	//fetch season
 
-
 	//put the season dates
 	const seasonObj={
 		preSeason:{

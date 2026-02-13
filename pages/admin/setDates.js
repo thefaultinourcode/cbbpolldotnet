@@ -5,11 +5,10 @@ import querystring from "querystring";
 import { connectMongo } from "../../utils/connect";
 import Application from "../../models/ApplicationData";
 import User from "../../models/User";
-import Link from 'next/link'
-
+import {DateTime, Interval} from 'luxon';
 
 export default function SetDates(props){
-    let modlist = ['broadwaystarVGC', 'SleveMcDichael4', 'DEP61'];
+    let modlist = ['broadwaystarVGC', 'SleveMcDichael4'];
     
     let apps = props.apps;
     let users = props.users;
@@ -20,19 +19,127 @@ export default function SetDates(props){
     let usersInDB = [];
     users.map(element => usersInDB.push(element.name));
 
+
+    //applications should open on Friday at 11:59pm Eastern
+    //applications should close on Friday
+
+    //pre-season poll should post on Monday
+
+    //Weekly ballots should open on Saturday
+    //Weekly ballots should close on Monday
+    //Weekly polls should post on Monday
+
+    //Post season ballots should open on ?Tuesday?
+    //Post season ballots should post on ?Monday?
+
+
+    function processInput(dateInput, flag){
+      const dateObj = formatDate(dateInput, flag);
+      const day = getWeekday(dateObj);
+    }
+
+    function getWeekday(dateObj){
+      const day = DateTime.fromObject(dateObj, { zone: 'America/New_York'});
+      return day.weekdayLong;
+    }
+
+    function formatDate(date, flag){
+      let numbers = date.split('-');
+      let dateObj = {
+        year:Number(numbers[0]),
+        month:Number(numbers[1]),
+        day:Number(numbers[2])
+      }
+
+      if(flag==="preseason"){
+        dateObj["hour"] = 23;
+        dateObj["minute"] = 59;
+      }
+      else if(flag==="open"){
+        dateObj["hour"] = 10;
+        dateObj["minute"] = 0;
+      }
+      else if(flag==="close"){
+        dateObj["hour"] = 9;
+        dateObj["minute"] = 59;
+      }
+
+      return dateObj;
+    }
+
     //TODO: Add input validation for ease of use
     async function handleSubmit(e){
       e.preventDefault();
-      let validInput = false;
+      let validInput = true;
       
-      
-      
-      
-      
-      if(validInput){
+      const zone = { zone: 'America/New_York'};
 
+      const preseasonOpen = e.target.preseasonOpen.value;
+      let preseasonOpenObj = formatDate(preseasonOpen,"preseason");
+      console.log('preseasonOpenObj:', preseasonOpenObj);
+      let preseasonOpenDay = getWeekday(preseasonOpenObj);
+      console.log('preseasonOpenDay:', preseasonOpenDay);
+      if(preseasonOpenDay !== 'Friday'){
+        alert('Applications must open on a Friday');
+        validInput = false;
+      }
+
+      const preseasonClose = e.target.preseasonClose.value;
+      let preCloseObj = formatDate(preseasonClose,"preseason");
+      console.log("preCloseObj:", preCloseObj);
+      const preseasonCloseDay = getWeekday(preCloseObj);
+      if(preseasonCloseDay !== 'Friday'){
+        alert('Applications must close on a Friday');
+        validInput = false;
+      }
+      const formatOpen = formatDate(preseasonClose,"open");
+      const showPreseasonPoll = DateTime.fromObject(formatOpen,{ zone: 'America/New_York'}).plus({days:3});
+      console.log('postPreseasonPoll:', showPreseasonPoll);
+      console.log(showPreseasonPoll.toLocaleString(DateTime.DATETIME_FULL))
+
+      const seasonOpen = e.target.seasonOpen.value;
+      let seasonOpenObj = formatDate(seasonOpen,"open");
+      console.log("seasonObjectObj:", seasonOpenObj);
+      const seasonOpenDay = getWeekday(seasonOpenObj);
+
+      if(seasonOpenDay !== 'Monday'){
+        alert('The regular season must start on a Monday.');
+        validInput = false;
       }
       
+      const seasonClose = e.target.seasonClose.value;
+      let seasonCloseObj = formatDate(seasonClose,"close");
+      console.log("seasonCloseObj:", seasonCloseObj);
+      const seasonCloseDay = getWeekday(seasonCloseObj);
+      if(seasonCloseDay !== 'Sunday'){
+        alert('The regular season must end on a Sunday');
+      }
+
+      const postSeasonOpen = e.target.postseasonOpen.value;
+      const postSeasonOpenObj = formatDate(postSeasonOpen,"open");
+      console.log("postSeasonOpenObj:", postSeasonOpenObj);
+      const postSeasonOpenDay = getWeekday(postSeasonOpenObj);
+      if(postSeasonOpenDay !== 'Tuesday'){
+        alert('The post-season poll must open on a Tuesday');
+      }
+
+      const postSeasonClose = e.target.postseasonClose.value;
+      const postSeasonCloseObj = formatDate(postSeasonClose,"close");
+      console.log("postSeasonCloseObj:", postSeasonCloseObj);
+      const postSeasonCloseDay = getWeekday(postSeasonCloseObj);
+      if(postSeasonCloseDay !== 'Thursday'){
+        alert('The post-season poll must close on a Thursday.');
+      }
+
+      let postseasonInterval = Interval.fromDateTimes(DateTime.fromObject(postSeasonOpenObj, zone),
+    DateTime.fromObject(postSeasonCloseObj, zone));
+    console.log('postseason interval:', postseasonInterval);
+    console.log('interval:', postseasonInterval.length("hours"));
+    if(postseasonInterval.length("hours") > 48){
+      alert('The post-season interval must be 48 hours');
+    }
+
+      if(validInput){
       let seasonDates = {
         season: props.season,
         preseasonDates: {
@@ -65,6 +172,9 @@ export default function SetDates(props){
       });
 
       const data = await res.json();
+      }
+      
+
     }
 
     if(modlist.includes(props.user.name)){
