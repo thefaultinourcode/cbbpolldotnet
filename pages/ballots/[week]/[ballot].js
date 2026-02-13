@@ -23,7 +23,7 @@ export default function UserRanking(props) {
 	let gateDate = new Date('October 1 2025');
 	const ballotDate = new Date(props.ballot.date);
 	let today = new Date();
-	let pollPosted = new Date('27 October 2025 14:00 UTC');
+	let pollPosted = new Date('16 February 2026 15:00 UTC');
 
 	if(ballotDate > gateDate && today < pollPosted){
 		return (
