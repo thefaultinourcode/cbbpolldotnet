@@ -543,42 +543,12 @@ const getUserpoll = async (week, pollDate) => {
 		}
 	}
 
-	let userpoll = [];
+	//Here, we want to just match the current week's rankings against the last week
+	currentUserPoll = await getUserPollFromBallots(ballotListCurrent);
+	lastWeekUserPoll =  await getUserPollFromBallots(lastWeekBallotsList);
+	computeTeamDeltas(currentPoll,lastWeekUserPoll);
 
-	for (let i = 0; i < pointTotalSort.length; i++) {
-		let team = await getTeam(pointTotalSort[i][0]);
-		let fullName = concatName(team.shortName, team.nickname);
+	return currentUserPoll;
 
-		userpoll.push({
-			rank: pointTotalSort[i][2],
-			teamId: pointTotalSort[i][0],
-			teamName: fullName,
-			shortName: team.shortName,
-			points: pointTotalSort[i][1],
-			firstPlaceVotes: getFirstPlaceVotes(pointTotalSort[i][0]),
-			url: team.url,
-		});
-	}
-
-	function concatName(shortName, nickname) {
-		return shortName + ' ' + nickname;
-	}
-
-	function getFirstPlaceVotes(id) {
-		if (numberOne[id] == null) {
-			return 0;
-		} else {
-			return numberOne[id];
-		}
-	}
-
-	let userpollData = {
-		week: 'Pre-Season',
-		season: '2023',
-		poll: userpoll,
-		new: true,
-	};
-
-	return userpoll;
 	//}
 };
