@@ -297,7 +297,7 @@ async function getApp(user) {
 
 const getBallot = async (user) => {
 	await connectMongo();
-	const date = new Date('2025-10-01');
+	const date = new Date('2026-10-01');
 	const ballot = await UserBallot.findOne({ user: user, week: 'Pre-Season', date: { $gte: date } });
 	const userBallot = JSON.parse(JSON.stringify(ballot));
 	return userBallot;

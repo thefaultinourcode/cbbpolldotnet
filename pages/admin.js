@@ -52,7 +52,7 @@ export default function Admin(props) {
 	}
 
 	async function handleClick(e) {
-		let date = '2025-10-01';
+		let date = '2026-10-01';
 		console.log(e.target.getAttribute('data-username'));
 		let username = e.target.getAttribute('data-username');
 
@@ -94,7 +94,7 @@ export default function Admin(props) {
 
 		const data = await res.json();
 
-        let preSeasonDeadline =  new Date('24 October 2025 14:00 UTC');
+        let preSeasonDeadline =  new Date('26 October 2025 14:00 UTC');
         let today = new Date();
 
 		if (preSeasonDeadline > today) {
@@ -123,7 +123,7 @@ export default function Admin(props) {
           },
         });
 
-        let date = '2025-10-1';
+        let date = '2026-10-1';
         let obj = {date: date}
         
        

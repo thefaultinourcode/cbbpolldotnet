@@ -22,7 +22,7 @@ export default function UserProfile(props) {
 	}
 	console.log(props);
 
-	const seasons = [2023, 2024, 2025, 2026];
+	const seasons = [2023, 2024, 2025, 2026, 2027];
 	//profileData - Object
 	// name: String,
 	// primaryTeam: String,

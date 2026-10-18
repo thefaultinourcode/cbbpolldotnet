@@ -20,7 +20,7 @@ export default function UserRanking(props) {
     }
 
     let titleName = props.ballot.user + "'s";
-	let gateDate = new Date('October 1 2025');
+	let gateDate = new Date('October 1 2026');
 	const ballotDate = new Date(props.ballot.date);
 	let today = new Date();
 	let pollPosted = new Date('9 April 2026 14:00 UTC');
