@@ -864,7 +864,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                     </div>
                     <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
                         <h1>Submit your preseason ballot for 2026-27</h1>
-                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
+                        <h4>Application and preseason poll ballots close Friday, October 23, at 11:59pm EDT</h4>
                         
 
 							<table className="ballotTable">
@@ -1237,7 +1237,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                     </div>
                     <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
                         <h1>Submit your preseason ballot for 2026-27</h1>
-                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
+                        <h4>Application and preseason poll ballots close Friday, October 23, at 11:59pm EDT</h4>
                         
 
 							<table className="ballotTable">
@@ -1620,7 +1620,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
                         </div>
                         <div id="partTwo" ref={partTwo} style={{display: show?"block":"none"}}>
                         <h1>Submit your preseason ballot for 2026-27</h1>
-                        <h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
+                        <h4>Application and preseason poll ballots close Friday, October 23, at 11:59pm EDT</h4>
                         
 
 							<table className="ballotTable">
@@ -2000,7 +2000,7 @@ export default function Application({user, teams, app, ballot, userTeams}){
 						</div>
 						<div id="partTwo" ref={partTwo} style={{ display: show ? 'block' : 'none' }}>
 							<h1>Submit your preseason ballot for 2026-27</h1>
-							<h4>Application and preseason poll ballots close Friday, October 25, at 11:59pm EDT</h4>
+							<h4>Application and preseason poll ballots close Friday, October 23, at 11:59pm EDT</h4>
 
 							<table className="ballotTable">
 								<tbody>
