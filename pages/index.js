@@ -479,8 +479,10 @@ const getUserpoll = async (week, pollDate) => {
 	//let pollDate = new Date('26 October 2023 14:00 UTC');
 	let today = new Date();
 	//let today = new Date('1 May 2023 16:00 UTC');
-	let date = getSeasonCheckDate();
-  
+	//let date = getSeasonCheckDate();
+	let date = new Date('October 1 2025');
+;
+
 	//FIX
   	//TEMP
   	// date = new Date('October 1 2023');
