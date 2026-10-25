@@ -274,7 +274,7 @@ export const getServerSideProps = async ({ query }) => {
 	let user = query.app;
 	console.log('user print:', user);
 	let application = await getApp(user);
-	console.log(application);
+	console.log('app print:', application);
 	application = JSON.parse(JSON.stringify(application));
 	let favTeams = {};
 	let favTeam = await getTeamProp(application[0].favoriteTeam, 'shortName');
@@ -291,7 +291,7 @@ export const getServerSideProps = async ({ query }) => {
 
 async function getApp(user) {
 	await connectMongo();
-	const application = await ApplicationData.find({ user: user, season: 2026 });
+	const application = await ApplicationData.find({ user: user, season: 2027 });
 
 	return application;
 }
