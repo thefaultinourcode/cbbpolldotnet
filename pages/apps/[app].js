@@ -52,6 +52,7 @@ export default function UserApp(props) {
 	}
 
 	console.log('ballot:', ballot);
+	console.log('props:',props);
 	return (
 		<div>
 			<h1>{app}</h1>
