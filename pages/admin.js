@@ -94,7 +94,7 @@ export default function Admin(props) {
 
 		const data = await res.json();
 
-        let preSeasonDeadline =  new Date('26 October 2025 14:00 UTC');
+        let preSeasonDeadline =  new Date('26 October 2026 14:00 UTC');
         let today = new Date();
 
 		if (preSeasonDeadline > today) {
@@ -343,7 +343,7 @@ const getApps = async () => {
 	console.log('CONNECTED TO MONGO');
 
     console.log('FETCHING APP');
-    const app = await Application.find({season:2026});
+    const app = await Application.find({season:2027});
     const userApp = JSON.parse(JSON.stringify(app));
     console.log('userApp:', userApp);
     console.log('FETCHED APP');
