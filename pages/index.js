@@ -438,7 +438,7 @@ const getBallots = async (official, pollDate) => {
 
 	//date = getSeasonCheckDate();
 	//handle logic here for preseason poll
-	date = new Date('October 1 2025');
+	date = getSeasonCheckDate();
 	ballots = await UserBallot.find({ official: official, week: week, date: { $gte: date } });
 
 
